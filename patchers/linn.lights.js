@@ -172,9 +172,12 @@ function defaults() {
 	};
 }
 
+// a scale's settings: stored ones over the defaults; with no stored offset, linnkit's best ranked one
 function settings() {
 	const s = defaults();
-	if (scaleName && store.contains(scaleName)) Object.assign(s, JSON.parse(String(store.get(scaleName))));
+	const stored = scaleName && store.contains(scaleName) ? JSON.parse(String(store.get(scaleName))) : {};
+	Object.assign(s, stored);
+	if (!("offset" in stored) && scl) s.offset = candidates(s.root)[0].offset;
 	return s;
 }
 
@@ -238,7 +241,23 @@ function scheme(name) {
 function offset(n) {
 	let s = change("offset", Math.max(1, Math.min(COLS, Math.round(n))));
 	if (s && s.low >= 0) s = change("low", -1);
-	derived(s, ["offsetinfo", "preview"]);
+	derived(s, ["offsetinfo", "offsetindex", "preview"]);
+}
+
+// offsetpick <i>: the i-th row offset of the ranked menu (0 = the best)
+function offsetpick(i) {
+	if (!scl) return;
+	const c = candidates(settings().root)[Math.round(i)];
+	if (c) offset(c.offset);
+}
+
+// midisetup <0|1>: send also sets Channel Per Note, main channel 1, per-note channels 2-16,
+// X/Y/Z on, Y = CC74 and Z = channel pressure on both splits (linnkit's "configure MIDI")
+let midiSetup = 1;
+
+function midisetup(n) {
+	midiSetup = n ? 1 : 0;
+	outlet(1, "midisetup", midiSetup);
 }
 
 function limit(n) {
@@ -246,7 +265,7 @@ function limit(n) {
 }
 
 function root(n) {
-	derived(change("root", Math.max(0, Math.min(127, Math.round(n)))), ["tuning", "preview"]);
+	derived(change("root", Math.max(0, Math.min(127, Math.round(n)))), ["tuning", "offsets", "preview"]); // the ranking depends on the root (fits)
 }
 
 function refhz(f) {
@@ -289,13 +308,20 @@ function low(n) {
 function dump() {
 	const s = settings();
 	for (const k of ["scheme", "offset", "rootcolor", "bend", "limit", "root", "refhz", "generator", "mossize", "harmonics", "subharmonics", "low"]) outlet(1, k, s[k]);
-	derived(s, ["offsetinfo", "legend", "tuning", "preview"]);
+	derived(s, ["offsetinfo", "offsets", "legend", "tuning", "preview"]);
 }
 
-// outputs computed from the settings: row interval, color legend, tuning for linn.retune
+// outputs computed from the settings: row interval, ranked offsets, color legend, tuning for linn.retune
 function derived(s, which) {
 	if (!s || !scl) return;
 	if (which.includes("offsetinfo")) outlet(1, "offsetinfo", offsetInfo(s));
+	if (which.includes("offsets")) {
+		// menu items: "offsetmenu clear", then "offsetmenu append <label>" for each offset, best first
+		outlet(1, "offsetmenu", "clear");
+		candidates(s.root).forEach((c) => outlet(1, "offsetmenu", "append", offsetLabel(c)));
+	}
+	if (which.includes("offsets") || which.includes("offsetindex"))
+		outlet(1, "offsetindex", candidates(s.root).findIndex((c) => c.offset === s.offset));
 	if (which.includes("legend")) outlet(1, "legend", legend(s));
 	if (which.includes("tuning")) outlet(1, "tuning", s.root, s.refhz > 0 ? s.refhz : 440 * Math.pow(2, (s.root - 69) / 12));
 	if (which.includes("preview")) outlet(1, "preview", JSON.stringify(grid(s)));
@@ -318,6 +344,105 @@ function legend(s) {
 		return m ? "R root, MOS white (" + m.size + " notes, generator " + m.generator + " degrees), other degrees unlit" : "no MOS found in this scale: root only";
 	}
 	return "R root";
+}
+
+// --- row offsets ranked like linnkit (internal/layout/candidates.go): compact major and minor triads
+// first, then at least 2.5 periods of range, then a short move to the same degree one period up;
+// layouts that don't fit in MIDI 0..127 rank last. Lower score is better. ---
+
+const TRIADS = [
+	[1200 * Math.log2(5 / 4), 1200 * Math.log2(3 / 2)], // major
+	[1200 * Math.log2(6 / 5), 1200 * Math.log2(3 / 2)], // minor
+];
+let candCache = { key: "", list: [] };
+
+// cents from degree k up s degrees, crossing periods
+function intervalCents(k, s) {
+	const j = k + s;
+	return scl.cents[j % degrees] + Math.floor(j / degrees) * scl.period - scl.cents[k];
+}
+
+// how many degrees above degree k the interval closest to target lies, and whether it's within tol
+function stepsFor(k, target, tol) {
+	let best = 0;
+	let bestErr = Infinity;
+	for (let s = 1; s <= 2 * degrees; s++) {
+		const e = Math.abs(intervalCents(k, s) - target);
+		if (e < bestErr) {
+			best = s;
+			bestErr = e;
+		}
+	}
+	return [best, bestErr <= tol];
+}
+
+// the pad move (columns, rows up) for an interval of s notes with row offset r: the shortest
+// column move using 0 to 4 rows, fewer rows on ties
+function padMove(s, r) {
+	let dc = s;
+	let dr = 0;
+	for (let k = 1; k <= 4; k++) {
+		const c = s - k * r;
+		if (Math.abs(c) < Math.abs(dc)) {
+			dc = c;
+			dr = k;
+		}
+	}
+	return [dc, dr];
+}
+
+// mean columns spanned by the major and minor triads the scale can form, over every root degree; -1 if none
+function chordSpan(r, tol) {
+	let total = 0;
+	let count = 0;
+	for (const chord of TRIADS)
+		for (let k = 0; k < degrees; k++) {
+			const cols = [0];
+			let ok = true;
+			for (const target of chord) {
+				const [s, found] = stepsFor(k, target, tol);
+				if (!found) {
+					ok = false;
+					break;
+				}
+				cols.push(padMove(s, r)[0]);
+			}
+			if (ok) {
+				total += Math.max(...cols) - Math.min(...cols);
+				count++;
+			}
+		}
+	return count ? total / count : -1;
+}
+
+// every row offset 1..25 with the root at rootNote, best first (linnkit layout.Candidates)
+function candidates(rootNote) {
+	const key = scaleName + "|" + rootNote;
+	if (candCache.key === key) return candCache.list;
+	const step = scl.period / degrees;
+	const tol = Math.max(30, 0.6 * step);
+	const list = [];
+	for (let r = 1; r <= COLS; r++) {
+		const rows = rowStarts(r, rootNote);
+		const fits = rows[0] >= 0 && rows[ROWS - 1] + COLS - 1 <= 127;
+		const periods = (7 * r + COLS - 1) / degrees;
+		const span = chordSpan(r, tol);
+		const move = padMove(degrees, r);
+		let score = span < 0 ? 30 : span;
+		score += 3 * Math.max(0, 2.5 - periods);
+		score += 0.5 * Math.abs(move[0]);
+		if (!fits) score += 50;
+		score -= 0.01 * periods;
+		list.push({ offset: r, cents: r * step, ratio: nearestRatio(r * step, Math.max(10, 0.35 * step)), periods, span, move, fits, score });
+	}
+	list.sort((a, b) => a.score - b.score); // stable, as linnkit's sort.SliceStable
+	candCache = { key, list };
+	return list;
+}
+
+// a menu item: "+10  387 c ~5/4", marked when the surface doesn't fit in MIDI 0..127
+function offsetLabel(c) {
+	return "+" + c.offset + "  " + Math.round(c.cents) + " c" + (c.ratio ? " ~" + c.ratio[0] + "/" + c.ratio[1] : "") + (c.fits ? "" : "  (doesn't fit)");
 }
 
 // --- scale analysis and light schemes, ported from linnkit (internal/theory, internal/lights/schemes.go) ---
@@ -932,6 +1057,21 @@ function write(withLayout) {
 	const set = (p, v) => {
 		if (setNRPN(p, v)) expect[p] = v;
 	};
+	if (withLayout && midiSetup) {
+		// both splits, as linnkit's device.Configure: Channel Per Note, main channel 1, per-note
+		// channels 2-16, Send X/Y/Z on, Y expression CC 74, Z expression channel pressure
+		for (const base of [0, P.right]) {
+			set(base + 0, 1);
+			set(base + 1, 1);
+			for (let ch = 1; ch <= 16; ch++) set(base + 1 + ch, ch === 1 ? 0 : 1);
+			set(base + 20, 1);
+			set(base + 24, 1);
+			set(base + 39, 2);
+			set(base + 25, 74);
+			set(base + 27, 1);
+			set(base + 28, 1);
+		}
+	}
 	if (withLayout) {
 		set(P.bend, s.bend);
 		set(P.bend + P.right, s.bend);
@@ -1050,6 +1190,7 @@ function makeBackup(cb) {
 		const lights = readJSON(backupDir() + LIGHTS_FILE);
 		if (validLights(lights)) snap.lights = lights; // the slot 2 pattern, which the device can't report
 		f.writestring(JSON.stringify(snap, null, 2) + "\n");
+		f.eof = f.position; // cut what an older, longer file had after this
 		f.close();
 		if (missing.length) post("linn.lights: backup missing " + missing.length + " parameters: " + missing.join(" ") + "\n");
 		report("backup", path, n);
@@ -1091,6 +1232,7 @@ function writeJSON(path, obj) {
 		return false;
 	}
 	f.writestring(JSON.stringify(obj, null, 2) + "\n");
+	f.eof = f.position; // cut what an older, longer file had after this (Max's File keeps it otherwise)
 	f.close();
 	return true;
 }

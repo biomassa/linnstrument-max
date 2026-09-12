@@ -1,0 +1,40 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval      periods  triad span  period move       fits  score  
+  +10   387 c ~5/4    3.03     2.0 cols    +1 cols, 3 rows   yes   2.47   
+  +8    310 c ~6/5    2.58     2.0 cols    -1 cols, 4 rows   yes   2.47   
+  +9    348 c ~11/9   2.81     1.0 cols    +4 cols, 3 rows   yes   2.97   
+  +11   426 c ~9/7    3.26     4.0 cols    -2 cols, 3 rows   yes   4.97   
+  +6    232 c ~8/7    2.13     2.0 cols    +7 cols, 4 rows   yes   6.59   
+  +7    271 c ~7/6    2.35     5.0 cols    +3 cols, 4 rows   yes   6.91   
+  +5    194 c ~9/8    1.90     2.0 cols    +11 cols, 4 rows  yes   9.27   
+  +14   542 c ~11/8   3.94     9.0 cols    +3 cols, 2 rows   yes   10.46  
+  +13   503 c ~4/3    3.71     9.0 cols    +5 cols, 2 rows   yes   11.46  fourth
+  +12   465 c ~13/10  3.48     9.0 cols    -5 cols, 3 rows   yes   11.47  
+  +4    155 c ~11/10  1.68     2.0 cols    +15 cols, 4 rows  yes   11.95  
+  +3    116 c ~14/13  1.45     6.5 cols    +19 cols, 4 rows  yes   19.13  
+  +2    77 c ~20/19   1.23     10.0 cols   +23 cols, 4 rows  yes   25.31  
+  +1    39 c ~34/33   1.00     14.0 cols   +27 cols, 4 rows  yes   31.99  
+  +16   619 c ~10/7   4.39     8.0 cols    -1 cols, 2 rows   no    58.46  
+  +17   658 c ~16/11  4.61     8.0 cols    -3 cols, 2 rows   no    59.45  
+  +15   581 c ~7/5    4.16     9.0 cols    +1 cols, 2 rows   no    59.46  
+  +18   697 c ~3/2    4.84     8.0 cols    -5 cols, 2 rows   no    60.45  fifth
+  +19   735 c ~20/13  5.06     9.0 cols    -7 cols, 2 rows   no    62.45  
+  +20   774 c ~11/7   5.29     11.0 cols   -9 cols, 2 rows   no    65.45  
+  +21   813 c ~8/5    5.52     12.0 cols   +10 cols, 1 rows  no    66.94  
+  +22   852 c ~13/8   5.74     13.0 cols   +9 cols, 1 rows   no    67.44  
+  +23   890 c ~5/3    5.97     14.0 cols   +8 cols, 1 rows   no    67.94  
+  +24   929 c ~12/7   6.19     15.0 cols   +7 cols, 1 rows   no    68.44  
+  +25   968 c ~7/4    6.42     16.0 cols   +6 cols, 1 rows   no    68.94  no overlap
+
+rows +10, bottom-left MIDI 33, notes 33..127, root MIDI 110, lights root
+row 8  .  .  .  .  .  .  .  R  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+row 7  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  R  .  .  .  .  .  .  .  
+row 6  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+row 5  .  .  .  .  .  .  R  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+row 4  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  R  .  .  .  .  .  .  .  .  
+row 3  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+row 2  .  .  .  .  .  R  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  
+row 1  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  R  .  .  .  .  .  .  .  .  .  
+R root

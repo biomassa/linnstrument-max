@@ -17,6 +17,10 @@ class File {
 		this.mode = mode;
 		this.buf = "";
 		if (mode === "write") {
+			// like Max's File: an existing file keeps its bytes past what is written, unless eof is set
+			try { this.old = readFileSync(path, "utf8"); } catch { this.old = ""; }
+			this.position = 0;
+			this.eof = this.old.length;
 			this.isopen = true;
 			return;
 		}
@@ -31,9 +35,9 @@ class File {
 		this.eof = this.isopen ? this.lines.length : 0;
 	}
 	readline() { return this.lines[this.position++]; }
-	writestring(s) { this.buf += s; }
+	writestring(s) { this.buf += s; this.position += s.length; this.eof = Math.max(this.eof, this.position); }
 	close() {
-		if (this.mode === "write") writeFileSync(this.path, this.buf);
+		if (this.mode === "write") writeFileSync(this.path, (this.buf + this.old.slice(this.buf.length)).slice(0, this.eof));
 		this.isopen = false;
 	}
 }
@@ -178,16 +182,17 @@ assert.deepEqual(plain(t.ctx.rowStarts(25)), [0, 25, 50, 75, 100, 125, 150, 175]
 // scale settings: defaults per scale, changes remembered per scale in the dict
 t = load();
 t.msg("scale", SCL + "31-edo.scl");
-assert.deepEqual(t.status.slice(0, 5), [["scale", "31-edo.scl", 31], ["scheme", "root"], ["offset", 13], ["rootcolor", "magenta"], ["bend", 48]]);
-t.msg("offset", 10);
+assert.deepEqual(t.status.slice(0, 5), [["scale", "31-edo.scl", 31], ["scheme", "root"], ["offset", 10], ["rootcolor", "magenta"], ["bend", 48]]); // 10: linnkit's best
+t.msg("offset", 12);
 t.msg("scale", SCL + "ji_7.scl");
 t.status.length = 0;
 t.msg("scale", SCL + "31-edo.scl");
-assert.deepEqual(t.status.find((m) => m[0] === "offset"), ["offset", 10]);
+assert.deepEqual(t.status.find((m) => m[0] === "offset"), ["offset", 12]);
 
 // root scheme: pads that play degree 0 are lit, everything else off
 t = load();
 t.msg("scale", SCL + "31-edo.scl");
+t.msg("offset", 13);
 const surf = t.ctx.surface();
 assert.equal(surf[3][9], 6); // offset 13 shifts the rows to fit: row 4 starts at 51, so MIDI 60 (root, magenta) is column 10
 let lit = 0;
@@ -203,6 +208,7 @@ assert.ok(lit > 0);
 // sendlights: slot 2 selected, 200 pads column by column, then CC23 2; nothing else
 t = load({});
 t.msg("scale", SCL + "31-edo.scl");
+t.msg("offset", 13);
 t.msg("sendlights");
 t.advance(5000);
 let sent = ccs(t.out);
@@ -224,6 +230,7 @@ for (const p of load().ctx.readableParams()) full[p] = 0;
 Object.assign(full, { 19: 24, 119: 24, 227: 5, 247: 1 });
 t = load(full);
 t.msg("scale", SCL + "31-edo.scl");
+t.msg("offset", 13);
 t.msg("send");
 t.advance(20000);
 assert.deepEqual(readdirSync(t.dir).filter((f) => f !== "lights-slot2.json"), ["backup.json"], "one backup file");
@@ -238,10 +245,28 @@ assert.equal(t.dev.state[247], 11);
 sent = ccs(t.out);
 assert.ok(has(sent, nrpn(19, 48)) < has(sent, nrpn(227, 13)) && has(sent, nrpn(227, 13)) < has(sent, nrpn(247, 11)), "bend, rows, then lights");
 assert.ok(t.status.some((m) => m[0] === "verified"));
+// MIDI setup (on by default), both splits, as linnkit's "configure MIDI": Channel Per Note, main channel 1,
+// per-note channels 2-16, X/Y/Z on, Y = CC74, Z = channel pressure; checked by the readback too
+for (const base of [0, 100]) {
+	const at = (p) => t.dev.state[base + p];
+	assert.deepEqual([at(0), at(1), at(2)], [1, 1, 0], `split ${base}: mode, main channel, channel 1 off`);
+	for (let ch = 2; ch <= 16; ch++) assert.equal(at(1 + ch), 1, `split ${base}: channel ${ch} per note`);
+	assert.deepEqual([at(20), at(24), at(39), at(25), at(27), at(28)], [1, 1, 2, 74, 1, 1], `split ${base}: X/Y/Z`);
+}
+assert.ok(has(sent, nrpn(0, 1)) < has(sent, nrpn(19, 48)), "MIDI setup before the Bend Range");
+// midisetup 0: send leaves the MIDI mode and channels alone
+t = load(full);
+t.msg("scale", SCL + "31-edo.scl");
+t.msg("midisetup", 0);
+t.msg("send");
+t.advance(20000);
+assert.ok(!t.dev.written.some(([p]) => p === 0 || p === 100 || p === 39), "no MIDI setup written");
+assert.equal(t.dev.state[19], 48);
 
 // restore: writes back only values that differ, never actions; then CC23 on the showing slot
 t = load(full);
 t.msg("scale", SCL + "31-edo.scl");
+t.msg("midisetup", 0); // keeps the list of changed settings short
 t.msg("send");
 t.advance(20000);
 t.out.length = 0;
@@ -359,6 +384,13 @@ t.advance(30000);
 assert.equal(padCCs(ccs(t.out)).length, 0, "no light messages");
 assert.ok(t.status.some((m) => m[0] === "lights" && String(m[1]).includes("not in this backup")));
 
+// a shorter rewrite leaves no tail of the older file (Max's File keeps it unless eof is cut)
+t = load();
+const rw = join(t.dir, "rewrite.json");
+t.ctx.writeJSON(rw, { pattern: "x".repeat(200), restored: "/a/long/path/to/backup.json" });
+t.ctx.writeJSON(rw, { pattern: "x" });
+assert.deepEqual(JSON.parse(readFileSync(rw, "utf8")), { pattern: "x" });
+
 // the record file is never taken for the newest backup
 t = load(full);
 t.msg("scale", SCL + "31-edo.scl");
@@ -448,11 +480,12 @@ assert.deepEqual(t.status.filter((m) => m[0] === "tuning").at(-1), ["tuning", 60
 // offsetinfo: the row interval in cents and the simplest nearby ratio (linnkit's candidate column)
 t = load();
 t.msg("scale", SCL + "22edo.scl");
+t.msg("offset", 9);
 assert.deepEqual(t.status.filter((m) => m[0] === "offsetinfo").at(-1), ["offsetinfo", "9 steps = 491 c ~4/3"]);
 t.msg("offset", 7);
 assert.deepEqual(t.status.filter((m) => m[0] === "offsetinfo").at(-1), ["offsetinfo", "7 steps = 382 c ~5/4"]);
 t.msg("scale", SCL + "31-edo.scl");
-assert.deepEqual(t.status.filter((m) => m[0] === "offsetinfo").at(-1), ["offsetinfo", "13 steps = 503 c ~4/3"]);
+assert.deepEqual(t.status.filter((m) => m[0] === "offsetinfo").at(-1), ["offsetinfo", "10 steps = 387 c ~5/4"]); // 31-EDO's default: linnkit's best
 t.msg("offset", 1);
 assert.deepEqual(t.status.filter((m) => m[0] === "offsetinfo").at(-1), ["offsetinfo", "1 steps = 39 c ~34/33"]); // as linnkit's candidate list
 
@@ -479,6 +512,7 @@ assert.deepEqual(readdirSync(t.dir).sort(), ["backup.json", "lights-slot2.json"]
 // preview: colors, labels and notes of all pads for linn.preview, sent with every change to the pattern
 t = load();
 t.msg("scale", SCL + "31-edo.scl");
+t.msg("offset", 13);
 let pv = JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]);
 assert.deepEqual(pv.colors, plain(t.ctx.surface()));
 assert.deepEqual(pv.labels, plain(t.ctx.labelSurface()));
@@ -495,6 +529,84 @@ for (const [k, v] of [["offset", 10], ["limit", 5], ["root", 62], ["rootcolor", 
 t.status.length = 0;
 t.msg("bend", 24); // Bend Range doesn't change the pattern
 assert.ok(!t.status.some((m) => m[0] === "preview"));
+
+// --- row offsets ranked like linnkit (fixtures/linnkit-candidates: linnkit grid --top 25) ---
+
+const CAND = fileURLToPath(new URL("./fixtures/linnkit-candidates/", import.meta.url));
+// numbers printed as Go's %.Nf does. Both round the exact binary value correctly; they differ only when
+// that value is exactly halfway: Go goes to the even digit (5.625 -> "5.62"), toFixed goes up ("5.63")
+const exactHalf = (x, d) => {
+	// x = m * 2^e exactly; halfway means x * 10^d * 2 is an odd integer
+	const view = new DataView(new ArrayBuffer(8));
+	view.setFloat64(0, x);
+	const bits = view.getBigUint64(0);
+	const expBits = Number((bits >> 52n) & 0x7ffn);
+	let m = bits & ((1n << 52n) - 1n);
+	let e = -1074;
+	if (expBits !== 0) {
+		m |= 1n << 52n;
+		e = expBits - 1075;
+	}
+	let n = m * 10n ** BigInt(d) * 2n;
+	if (e >= 0) n <<= BigInt(e);
+	else {
+		const k = 1n << BigInt(-e);
+		if (n % k !== 0n) return false;
+		n /= k;
+	}
+	return n % 2n === 1n;
+};
+const goFixed = (x, d) => {
+	if (!exactHalf(x, d)) return x.toFixed(d);
+	const lo = Math.floor(x * 10 ** d);
+	return ((lo % 2 === 0 ? lo : lo + 1) / 10 ** d).toFixed(d);
+};
+const candLines = readFileSync(join(CAND, "README.txt"), "utf8").split("\n").filter((l) => l.startsWith("linnkit grid"));
+assert.equal(candLines.length, 11);
+for (const line of candLines) {
+	const [cmd, file] = line.split(/\s+>\s+/);
+	const args = cmd.split(/\s+/);
+	const rootAt = args.indexOf("--root");
+	const rootNote = rootAt > 0 ? Number(args[rootAt + 1]) : 60;
+	// "  +10   387 c ~5/4    3.03     2.0 cols    +1 cols, 3 rows   yes   2.47   [tags]"
+	const want = readFileSync(join(CAND, file.trim()), "utf8").split("\n")
+		.map((l) => l.match(/^\s+\+(\d+)\s+(\d+) c(?: ~(\d+\/\d+))?\s+([\d.]+)\s+(-1|[\d.]+)(?: cols)?\s+([+-]?\d+) cols, (\d+) rows\s+(yes|no)\s+([\d.]+)/))
+		.filter(Boolean)
+		.map((m) => [Number(m[1]), m[2], m[3] || "", m[4], m[5], Number(m[6]), Number(m[7]), m[8], m[9]]);
+	assert.equal(want.length, 25, file);
+	t = load();
+	t.msg("scale", SCL + args.at(-1));
+	const got = plain(t.ctx.candidates(rootNote)).map((c) => [
+		c.offset, goFixed(c.cents, 0), c.ratio ? c.ratio.join("/") : "", goFixed(c.periods, 2),
+		c.span < 0 ? "-1" : goFixed(c.span, 1), c.move[0], c.move[1], c.fits ? "yes" : "no", goFixed(c.score, 2),
+	]);
+	assert.deepEqual(got, want, `${file}: ${cmd}`);
+}
+
+// a scale with no stored offset starts on the best one; the menu lists all 25, best first, and shows the current one
+t = load();
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 10]); // linnkit's best for 31-EDO at root 60
+const menu = t.status.filter((m) => m[0] === "offsetmenu");
+assert.deepEqual(menu[0], ["offsetmenu", "clear"]);
+assert.equal(menu.length, 26);
+assert.deepEqual(menu[1], ["offsetmenu", "append", "+10  387 c ~5/4"]);
+assert.ok(menu.some((m) => m[2] === "+16  619 c ~10/7  (doesn't fit)"));
+assert.deepEqual(t.status.filter((m) => m[0] === "offsetindex").at(-1), ["offsetindex", 0]);
+// picking the 9th item (+13, the fourth) sets the offset and puts the root back on row 4
+t.msg("low", 30);
+t.status.length = 0;
+t.msg("offsetpick", 8);
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 13]);
+assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", -1]);
+assert.deepEqual(t.status.filter((m) => m[0] === "offsetindex").at(-1), ["offsetindex", 8]);
+// a stored offset stays; a new root re-ranks (which offsets fit changes)
+t.msg("scale", SCL + "22edo.scl");
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 13]);
+t.status.length = 0;
+t.msg("root", 110);
+assert.equal(t.status.filter((m) => m[0] === "offsetmenu").length, 26);
 
 // --- every scale's settings as one block (lightsstate out, state in) for a [pattr] ---
 
@@ -519,7 +631,7 @@ t.msg("scale", SCL + "31-edo.scl");
 assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 12]);
 // a scale missing from the block goes back to its defaults
 t.msg("state", JSON.stringify({ "22edo.scl": block["22edo.scl"] }));
-assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 13]);
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 10]); // linnkit's best for 31-EDO
 // our own block coming back from [pattr] is ignored (no second dump)
 t.msg("offset", 11);
 const own = t.status.filter((m) => m[0] === "lightsstate").at(-1)[1];
@@ -621,6 +733,7 @@ assert.ok(lastLegend(t).endsWith("(generator 18)"));
 t = load();
 t.msg("scale", SCL + "31-edo.scl");
 assert.deepEqual(t.status.find((m) => m[0] === "low"), ["low", -1]);
+t.msg("offset", 13); // before low: a new offset resets low
 t.msg("low", 40);
 let lowPv = JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]);
 assert.deepEqual(lowPv.notes.map((r) => r[0]), [40, 53, 66, 79, 92, 105, 118, 131]);

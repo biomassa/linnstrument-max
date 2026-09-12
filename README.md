@@ -1,5 +1,7 @@
 # linnstrument
 
+![The linnstrument.maxpat patch: the pad preview with just-interval lights for 31-EDO, and the scale, light, layout and tuning controls](docs/linnstrument.png)
+
 Max 9 patches for the Roger Linn LinnStrument: scales from Scala (`.scl`) files, pad layout and lights, and tuning for MPE synths in Max and for 12-TET hardware.
 
 The terminal app [linnkit](https://github.com/biomassa/linnkit) does the same jobs outside Max. The two share their specs (`docs/`), and the Max code is tested against linnkit's output.
