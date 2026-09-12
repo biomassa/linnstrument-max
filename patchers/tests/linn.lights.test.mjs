@@ -59,6 +59,8 @@ class Dict {
 	contains(k) { return this.m.has(k); }
 	get(k) { return this.m.get(k); }
 	set(k, v) { this.m.set(k, v); }
+	clear() { this.m.clear(); }
+	getkeys() { const k = [...this.m.keys()]; return k.length === 0 ? null : k.length === 1 ? k[0] : k; } // as Max's
 }
 
 // a fake scheduler: tasks run when the test advances time
@@ -493,6 +495,43 @@ for (const [k, v] of [["offset", 10], ["limit", 5], ["root", 62], ["rootcolor", 
 t.status.length = 0;
 t.msg("bend", 24); // Bend Range doesn't change the pattern
 assert.ok(!t.status.some((m) => m[0] === "preview"));
+
+// --- every scale's settings as one block (lightsstate out, state in) for a [pattr] ---
+
+const lastBlock = (t) => JSON.parse(t.status.filter((m) => m[0] === "lightsstate").at(-1)[1]);
+t = load();
+t.msg("scale", SCL + "31-edo.scl");
+t.msg("offset", 10);
+t.msg("scale", SCL + "22edo.scl");
+t.msg("limit", 11);
+let block = lastBlock(t); // after each change: all scales, as stored
+assert.deepEqual(Object.keys(block).sort(), ["22edo.scl", "31-edo.scl"]);
+assert.equal(block["31-edo.scl"].offset, 10);
+assert.equal(block["22edo.scl"].limit, 11);
+// the block restored (load or preset): every scale replaced, the current scale shown again
+block["22edo.scl"].offset = 8;
+block["31-edo.scl"].offset = 12;
+t.status.length = 0;
+t.msg("state", JSON.stringify(block));
+assert.deepEqual(t.status.find((m) => m[0] === "offset"), ["offset", 8]);
+assert.ok(t.status.some((m) => m[0] === "preview"));
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 12]);
+// a scale missing from the block goes back to its defaults
+t.msg("state", JSON.stringify({ "22edo.scl": block["22edo.scl"] }));
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 13]);
+// our own block coming back from [pattr] is ignored (no second dump)
+t.msg("offset", 11);
+const own = t.status.filter((m) => m[0] === "lightsstate").at(-1)[1];
+t.status.length = 0;
+t.msg("state", own);
+assert.equal(t.status.length, 0);
+// a broken block is refused and changes nothing
+t.msg("state", "{not json");
+assert.ok(t.status.some((m) => m[0] === "error" && String(m[1]).includes("settings block")));
+assert.deepEqual(t.status.filter((m) => m[0] === "offset"), []);
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "offset").at(-1), ["offset", 11]);
 
 // --- the schemes in docs/light-schemes.md, checked pad by pad (labels and CC22 colours) and by legend ---
 

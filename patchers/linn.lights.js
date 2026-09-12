@@ -10,12 +10,13 @@
 //          consonance harmonics; see docs/light-schemes.md), offset <n>, limit <n>, root <note>,
 //          refhz <hz>, rootcolor <name>, bend <n>, generator <n>, mossize <n>, harmonics <16|32>,
 //          subharmonics <0|1>, low <note> (bottom-left pad; -1 = root on row 4, column 1),
-//          dump, status, reset.
+//          state <json> (every scale's settings at once, from [pattr]), dump, status, reset.
 // Inlet 1: raw MIDI bytes from the LinnStrument (for readback replies).
 // Outlet 0: raw MIDI bytes to midiout.
 // Outlet 1: settings (scale, scheme, offset, rootcolor, bend, limit, root, refhz, generator,
 //           mossize, harmonics, subharmonics, low),
 //           offsetinfo <text>, legend <text>, tuning <root> <hz> (for linn.retune),
+//           lightsstate <json> (every scale's settings, after each change, for [pattr]),
 //           preview <json> (colors, labels, notes of all pads, for linn.preview), and status
 //           (backup <path> <n> | backup kept <path>, verified <n>, restored <n> <path>,
 //           lights <note>, state <...>, error <text>).
@@ -187,7 +188,44 @@ function change(key, value) {
 	s[key] = value;
 	store.set(scaleName, JSON.stringify(s));
 	outlet(1, key, value);
+	sendState();
 	return s;
+}
+
+// --- every scale's settings as one block for a [pattr] in the patch: saved with the patch and in
+// presets, recalled in one piece. The individual controls are kept out of autopattr: restored one
+// by one in no fixed order, a value could land on the wrong scale. ---
+
+let lastState = "";
+
+function stateJSON() {
+	const all = {};
+	for (const k of [].concat(store.getkeys() || [])) all[k] = JSON.parse(String(store.get(k)));
+	return JSON.stringify(all);
+}
+
+function sendState() {
+	lastState = stateJSON();
+	outlet(1, "lightsstate", lastState);
+}
+
+// state <json>: replace every scale's settings (from [pattr] at load or preset recall), then show
+// the current scale's; our own block coming back unchanged is ignored
+function state(json) {
+	json = String(json);
+	if (json === lastState) return;
+	let all;
+	try {
+		all = JSON.parse(json);
+	} catch (e) {
+		report("error", "can't read the settings block");
+		return;
+	}
+	if (!all || typeof all !== "object" || Array.isArray(all)) return;
+	store.clear();
+	for (const k of Object.keys(all)) store.set(k, JSON.stringify(all[k]));
+	lastState = json;
+	if (scaleName) dump();
 }
 
 function scheme(name) {
