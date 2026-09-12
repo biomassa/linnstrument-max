@@ -1,4 +1,4 @@
-# linnstrument
+# linnstrument-max
 
 ![The linnstrument.maxpat patch: the pad preview with just-interval lights for 31-EDO, and the scale, light, layout and tuning controls](docs/linnstrument.png)
 
