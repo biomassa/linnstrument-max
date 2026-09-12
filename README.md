@@ -18,6 +18,7 @@ This project is made with AI-assisted development. An AI coding assistant helps 
 
 | Folder | Contents |
 |---|---|
+| `patchers/` | Max patches (`.maxpat`) |
 | `LinnStrumentLights/` | Light controller patches by bfuhrman (git submodule, github.com/bfuhrman/LinnStrumentLights) |
 | `SCL/` | Scala scale files |
 

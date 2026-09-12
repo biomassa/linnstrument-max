@@ -1,0 +1,139 @@
+{
+    "patcher": {
+        "fileversion": 1,
+        "appversion": {
+            "major": 9,
+            "minor": 1,
+            "revision": 5,
+            "architecture": "x64",
+            "modernui": 1
+        },
+        "classnamespace": "box",
+        "rect": [ 200.0, 200.0, 640.0, 360.0 ],
+        "integercoordinates": 1,
+        "boxes": [
+            {
+                "box": {
+                    "comment": "raw MIDI bytes from midiin",
+                    "id": "obj-1",
+                    "index": 1,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 30.0, 20.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "comment": "scale file name, e.g. 31-edo.scl",
+                    "id": "obj-2",
+                    "index": 2,
+                    "maxclass": "inlet",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 300.0, 20.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-3",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 300.0, 70.0, 90.0, 22.0 ],
+                    "text": "prepend scale"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 30.0, 120.0, 120.0, 22.0 ],
+                    "saved_object_attributes": {
+                        "parameter_enable": 0
+                    },
+                    "text": "v8 linn.retune.js",
+                    "varname": "retune"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-5",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 300.0, 170.0, 250.0, 22.0 ],
+                    "text": "mtof @mid 60 @ref 60 @base 261.625565"
+                }
+            },
+            {
+                "box": {
+                    "comment": "midievent messages to vst~",
+                    "id": "obj-6",
+                    "index": 1,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 30.0, 230.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-7",
+                    "linecount": 4,
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 30.0, 280.0, 560.0, 62.0 ],
+                    "text": "Retunes LinnStrument MPE like Live's Tuning System: each note goes out as the nearest 12-TET note plus per-note bend; the player's bend counts in scale steps. Plugin: 12-TET, MPE, per-note bend range 48. LinnStrument Bend Range 48. Degree 0 of the scale is MIDI 60 at 261.63 Hz. Each note gets the output channel that has been quiet longest, so release tails keep their pitch; the main channel (1) passes through. Messages to the left inlet: bendrange <n>, mainchannel <n>, panic."
+                }
+            }
+        ],
+        "lines": [
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-1", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "source": [ "obj-2", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 0 ],
+                    "source": [ "obj-3", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-6", 0 ],
+                    "source": [ "obj-4", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-5", 0 ],
+                    "source": [ "obj-4", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-4", 1 ],
+                    "source": [ "obj-5", 0 ]
+                }
+            }
+        ],
+        "autosave": 0
+    }
+}
