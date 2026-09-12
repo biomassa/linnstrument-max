@@ -7,7 +7,7 @@
 // their pitch. Messages on the main channel pass through unchanged.
 //
 // Inlet 0: raw MIDI bytes (from midiin), or messages: scale <path | archive name>,
-//          bendrange <n>, mainchannel <n>, panic.
+//          bendrange <n>, mainchannel <n>, root <note> <hz>, panic.
 // Inlet 1: list of 128 frequencies (Hz) for MIDI notes 0..127 (from mtof).
 // Outlet 0: midievent <status> <data1> [<data2>] (to vst~).
 // Outlet 1: requests to mtof (scalename none + scale <n> <pairs...>, or scalename <name>; then the list 0..127).
@@ -106,6 +106,14 @@ function readScl(path) {
 function bendrange(n) {
 	range = n;
 	voices.forEach((v) => v.active && retune(v));
+}
+
+// root <note> <hz>: degree 0 on this MIDI note at this frequency (linn.lights sends it as "tuning")
+function root(note, hz) {
+	outlet(1, "mid", note);
+	outlet(1, "ref", note);
+	outlet(1, "base", hz);
+	outlet(1, Array.from({ length: 128 }, (_, i) => i));
 }
 
 function mainchannel(n) {

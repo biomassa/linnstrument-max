@@ -1,0 +1,20 @@
+22edo  22-edo
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +7    382 c ~5/4  3.32     1.0 cols    +1 cols, 3 rows  yes   1.47   
+  +6    327 c ~6/5  3.00     1.0 cols    -2 cols, 4 rows  yes   1.97   
+  +8    436 c ~9/7  3.64     3.0 cols    -2 cols, 3 rows  yes   3.96   
+  +5    273 c ~7/6  2.68     3.5 cols    +2 cols, 4 rows  yes   4.47   
+  +4    218 c ~8/7  2.36     2.0 cols    +6 cols, 4 rows  yes   5.39   
+
+rows +9, bottom-left MIDI 33, notes 33..120, root MIDI 60, lights mos
+row 8  .  .  .  o  .  .  .  o  R  .  .  .  o  .  .  .  o  o  .  .  .  o  .  .  .  
+row 7  .  .  .  o  o  .  .  .  o  .  .  .  o  .  .  .  o  R  .  .  .  o  .  .  .  
+row 6  .  .  .  o  R  .  .  .  o  .  .  .  o  o  .  .  .  o  .  .  .  o  .  .  .  
+row 5  o  .  .  .  o  .  .  .  o  .  .  .  o  R  .  .  .  o  .  .  .  o  o  .  .  
+row 4  R  .  .  .  o  .  .  .  o  o  .  .  .  o  .  .  .  o  .  .  .  o  R  .  .  
+row 3  o  .  .  .  o  .  .  .  o  R  .  .  .  o  .  .  .  o  o  .  .  .  o  .  .  
+row 2  o  .  .  .  o  o  .  .  .  o  .  .  .  o  .  .  .  o  R  .  .  .  o  .  .  
+row 1  o  .  .  .  o  R  .  .  .  o  .  .  .  o  o  .  .  .  o  .  .  .  o  .  .  
+R root  o MOS (7 notes, generator 13, degrees [0 4 8 9 13 17 21])  other degrees unlit

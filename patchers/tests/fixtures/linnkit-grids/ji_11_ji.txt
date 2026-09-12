@@ -1,0 +1,20 @@
+ji_11  3 and 7 prime rational interpretation of 11-tET. OdC 2000
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +3    327 c ~6/5   4.09     0.5 cols    -1 cols, 4 rows  yes   1.00   
+  +2    218 c ~8/7   3.45     0.7 cols    +3 cols, 4 rows  yes   2.19   
+  +4    436 c ~9/7   4.73     2.2 cols    -1 cols, 3 rows  yes   2.63   
+  +6    655 c ~10/7  6.00     2.7 cols    -1 cols, 2 rows  yes   3.17   fifth
+  +5    545 c ~7/5   5.36     2.9 cols    +1 cols, 2 rows  yes   3.31   fourth
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights ji
+row 8  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  
+row 7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  
+row 6  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  
+row 5  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  
+row 4  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  
+row 3  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  
+row 2  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  
+row 1  7  7  3  7  R  7  3  7  7  7  7  7  7  3  7  R  7  3  7  7  7  7  7  7  3  
+R root  3 3-limit  5 5-limit  7 7-limit  11 11-limit  13 13-limit

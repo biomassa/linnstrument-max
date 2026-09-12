@@ -1,0 +1,20 @@
+22edo  22-edo
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +7    382 c ~5/4  3.32     1.0 cols    +1 cols, 3 rows  yes   1.47   
+  +6    327 c ~6/5  3.00     1.0 cols    -2 cols, 4 rows  yes   1.97   
+  +8    436 c ~9/7  3.64     3.0 cols    -2 cols, 3 rows  yes   3.96   
+  +5    273 c ~7/6  2.68     3.5 cols    +2 cols, 4 rows  yes   4.47   
+  +4    218 c ~8/7  2.36     2.0 cols    +6 cols, 4 rows  yes   5.39   
+
+rows +9, bottom-left MIDI 33, notes 33..120, root MIDI 60, lights ji
+row 8  5  5  5  7  3  .  5  7  R  .  5  .  3  7  5  5  7  3  .  .  .  3  5  5  5  
+row 7  7  5  5  7  3  .  .  .  3  5  5  5  7  3  .  5  7  R  .  5  .  3  7  5  5  
+row 6  3  .  5  7  R  .  5  .  3  7  5  5  7  3  .  .  .  3  5  5  5  7  3  .  5  
+row 5  3  .  .  .  3  5  5  5  7  3  .  5  7  R  .  5  .  3  7  5  5  7  3  .  .  
+row 4  R  .  5  .  3  7  5  5  7  3  .  .  .  3  5  5  5  7  3  .  5  7  R  .  5  
+row 3  3  5  5  5  7  3  .  5  7  R  .  5  .  3  7  5  5  7  3  .  .  .  3  5  5  
+row 2  3  7  5  5  7  3  .  .  .  3  5  5  5  7  3  .  5  7  R  .  5  .  3  7  5  
+row 1  7  3  .  5  7  R  .  5  .  3  7  5  5  7  3  .  .  .  3  5  5  5  7  3  .  
+R root  3 3-limit  5 5-limit  7 7-limit  11 11-limit  13 13-limit

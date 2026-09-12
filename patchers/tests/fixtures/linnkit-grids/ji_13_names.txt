@@ -1,0 +1,20 @@
+ji_13  5-limit 12-tone symmetrical scale with two tritones
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +4    369 c ~5/4   4.00     0.7 cols    +1 cols, 3 rows  yes   1.19   
+  +3    277 c ~7/6   3.46     1.3 cols    +1 cols, 4 rows  yes   1.73   
+  +2    185 c ~9/8   2.92     0.7 cols    +5 cols, 4 rows  yes   3.20   
+  +5    462 c ~9/7   4.54     2.7 cols    -2 cols, 3 rows  yes   3.65   fourth
+  +7    646 c ~10/7  5.62     3.3 cols    -1 cols, 2 rows  yes   3.71   
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights names
+row 8  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  
+row 7  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  
+row 6  E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  
+row 5  F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  
+row 4  C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  
+row 3  G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  
+row 2  D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  
+row 1  A  G# C  B  A# D  C# F  E  D# G  F# E# A  G# C  B  A# D  C# F  E  D# G  F# 
+C root (magenta)  naturals white  sharps blue  flats green  . other

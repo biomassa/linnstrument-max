@@ -1,0 +1,20 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +10   387 c ~5/4   3.03     2.0 cols    +1 cols, 3 rows  yes   2.47   
+  +8    310 c ~6/5   2.58     2.0 cols    -1 cols, 4 rows  yes   2.47   
+  +9    348 c ~11/9  2.81     1.0 cols    +4 cols, 3 rows  yes   2.97   
+  +11   426 c ~9/7   3.26     4.0 cols    -2 cols, 3 rows  yes   4.97   
+  +6    232 c ~8/7   2.13     2.0 cols    +7 cols, 4 rows  yes   6.59   
+
+rows +13, bottom-left MIDI 12, notes 12..127, root MIDI 62, lights names
+row 8  E  Fb E# F  .  F# Gb .  G  .  G# Ab .  A  .  A# Bb .  B  Cb B# C  .  C# Db 
+row 7  B  Cb B# C  .  C# Db .  D  .  D# Eb .  E  Fb E# F  .  F# Gb .  G  .  G# Ab 
+row 6  F# Gb .  G  .  G# Ab .  A  .  A# Bb .  B  Cb B# C  .  C# Db .  D  .  D# Eb 
+row 5  C# Db .  D  .  D# Eb .  E  Fb E# F  .  F# Gb .  G  .  G# Ab .  A  .  A# Bb 
+row 4  G# Ab .  A  .  A# Bb .  B  Cb B# C  .  C# Db .  D  .  D# Eb .  E  Fb E# F  
+row 3  D# Eb .  E  Fb E# F  .  F# Gb .  G  .  G# Ab .  A  .  A# Bb .  B  Cb B# C  
+row 2  A# Bb .  B  Cb B# C  .  C# Db .  D  .  D# Eb .  E  Fb E# F  .  F# Gb .  G  
+row 1  E# F  .  F# Gb .  G  .  G# Ab .  A  .  A# Bb .  B  Cb B# C  .  C# Db .  D  
+C root (magenta)  naturals white  sharps blue  flats green  . other

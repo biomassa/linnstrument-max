@@ -1,0 +1,20 @@
+ji_11  3 and 7 prime rational interpretation of 11-tET. OdC 2000
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +3    327 c ~6/5   4.09     0.5 cols    -1 cols, 4 rows  yes   1.00   
+  +2    218 c ~8/7   3.45     0.7 cols    +3 cols, 4 rows  yes   2.19   
+  +4    436 c ~9/7   4.73     2.2 cols    -1 cols, 3 rows  yes   2.63   
+  +6    655 c ~10/7  6.00     2.7 cols    -1 cols, 2 rows  yes   3.17   fifth
+  +5    545 c ~7/5   5.36     2.9 cols    +1 cols, 2 rows  yes   3.31   fourth
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights names
+row 8  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  
+row 7  G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  
+row 6  D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  
+row 5  F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  
+row 4  C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  
+row 3  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  
+row 2  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# 
+row 1  A  B  C# D# C  D  E  F# G# F  G  A  B  C# D# C  D  E  F# G# F  G  A  B  C# 
+C root (magenta)  naturals white  sharps blue  flats green  . other

@@ -181,6 +181,13 @@ const p = t.take();
 assert.deepEqual(p[0], off(2, 60, 0));
 assert.ok(p.some((m) => m.join(" ") === bendMsg(2, 8192).join(" ")));
 
+// root <note> <hz> moves degree 0 (mtof mid/ref/base) and reloads the table
+t = load();
+t.ctx.root(62, 293.664768);
+const rootReq = t.out.splice(0).filter((m) => m[0] === 1);
+assert.deepEqual(rootReq.slice(0, 3), [[1, "mid", 62], [1, "ref", 62], [1, "base", 293.664768]]);
+assert.equal(rootReq[3].length, 129);
+
 // scale <archive name> asks mtof for the archive scale and the 128 notes
 t = load();
 t.ctx.scale("ji_11");

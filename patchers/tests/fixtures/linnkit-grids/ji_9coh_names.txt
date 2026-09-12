@@ -1,0 +1,20 @@
+ji_9coh  Differentially coherent 9-tone scale with subharmonic 30
+
+layout candidates (best first)
+  rows  interval      periods  triad span  period move      fits  score  
+  +3    400 c ~5/4    5.00     1.0 cols    +0 cols, 3 rows  yes   0.95   
+  +2    267 c ~7/6    4.22     1.0 cols    +1 cols, 4 rows  yes   1.46   
+  +5    667 c ~3/2    6.56     2.0 cols    -1 cols, 2 rows  yes   2.43   fifth
+  +4    533 c ~4/3    5.78     2.0 cols    +1 cols, 2 rows  yes   2.44   fourth
+  +1    133 c ~11/10  3.44     1.0 cols    +5 cols, 4 rows  yes   3.47   
+
+rows +4, bottom-left MIDI 48, notes 48..100, root MIDI 60, lights names
+row 8  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  
+row 7  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  
+row 6  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  
+row 5  F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  
+row 4  C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  
+row 3  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  
+row 2  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  
+row 1  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# F  G  A  B  C# C  D  E  F# 
+C root (magenta)  naturals white  sharps blue  flats green  . other
