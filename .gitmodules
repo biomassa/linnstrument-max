@@ -1,0 +1,3 @@
+[submodule "LinnStrumentLights"]
+	path = LinnStrumentLights
+	url = https://github.com/bfuhrman/LinnStrumentLights.git

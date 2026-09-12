@@ -1,0 +1,6 @@
+# private references and notes (kept locally)
+reference/
+refs/
+
+# macOS
+.DS_Store
