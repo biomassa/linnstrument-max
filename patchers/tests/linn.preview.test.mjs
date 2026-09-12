@@ -89,4 +89,13 @@ t.calls.length = 0;
 t.ctx.paint();
 assert.equal(t.calls.filter((c) => c[0] === "rectangle").length, 1 + 200);
 
+// labels wider than a pad shrink to fit, then the font size goes back
+t = load();
+t.ctx.preview(JSON.stringify({ colors, labels: labels.map((row) => row.map((l) => (l === "3" ? "Dbbb" : l))), notes }));
+t.calls.length = 0;
+t.ctx.paint();
+const sizes = t.calls.filter((c) => c[0] === "set_font_size").map((c) => c[1]);
+assert.ok(sizes.some((v) => v < sizes[0]), "a 4-character label is drawn smaller");
+assert.equal(sizes.at(-1), sizes[0]);
+
 console.log("linn.preview: all tests passed");

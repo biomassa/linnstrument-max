@@ -16,11 +16,18 @@ experiments; colours and rules may change afterwards, and schemes that don't pro
   - `ratio[d]`: the exact ratio when the `.scl` writes one, else none.
   - `nearestDegree(c)`: linnkit's (smallest |error| over degrees `0..n-1`, first one wins on ties).
   - `tol = min(15, 0.35 * step)`: the ji tolerance.
-  - `g`: the generator in degrees. The `generator` setting when > 0, else `nearestDegree(1200*log2(3/2))`.
+  - `g`: the generator in degrees. The `generator` setting (mod n) when > 0, else `nearestDegree(1200*log2(3/2))`.
   - `t = nearestDegree(1200*log2(5/4))`.
   - chain: degree of chain position `k` is `(k * g) mod n` (index arithmetic, as linnkit's names/MOS do).
-- The root (degree 0) takes the root colour (magenta by default) with its usual label, in every scheme except
-  `factors` (see there). Unlit = CC22 0.
+- The root (degree 0) takes the root colour (magenta by default), in every scheme except `factors` (see there).
+  Root label: `C` in `chain`, `R` in every other new scheme. Unlit = CC22 0.
+- linnkit's text grid (decided by the user 2026-09-12): cell width = max(3, longest printed cell + 1), per grid
+  (root/ji/names/mos grids unchanged). Unlit pads print their label if they have one; `.` only for unlit pads
+  without a label; `!!` outside MIDI 0..127. `grid --cc` adds the CC22 colours after the legend (a blank line,
+  `CC22 colours (0 = unlit)`, 8 rows of `%-3d` cells in the label grids' row order). The TUI and `--color`
+  previews cut labels to 3 characters; the text grid keeps full labels.
+- When several chain positions reach a degree (`gcd(g, n) > 1`, chain and wijmenga), the `k` closest to 2 wins,
+  ties to the lower `k` (6-EDO, `g = 4`: the root is `k = 3`, not 0).
 - CC22 colours: red 1, yellow 2, green 3, cyan 4, blue 5, magenta 6, white 8, orange 9, lime 10, pink 11.
 - New per-scale settings (next to `limit`, `root`, `offset`):
   - `generator` (degrees, 0 = automatic, the degree nearest 3/2)
@@ -38,18 +45,20 @@ Source: https://www.31edo.com/keyboard. Colours by position on the chain of fift
   `[2 - floor((n-1)/2), 2 + ceil((n-1)/2)]` (centred on D, the middle of C G D A E).
   Degrees the chain never reaches (when `gcd(g, n) > 1`) are unlit, no label.
 - Colours by `k`: `0..4` white, `5..8` yellow, `-1..-4` green, `9..12` blue, `-5..-8` red, `13..16` cyan,
-  `-9..-12` pink, anything else unlit.
+  `-9..-12` pink, anything else unlit but keeps its note name (31-EDO: `Ax`, `Gbb`).
 - Label: the chain note name. `k = -1..5` are F C G D A E B; name index `(k + 1) mod 7`, accidentals
   `floor((k + 1) / 7)`: 1 = `#`, 2 = `x`, -1 = `b`, -2 = `bb`, beyond that repeat the sign (`###`, `bbb`).
 - Examples:
   - 12-EDO (`g = 7`), `k` in `[-3, 8]`: C G D A E white, B F# C# G# yellow, F Bb Eb green.
   - 31-EDO (`g = 18`), `k` in `[-13, 17]`: white 5, yellow 4, green 4, blue 4, red 4, cyan 4, pink 4,
-    2 unlit (k = 17 `Ax`, k = -13 `Gbb`).
+    2 unlit (k = 17 `Ax`, k = -13 `Gbb`). The white 5 include the root, so the grid shows 4 white and the
+    magenta root.
 
 ## moskeys (a MOS as white keys: Lumatone Valentine 15L1s, Stephen Weigel's MOS keyboards)
 
-- The MOS: linnkit `MOSChoice{Generator: g, Size: m, Down: 1}` with `m` = `mossize` when > 0, else
-  `DefaultMOS`'s size (7, else 5, 6, 8..12). A user-chosen `(g, m)` is lit even if it isn't a MOS.
+- The MOS: linnkit `MOSChoice{Generator: g, Size: m, Down: 1}` with `m` = `mossize` when > 0. A user-chosen
+  `(g, m)` is lit even if it isn't a MOS. With `mossize` 0 the sizes 7, 5, 6, 8..12 are searched along `g`
+  (size < n, `isMOS`), the same as `DefaultMOS` when the generator is automatic; none found: root only.
 - Colours: MOS degrees white, all other degrees blue.
 - Labels: none (root keeps its root label).
 - Example: 31-EDO, generator 2, size 16 outlines Valentine 15L1s (the degrees 0, 2, ..., 28 and 29).
@@ -96,14 +105,15 @@ Source: https://github.com/diegovdc/wilson-22-tone-eikosany-lumatone-pack.
   - 3 red, 5 green, 7 blue, 3·5 yellow, 5·7 cyan, 3·7 magenta, 3·5·7 white; none of them: unlit.
   - 11 and 13 don't count.
 - The root (1/1) is unlit here, since magenta already means 3·7; its label stays `R`.
-- Label: the product of the primes present, e.g. `3`, `35`, `357`.
+- Label: the primes present side by side: `3 5 7 35 37 57 357` (not the product).
 
 ## steps (step sizes)
 
 - `stepsize[d] = cents[d+1] - cents[d]` (the last step ends at the period).
 - Group sizes as linnkit `groups(steps, 0.5)`; classes ordered largest first.
 - Colours by number of classes `k`: 1: white; 2: white, blue; 3: white, green, blue; 4 or more: white, then
-  green, cyan, yellow, orange, lime, pink for the middle classes, and blue for the smallest.
+  green, cyan, yellow, orange, lime, pink for the middle classes (cycling when there are more than 6), and
+  blue for the smallest.
 - Labels: `k = 1`: `L`; 2: `L s`; 3: `L M s`; 4 or more: `1..k` (1 = largest).
 
 ## nested (nested MOS layers along the generator)
@@ -130,4 +140,5 @@ Source: https://github.com/diegovdc/wilson-22-tone-eikosany-lumatone-pack.
   period counted as degree 0 again (so 1190 cents can land on the root), if within `tol`.
   Subharmonics (setting on): the same for `-1200*log2(h)`.
 - Colours: harmonic only yellow, subharmonic only blue, both white; root as usual.
-- Labels: the smallest harmonic number, e.g. `7`; subharmonic only `u7`.
+- Labels: the smallest harmonic number, e.g. `7` (also for degrees hit by both series); subharmonic only `u7`.
+- `harmonics` must be 16 or 32.

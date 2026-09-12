@@ -1,0 +1,30 @@
+ji_7a  Superparticular approximation to 7-tET. Op de Coul, 1998
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +2    343 c ~5/4  5.43     0.0 cols    +1 cols, 3 rows  yes   0.45   
+  +1    171 c ~8/7  4.43     0.0 cols    +3 cols, 4 rows  yes   1.46   
+  +4    686 c ~3/2  7.43     2.0 cols    -1 cols, 2 rows  yes   2.43   fifth
+  +3    514 c ~4/3  6.43     2.0 cols    +1 cols, 2 rows  yes   2.44   fourth
+  +5    857 c ~5/3  8.43     3.0 cols    +2 cols, 1 rows  yes   3.92   
+
+rows +3, bottom-left MIDI 51, notes 51..96, root MIDI 60, lights moskeys
+row 8        R                    R                    R                    R     
+row 7                 R                    R                    R                 
+row 6     R                    R                    R                    R        
+row 5              R                    R                    R                    
+row 4  R                    R                    R                    R           
+row 3           R                    R                    R                    R  
+row 2                    R                    R                    R              
+row 1        R                    R                    R                    R     
+R root  white MOS (5 notes, generator 4)  blue other
+
+CC22 colours (0 = unlit)
+row 8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  
+row 7  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  
+row 6  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  
+row 5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  
+row 4  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  
+row 3  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  
+row 2  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  
+row 1  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  5  8  8  8  5  6  8  

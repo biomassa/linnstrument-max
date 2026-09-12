@@ -1,0 +1,30 @@
+ji_8coh  Differentially coherent 8-tone scale with subharmonic 40
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +2    300 c ~6/5   4.75     1.0 cols    +0 cols, 4 rows  yes   0.95   
+  +3    450 c ~4/3   5.62     1.0 cols    -1 cols, 3 rows  yes   1.44   fourth
+  +4    600 c ~7/5   6.50     2.0 cols    +0 cols, 2 rows  yes   1.94   
+  +5    750 c ~3/2   7.38     2.0 cols    -2 cols, 2 rows  yes   2.93   fifth
+  +1    150 c ~10/9  3.88     1.0 cols    +4 cols, 4 rows  yes   2.96   
+
+rows +3, bottom-left MIDI 51, notes 51..96, root MIDI 60, lights chain
+row 8  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  
+row 7  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  
+row 6  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# 
+row 5  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  
+row 4  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  
+row 3  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  
+row 2  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  
+row 1  A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  C  B  D  F  E  G  F# A  
+C root  white k 0..4  yellow 5..8  green -1..-4  blue 9..12  red -5..-8  cyan 13..16  pink -9..-12  (generator 5)
+
+CC22 colours (0 = unlit)
+row 8  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  
+row 7  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  
+row 6  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  
+row 5  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  
+row 4  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  
+row 3  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  
+row 2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  
+row 1  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  6  2  8  3  8  8  2  8  

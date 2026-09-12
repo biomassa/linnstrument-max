@@ -1,0 +1,30 @@
+22edo  22-edo
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +7    382 c ~5/4  3.32     1.0 cols    +1 cols, 3 rows  yes   1.47   
+  +6    327 c ~6/5  3.00     1.0 cols    -2 cols, 4 rows  yes   1.97   
+  +8    436 c ~9/7  3.64     3.0 cols    -2 cols, 3 rows  yes   3.96   
+  +5    273 c ~7/6  2.68     3.5 cols    +2 cols, 4 rows  yes   4.47   
+  +4    218 c ~8/7  2.36     2.0 cols    +6 cols, 4 rows  yes   5.39   
+
+rows +9, bottom-left MIDI 33, notes 33..120, root MIDI 60, lights harmonics
+row 8  .   u5  .   .   7   .   15  .   R   .   u15 .   9   .   .   5   .   u3  11  .   u11 3   .   u5  .   
+row 7  .   .   5   .   u3  11  .   u11 3   .   u5  .   .   7   .   15  .   R   .   u15 .   9   .   .   5   
+row 6  7   .   15  .   R   .   u15 .   9   .   .   5   .   u3  11  .   u11 3   .   u5  .   .   7   .   15  
+row 5  u3  11  .   u11 3   .   u5  .   .   7   .   15  .   R   .   u15 .   9   .   .   5   .   u3  11  .   
+row 4  R   .   u15 .   9   .   .   5   .   u3  11  .   u11 3   .   u5  .   .   7   .   15  .   R   .   u15 
+row 3  3   .   u5  .   .   7   .   15  .   R   .   u15 .   9   .   .   5   .   u3  11  .   u11 3   .   u5  
+row 2  9   .   .   5   .   u3  11  .   u11 3   .   u5  .   .   7   .   15  .   R   .   u15 .   9   .   .   
+row 1  .   7   .   15  .   R   .   u15 .   9   .   .   5   .   u3  11  .   u11 3   .   u5  .   .   7   .   
+R root  harmonics 1-16 yellow  subharmonics blue (u)  both white
+
+CC22 colours (0 = unlit)
+row 8  0  5  0  0  8  0  2  0  6  0  5  0  8  0  0  2  0  5  2  0  5  2  0  5  0  
+row 7  0  0  2  0  5  2  0  5  2  0  5  0  0  8  0  2  0  6  0  5  0  8  0  0  2  
+row 6  8  0  2  0  6  0  5  0  8  0  0  2  0  5  2  0  5  2  0  5  0  0  8  0  2  
+row 5  5  2  0  5  2  0  5  0  0  8  0  2  0  6  0  5  0  8  0  0  2  0  5  2  0  
+row 4  6  0  5  0  8  0  0  2  0  5  2  0  5  2  0  5  0  0  8  0  2  0  6  0  5  
+row 3  2  0  5  0  0  8  0  2  0  6  0  5  0  8  0  0  2  0  5  2  0  5  2  0  5  
+row 2  8  0  0  2  0  5  2  0  5  2  0  5  0  0  8  0  2  0  6  0  5  0  8  0  0  
+row 1  0  8  0  2  0  6  0  5  0  8  0  0  2  0  5  2  0  5  2  0  5  0  0  8  0  

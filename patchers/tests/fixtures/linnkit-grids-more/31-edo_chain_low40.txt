@@ -1,0 +1,30 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +10   387 c ~5/4   3.03     2.0 cols    +1 cols, 3 rows  yes   2.47   
+  +8    310 c ~6/5   2.58     2.0 cols    -1 cols, 4 rows  yes   2.47   
+  +9    348 c ~11/9  2.81     1.0 cols    +4 cols, 3 rows  yes   2.97   
+  +11   426 c ~9/7   3.26     4.0 cols    -2 cols, 3 rows  yes   4.97   
+  +6    232 c ~8/7   2.13     2.0 cols    +7 cols, 4 rows  yes   6.59   
+
+rows +13, bottom-left MIDI 40, notes 40..155, root MIDI 60, lights chain
+row 8  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  
+row 7  Ax  B   Cb  B#  C   Dbb C#  Db  Cx  D   !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  !!  
+row 6  Gbb F#  Gb  Fx  G   Abb G#  Ab  Gx  A   Bbb A#  Bb  Ax  B   Cb  B#  C   Dbb C#  Db  Cx  D   !!  !!  
+row 5  Dbb C#  Db  Cx  D   Ebb D#  Eb  Dx  E   Fb  E#  F   Gbb F#  Gb  Fx  G   Abb G#  Ab  Gx  A   Bbb A#  
+row 4  Abb G#  Ab  Gx  A   Bbb A#  Bb  Ax  B   Cb  B#  C   Dbb C#  Db  Cx  D   Ebb D#  Eb  Dx  E   Fb  E#  
+row 3  Ebb D#  Eb  Dx  E   Fb  E#  F   Gbb F#  Gb  Fx  G   Abb G#  Ab  Gx  A   Bbb A#  Bb  Ax  B   Cb  B#  
+row 2  Bbb A#  Bb  Ax  B   Cb  B#  C   Dbb C#  Db  Cx  D   Ebb D#  Eb  Dx  E   Fb  E#  F   Gbb F#  Gb  Fx  
+row 1  Fb  E#  F   Gbb F#  Gb  Fx  G   Abb G#  Ab  Gx  A   Bbb A#  Bb  Ax  B   Cb  B#  C   Dbb C#  Db  Cx  
+C root  white k 0..4  yellow 5..8  green -1..-4  blue 9..12  red -5..-8  cyan 13..16  pink -9..-12  (generator 18)
+
+CC22 colours (0 = unlit)
+row 8  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  
+row 7  0  2  1  5  6  11 2  1  4  8  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  
+row 6  0  2  1  4  8  11 2  3  4  8  11 5  3  0  2  1  5  6  11 2  1  4  8  0  0  
+row 5  11 2  1  4  8  11 5  3  4  8  1  5  3  0  2  1  4  8  11 2  3  4  8  11 5  
+row 4  11 2  3  4  8  11 5  3  0  2  1  5  6  11 2  1  4  8  11 5  3  4  8  1  5  
+row 3  11 5  3  4  8  1  5  3  0  2  1  4  8  11 2  3  4  8  11 5  3  0  2  1  5  
+row 2  11 5  3  0  2  1  5  6  11 2  1  4  8  11 5  3  4  8  1  5  3  0  2  1  4  
+row 1  1  5  3  0  2  1  4  8  11 2  3  4  8  11 5  3  0  2  1  5  6  11 2  1  4  

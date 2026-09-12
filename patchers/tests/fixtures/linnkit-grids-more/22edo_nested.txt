@@ -1,0 +1,30 @@
+22edo  22-edo
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +7    382 c ~5/4  3.32     1.0 cols    +1 cols, 3 rows  yes   1.47   
+  +6    327 c ~6/5  3.00     1.0 cols    -2 cols, 4 rows  yes   1.97   
+  +8    436 c ~9/7  3.64     3.0 cols    -2 cols, 3 rows  yes   3.96   
+  +5    273 c ~7/6  2.68     3.5 cols    +2 cols, 4 rows  yes   4.47   
+  +4    218 c ~8/7  2.36     2.0 cols    +6 cols, 4 rows  yes   5.39   
+
+rows +9, bottom-left MIDI 33, notes 33..120, root MIDI 60, lights nested
+row 8  .  4  3  1  .  4  3  2  R  .  4  3  1  .  4  3  2  1  .  4  3  1  .  4  3  
+row 7  .  4  3  2  1  .  4  3  1  .  4  3  1  .  4  3  2  R  .  4  3  1  .  4  3  
+row 6  .  4  3  2  R  .  4  3  1  .  4  3  2  1  .  4  3  1  .  4  3  1  .  4  3  
+row 5  1  .  4  3  1  .  4  3  1  .  4  3  2  R  .  4  3  1  .  4  3  2  1  .  4  
+row 4  R  .  4  3  1  .  4  3  2  1  .  4  3  1  .  4  3  1  .  4  3  2  R  .  4  
+row 3  1  .  4  3  1  .  4  3  2  R  .  4  3  1  .  4  3  2  1  .  4  3  1  .  4  
+row 2  1  .  4  3  2  1  .  4  3  1  .  4  3  1  .  4  3  2  R  .  4  3  1  .  4  
+row 1  1  .  4  3  2  R  .  4  3  1  .  4  3  2  1  .  4  3  1  .  4  3  1  .  4  
+R root  1 white (5 notes)  2 yellow (7 notes)  3 blue (12 notes)  4 green (17 notes)
+
+CC22 colours (0 = unlit)
+row 8  0  3  5  8  0  3  5  2  6  0  3  5  8  0  3  5  2  8  0  3  5  8  0  3  5  
+row 7  0  3  5  2  8  0  3  5  8  0  3  5  8  0  3  5  2  6  0  3  5  8  0  3  5  
+row 6  0  3  5  2  6  0  3  5  8  0  3  5  2  8  0  3  5  8  0  3  5  8  0  3  5  
+row 5  8  0  3  5  8  0  3  5  8  0  3  5  2  6  0  3  5  8  0  3  5  2  8  0  3  
+row 4  6  0  3  5  8  0  3  5  2  8  0  3  5  8  0  3  5  8  0  3  5  2  6  0  3  
+row 3  8  0  3  5  8  0  3  5  2  6  0  3  5  8  0  3  5  2  8  0  3  5  8  0  3  
+row 2  8  0  3  5  2  8  0  3  5  8  0  3  5  8  0  3  5  2  6  0  3  5  8  0  3  
+row 1  8  0  3  5  2  6  0  3  5  8  0  3  5  2  8  0  3  5  8  0  3  5  8  0  3  

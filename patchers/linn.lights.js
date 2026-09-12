@@ -6,11 +6,15 @@
 // unless it exists already (restore then always returns to the original settings).
 //
 // Inlet 0: messages: scale <path>, send, sendlights, backup, restore [path],
-//          scheme <root|ji|names|mos>, offset <n>, limit <n>, root <note>, refhz <hz>,
-//          rootcolor <name>, bend <n>, dump, status, reset.
+//          scheme <name> (root ji names mos chain moskeys wijmenga kite factors steps nested
+//          consonance harmonics; see docs/light-schemes.md), offset <n>, limit <n>, root <note>,
+//          refhz <hz>, rootcolor <name>, bend <n>, generator <n>, mossize <n>, harmonics <16|32>,
+//          subharmonics <0|1>, low <note> (bottom-left pad; -1 = root on row 4, column 1),
+//          dump, status, reset.
 // Inlet 1: raw MIDI bytes from the LinnStrument (for readback replies).
 // Outlet 0: raw MIDI bytes to midiout.
-// Outlet 1: settings (scale, scheme, offset, rootcolor, bend, limit, root, refhz),
+// Outlet 1: settings (scale, scheme, offset, rootcolor, bend, limit, root, refhz, generator,
+//           mossize, harmonics, subharmonics, low),
 //           offsetinfo <text>, legend <text>, tuning <root> <hz> (for linn.retune),
 //           preview <json> (colors, labels, notes of all pads, for linn.preview), and status
 //           (backup <path> <n> | backup kept <path>, verified <n>, restored <n> <path>,
@@ -52,7 +56,9 @@ const COLS = 25;
 const ROWS = 8;
 const ROOT = 60; // default MIDI note of degree 0 (per scale: root), as in linnkit
 const COLORS = { off: 0, red: 1, yellow: 2, green: 3, cyan: 4, blue: 5, magenta: 6, white: 8, orange: 9, lime: 10, pink: 11 };
-const SCHEMES = ["root", "ji", "names", "mos"]; // linnkit's light schemes (internal/lights/schemes.go)
+// linnkit's light schemes (internal/lights/schemes.go, schemes_more.go; the new ones in docs/light-schemes.md)
+const MORE_SCHEMES = ["chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics"];
+const SCHEMES = ["root", "ji", "names", "mos"].concat(MORE_SCHEMES);
 const DELAY = 2; // ms after each message, as linnkit
 const TIMEOUT = 1500; // ms to wait for readback replies
 const FALLBACK_DIR = "/Users/ars/Dropbox/musicstuff/Max 9/linnstrument/reference/backups/";
@@ -157,6 +163,11 @@ function defaults() {
 		limit: 7, // ji scheme: highest prime
 		root: ROOT, // MIDI note of degree 0
 		refhz: 0, // frequency of the root; 0 = its 12-TET pitch
+		generator: 0, // chain, moskeys, wijmenga, nested: degrees; 0 = the degree nearest 3/2
+		mossize: 0, // moskeys: notes; 0 = automatic
+		harmonics: 16, // 16 = harmonics 1-16, 32 = harmonics 16-32
+		subharmonics: 1, // harmonics: also the subharmonic series
+		low: -1, // MIDI note of the bottom-left pad; -1 = root on row 4, column 1 (linnkit's store Low)
 	};
 }
 
@@ -181,12 +192,15 @@ function change(key, value) {
 
 function scheme(name) {
 	name = String(name);
-	if (!SCHEMES.includes(name)) report("error", "scheme " + name + " is not available (root, ji, names, mos)");
+	if (!SCHEMES.includes(name)) report("error", "scheme " + name + " is not available (" + SCHEMES.join(", ") + ")");
 	else derived(change("scheme", name), ["legend", "preview"]);
 }
 
+// a new offset puts the root back on row 4 (low -1), as picking another layout does in linnkit's dashboard
 function offset(n) {
-	derived(change("offset", Math.max(1, Math.min(COLS, Math.round(n)))), ["offsetinfo", "preview"]);
+	let s = change("offset", Math.max(1, Math.min(COLS, Math.round(n))));
+	if (s && s.low >= 0) s = change("low", -1);
+	derived(s, ["offsetinfo", "preview"]);
 }
 
 function limit(n) {
@@ -211,9 +225,32 @@ function bend(n) {
 	change("bend", Math.max(1, Math.min(96, Math.round(n))));
 }
 
+function generator(n) {
+	derived(change("generator", Math.max(0, Math.round(n))), ["legend", "preview"]);
+}
+
+function mossize(n) {
+	derived(change("mossize", Math.max(0, Math.round(n))), ["legend", "preview"]);
+}
+
+function harmonics(n) {
+	n = Math.round(n);
+	if (n !== 16 && n !== 32) report("error", "harmonics must be 16 or 32, not " + n);
+	else derived(change("harmonics", n), ["legend", "preview"]);
+}
+
+function subharmonics(n) {
+	derived(change("subharmonics", n ? 1 : 0), ["legend", "preview"]);
+}
+
+// the bottom-left pad's note, used as is (pads above MIDI 127 are off, as in linnkit); -1 = automatic
+function low(n) {
+	derived(change("low", Math.max(-1, Math.min(127, Math.round(n)))), ["preview"]);
+}
+
 function dump() {
 	const s = settings();
-	for (const k of ["scheme", "offset", "rootcolor", "bend", "limit", "root", "refhz"]) outlet(1, k, s[k]);
+	for (const k of ["scheme", "offset", "rootcolor", "bend", "limit", "root", "refhz", "generator", "mossize", "harmonics", "subharmonics", "low"]) outlet(1, k, s[k]);
 	derived(s, ["offsetinfo", "legend", "tuning", "preview"]);
 }
 
@@ -235,6 +272,7 @@ function offsetInfo(s) {
 }
 
 function legend(s) {
+	if (MORE_SCHEMES.includes(s.scheme)) return more(s).legend;
 	if (s.scheme === "ji") return "R root, 3 white, 5 green, 7 blue, 11 orange, 13 yellow (limit " + s.limit + ")";
 	if (s.scheme === "names") return "C root, naturals white, sharps blue, flats green";
 	if (s.scheme === "mos") {
@@ -305,6 +343,7 @@ function nearestRatio(cents, tol) {
 // one [CC22 color, label] per degree for the current scheme; labels as linnkit's grid prints them
 function swatches(s) {
 	const rootColor = COLORS[s.rootcolor];
+	if (MORE_SCHEMES.includes(s.scheme)) return more(s).sw;
 	if (s.scheme === "ji") return jiFamilies(s.limit, rootColor);
 	if (s.scheme === "names") return noteNames(rootColor);
 	const sw = Array.from({ length: degrees }, () => [COLORS.off, ""]);
@@ -403,6 +442,306 @@ function isMOS(degs, n) {
 	return new Set(degs.map((d, i) => (i + 1 < degs.length ? degs[i + 1] : n) - d)).size === 2;
 }
 
+// --- the schemes in docs/light-schemes.md, ported from linnkit internal/lights/schemes_more.go ---
+
+const THIRD = 1200 * Math.log2(1.25);
+const COLOR_NAMES = Object.fromEntries(Object.entries(COLORS).map(([k, v]) => [v, k]));
+const mod = (x, n) => ((x % n) + n) % n;
+const offs = (n) => Array.from({ length: n }, () => [COLORS.off, ""]);
+const tolerance = () => Math.min(15, (0.35 * scl.period) / degrees);
+
+// swatches and legend of one of MORE_SCHEMES
+function more(s) {
+	const rc = COLORS[s.rootcolor];
+	switch (s.scheme) {
+		case "chain":
+			return {
+				sw: chainScheme(s, rc),
+				legend: "C root  white k 0..4  yellow 5..8  green -1..-4  blue 9..12  red -5..-8  cyan 13..16  pink -9..-12  (generator " + generatorOf(s) + ")",
+			};
+		case "moskeys": {
+			const { sw, m } = mosKeysScheme(s, rc);
+			return { sw, legend: m ? "R root  white MOS (" + m.size + " notes, generator " + m.generator + ")  blue other" : "no MOS found in this scale: root only" };
+		}
+		case "wijmenga": {
+			const w = wijmengaScheme(s, rc);
+			return {
+				sw: w.sw,
+				legend: w.meantone
+					? "R root  green naturals  white sharps  flats unlit  yellow outer sharps  blue outer flats  (meantone)"
+					: "R root  white naturals and a comma either side  green sharps  orange flats  (comma " + w.c + ", chroma " + w.chroma + " degrees)",
+			};
+		}
+		case "kite":
+			return { sw: kiteScheme(s, rc), legend: "R root  wa white  yo yellow  gu green  zo blue  ru red  ilo lime  lu orange  tho pink  thu cyan  (limit " + s.limit + ")" };
+		case "factors":
+			return { sw: factorsScheme(s), legend: "R root (unlit)  3 red  5 green  7 blue  35 yellow  57 cyan  37 magenta  357 white  (limit " + s.limit + ")" };
+		case "steps": {
+			const [cls, k] = stepClasses();
+			const sw = cls.map((c) => stepSwatch(c, k));
+			sw[0] = [rc, "R"];
+			const parts = Array.from({ length: k }, (_, c) => stepSwatch(c, k)).map(([col, l]) => l + " " + COLOR_NAMES[col]);
+			return { sw, legend: "R root  " + k + " step sizes, largest first: " + parts.join("  ") };
+		}
+		case "nested": {
+			const { sw, layers } = nestedScheme(s, rc);
+			const parts = layers.map((size, i) => i + 1 + " " + COLOR_NAMES[LAYER_COLORS[i]] + " (" + size + " notes)");
+			return { sw, legend: layers.length ? "R root  " + parts.join("  ") : "no MOS layers found: root only" };
+		}
+		case "consonance":
+			return { sw: consonanceScheme(rc), legend: "R root  odd limit <=5 white  <=9 green  <=15 blue  higher cyan" };
+		case "harmonics": {
+			const [lo, hi] = s.harmonics === 32 ? [16, 32] : [1, 16];
+			return {
+				sw: harmonicsScheme(s, rc),
+				legend: "R root  harmonics " + lo + "-" + hi + " yellow" + (s.subharmonics ? "  subharmonics blue (u)  both white" : ""),
+			};
+		}
+	}
+	return null;
+}
+
+// the generator in degrees: the setting (mod n), or the degree nearest 3/2
+function generatorOf(s) {
+	return s.generator > 0 ? s.generator % degrees : nearestDegree(FIFTH)[0];
+}
+
+// each degree's chain position: the k in [2 - floor((n-1)/2), 2 + ceil((n-1)/2)] with k*g mod n = d,
+// the one closest to k = 2 when several reach it (ties to the lower k); null when none does
+function chainPositions(n, g) {
+	const pos = new Array(n).fill(null);
+	for (let k = 2 - Math.floor((n - 1) / 2); k <= 2 + Math.floor(n / 2); k++) {
+		const d = mod(k * g, n);
+		if (pos[d] === null || Math.abs(k - 2) < Math.abs(pos[d] - 2)) pos[d] = k;
+	}
+	return pos;
+}
+
+// k = -1..5 are F C G D A E B; then sharps (x for two), flats
+function chainName(k) {
+	const name = ["F", "C", "G", "D", "A", "E", "B"][mod(k + 1, 7)];
+	const acc = Math.floor((k + 1) / 7);
+	return acc === 2 ? name + "x" : acc > 0 ? name + "#".repeat(acc) : acc < 0 ? name + "b".repeat(-acc) : name;
+}
+
+function chainColor(k) {
+	if (k >= 0 && k <= 4) return COLORS.white;
+	if (k >= 5 && k <= 8) return COLORS.yellow;
+	if (k >= -4 && k <= -1) return COLORS.green;
+	if (k >= 9 && k <= 12) return COLORS.blue;
+	if (k >= -8 && k <= -5) return COLORS.red;
+	if (k >= 13 && k <= 16) return COLORS.cyan;
+	if (k >= -12 && k <= -9) return COLORS.pink;
+	return COLORS.off;
+}
+
+// chain: place on the chain of generators from the root (Lumatone 31-EDO colours after Kite), note names;
+// positions outside the coloured range are unlit but keep their name
+function chainScheme(s, rc) {
+	const sw = chainPositions(degrees, generatorOf(s)).map((k) => (k === null ? [COLORS.off, ""] : [chainColor(k), chainName(k)]));
+	sw[0] = [rc, "C"];
+	return sw;
+}
+
+// moskeys: a MOS white, every other degree blue; the automatic size is searched along the generator
+function mosKeysScheme(s, rc) {
+	const n = degrees;
+	const g = generatorOf(s);
+	let size = s.mossize > 0 ? s.mossize : 0;
+	if (!size) size = [7, 5, 6, 8, 9, 10, 11, 12].find((m) => g > 0 && m < n && isMOS(mosDegrees({ generator: g, size: m, down: 1 }), n)) || 0;
+	const sw = offs(n);
+	sw[0] = [rc, "R"];
+	if (!size) return { sw, m: null };
+	const m = { generator: g, size, down: 1 };
+	for (let d = 1; d < n; d++) sw[d] = [COLORS.blue, ""];
+	mosDegrees(m).forEach((d) => d && (sw[d] = [COLORS.white, ""]));
+	return { sw, m };
+}
+
+// wijmenga: his meantone keyboard (rows of 7-5-7-5-7 by chain position), else "four seasons":
+// naturals and a comma either side white, sharps (+25/24) green, flats orange
+function wijmengaScheme(s, rc) {
+	const n = degrees;
+	const g = generatorOf(s);
+	const [t] = nearestDegree(THIRD);
+	const c = 4 * g - 2 * n - t;
+	const chroma = 2 * t - g;
+	const meantone = mod(c, n) === 0;
+	const sw = offs(n);
+	if (meantone) {
+		chainPositions(n, g).forEach((k, d) => {
+			if (k === null) return;
+			if (k >= -1 && k <= 5) sw[d] = [COLORS.green, ""];
+			else if (k >= 6 && k <= 10) sw[d] = [COLORS.white, ""];
+			else if (k >= 11 && k <= 17) sw[d] = [COLORS.yellow, ""];
+			else if (k >= -13 && k <= -7) sw[d] = [COLORS.blue, ""];
+		});
+	} else {
+		const set = (d, col) => {
+			if (sw[d][0] === COLORS.off) sw[d] = [col, ""];
+		};
+		const naturals = [-1, 0, 1, 2, 3, 4, 5].map((k) => mod(k * g, n));
+		naturals.forEach((d) => [d, d + c, d - c].forEach((x) => set(mod(x, n), COLORS.white)));
+		naturals.forEach((d) => set(mod(d + chroma, n), COLORS.green));
+		naturals.forEach((d) => set(mod(d - chroma, n), COLORS.orange));
+	}
+	sw[0] = [rc, "R"];
+	return { sw, c, chroma, meantone };
+}
+
+// the ratio of each degree as ji reads it: the written ratio when its prime limit is 3..lim (none when
+// higher), else the first justRatios(lim, 400) entry that lands on the degree within tolerance
+function jiRatios(lim) {
+	const n = degrees;
+	const tol = tolerance();
+	const out = new Array(n).fill(null);
+	const decided = new Array(n).fill(false);
+	out[0] = [1, 1];
+	decided[0] = true;
+	for (let d = 1; d < n; d++) {
+		const r = scl.ratios[d];
+		if (!r) continue;
+		decided[d] = true;
+		const pl = primeLimit(r[0], r[1]);
+		if (pl >= 3 && pl <= lim) out[d] = r;
+	}
+	for (const [a, b] of justRatios(lim, 400)) {
+		const c = 1200 * Math.log2(a / b);
+		if (c >= scl.period) continue;
+		const [d, err] = nearestDegree(c);
+		if (d > 0 && Math.abs(err) <= tol && !decided[d]) {
+			out[d] = [a, b];
+			decided[d] = true;
+		}
+	}
+	return out;
+}
+
+const KITE = {
+	5: [[COLORS.yellow, "yo"], [COLORS.green, "gu"]],
+	7: [[COLORS.blue, "zo"], [COLORS.red, "ru"]],
+	11: [[COLORS.lime, "ilo"], [COLORS.orange, "lu"]],
+	13: [[COLORS.pink, "tho"], [COLORS.cyan, "thu"]],
+};
+
+// kite: Kite Giedraitis's colour notation: the highest prime above 3, over (numerator) or under; 3-limit is wa
+function kiteScheme(s, rc) {
+	const sw = jiRatios(s.limit).map((r, d) => {
+		if (!d || !r) return [COLORS.off, ""];
+		const num = largestPrime(r[0]);
+		const den = largestPrime(r[1]);
+		const p = Math.max(num, den);
+		if (p < 5) return [COLORS.white, "wa"];
+		return KITE[p] ? KITE[p][num > den ? 0 : 1] : [COLORS.off, ""];
+	});
+	sw[0] = [rc, "R"];
+	return sw;
+}
+
+const FACTOR_COLORS = { 3: COLORS.red, 5: COLORS.green, 7: COLORS.blue, 35: COLORS.yellow, 57: COLORS.cyan, 37: COLORS.magenta, 357: COLORS.white };
+
+// factors: the primes 3, 5, 7 in each ratio switch the red, green, blue LEDs; the root is unlit
+function factorsScheme(s) {
+	const sw = jiRatios(s.limit).map((r, d) => {
+		if (!d || !r) return [COLORS.off, ""];
+		const label = [3, 5, 7].filter((p) => r[0] % p === 0 || r[1] % p === 0).join("");
+		return label in FACTOR_COLORS ? [FACTOR_COLORS[label], label] : [COLORS.off, ""];
+	});
+	sw[0] = [COLORS.off, "R"];
+	return sw;
+}
+
+// steps: each step (degree d to d+1, the last to the period) in a size class, 0 = the largest;
+// a class holds the sizes within 0.5 c of its smallest member (linnkit theory.StepClasses)
+function stepClasses() {
+	const steps = scl.cents.map((c, d) => (d + 1 < degrees ? scl.cents[d + 1] : scl.period) - c);
+	const v = steps.slice().sort((a, b) => a - b);
+	const lows = [];
+	let start = 0;
+	v.forEach((x, i) => {
+		if (i === 0) lows.push(x);
+		else if (x - v[start] > 0.5) {
+			start = i;
+			lows.push(x);
+		}
+	});
+	const cls = steps.map((st) => {
+		let g = 0;
+		lows.forEach((lo, j) => {
+			if (st >= lo) g = j;
+		});
+		return lows.length - 1 - g;
+	});
+	return [cls, lows.length];
+}
+
+const STEP_MIDDLE = [COLORS.green, COLORS.cyan, COLORS.yellow, COLORS.orange, COLORS.lime, COLORS.pink];
+
+function stepSwatch(c, k) {
+	const col = c === 0 ? COLORS.white : c === k - 1 ? COLORS.blue : STEP_MIDDLE[(c - 1) % STEP_MIDDLE.length];
+	const label = k === 1 ? "L" : k === 2 ? ["L", "s"][c] : k === 3 ? ["L", "M", "s"][c] : String(c + 1);
+	return [col, label];
+}
+
+const LAYER_COLORS = [COLORS.white, COLORS.yellow, COLORS.blue, COLORS.green];
+
+// nested: the MOS sizes 5..n-1 along the generator (from one generator below the root), smallest
+// first, up to four; a degree belongs to the first layer that has it
+function nestedScheme(s, rc) {
+	const n = degrees;
+	const g = generatorOf(s);
+	const layers = [];
+	for (let m = 5; g > 0 && m < n && layers.length < 4; m++) if (isMOS(mosDegrees({ generator: g, size: m, down: 1 }), n)) layers.push(m);
+	const sw = offs(n);
+	for (let i = layers.length - 1; i >= 0; i--) mosDegrees({ generator: g, size: layers[i], down: 1 }).forEach((d) => (sw[d] = [LAYER_COLORS[i], String(i + 1)]));
+	sw[0] = [rc, "R"];
+	return { sw, layers };
+}
+
+// consonance: bands by the odd limit of each degree's ratio (written, or the nearest simple ratio within tolerance)
+function consonanceScheme(rc) {
+	const tol = tolerance();
+	const sw = scl.cents.map((c, d) => {
+		const r = d ? scl.ratios[d] || nearestRatio(c, tol) : null;
+		if (!r) return [COLORS.off, ""];
+		const ol = Math.max(oddPart(r[0]), oddPart(r[1]));
+		return [ol <= 5 ? COLORS.white : ol <= 9 ? COLORS.green : ol <= 15 ? COLORS.blue : COLORS.cyan, r[0] + "/" + r[1]];
+	});
+	sw[0] = [rc, "R"];
+	return sw;
+}
+
+// harmonics: the degrees the root's harmonics (and subharmonics) land on within tolerance, reduced
+// into the period, which counts as degree 0 again
+function harmonicsScheme(s, rc) {
+	const n = degrees;
+	const period = scl.period;
+	const tol = tolerance();
+	const place = (c) => {
+		c %= period;
+		if (c < 0) c += period;
+		let [d, err] = nearestDegree(c);
+		if (Math.abs(period - c) < Math.abs(err)) [d, err] = [0, period - c];
+		return Math.abs(err) <= tol ? d : -1;
+	};
+	const harm = new Array(n).fill(0);
+	const sub = new Array(n).fill(0);
+	const [lo, hi] = s.harmonics === 32 ? [16, 32] : [1, 16];
+	for (let h = lo; h <= hi; h++) {
+		const c = 1200 * Math.log2(h);
+		let d = place(c);
+		if (d >= 0 && !harm[d]) harm[d] = h;
+		if (!s.subharmonics) continue;
+		d = place(-c);
+		if (d >= 0 && !sub[d]) sub[d] = h;
+	}
+	const sw = harm.map((h, d) =>
+		h && sub[d] ? [COLORS.white, String(h)] : h ? [COLORS.yellow, String(h)] : sub[d] ? [COLORS.blue, "u" + sub[d]] : [COLORS.off, ""]
+	);
+	sw[0] = [rc, "R"];
+	return sw;
+}
+
 // --- layout and lights ---
 
 // row starts with the root on row 4, column 1, moved to fit MIDI 0..127 (linnkit layout.RootLow)
@@ -412,6 +751,12 @@ function rowStarts(off, rootNote = ROOT) {
 	if (low + span > 127) low = 127 - span;
 	low = Math.max(low, 0);
 	return Array.from({ length: ROWS }, (_, r) => low + r * off);
+}
+
+// the row starts of a scale's settings: from the bottom-left note when set (linnkit layout.Uniform),
+// else with the root on row 4
+function rowsOf(s) {
+	return s.low >= 0 ? Array.from({ length: ROWS }, (_, r) => s.low + r * s.offset) : rowStarts(s.offset, s.root);
 }
 
 // surface()[row][col - 1] = CC22 color; row 0 nearest the player
@@ -427,7 +772,7 @@ function labelSurface() {
 // colors, labels and MIDI notes of all pads, each [row][col - 1]; pads outside MIDI 0..127 are
 // off and labelled "!!", as in linnkit
 function grid(s) {
-	const rows = rowStarts(s.offset, s.root);
+	const rows = rowsOf(s);
 	const n = degrees || 12;
 	const sw = scl ? swatches(s) : [[COLORS[s.rootcolor], "R"]].concat(Array.from({ length: n - 1 }, () => [COLORS.off, ""]));
 	const g = { colors: [], labels: [], notes: [] };
@@ -553,7 +898,7 @@ function write(withLayout) {
 		set(P.bend, s.bend);
 		set(P.bend + P.right, s.bend);
 		set(P.rowOffset, P.guitar);
-		rowStarts(s.offset, s.root).forEach((v, i) => set(P.guitarRow1 + i, Math.max(0, Math.min(127, v))));
+		rowsOf(s).forEach((v, i) => set(P.guitarRow1 + i, Math.max(0, Math.min(127, v))));
 	}
 	set(P.noteLights, P.custom0 + SLOT);
 	const surf = surface();
@@ -734,6 +1079,7 @@ function recordLights(pattern, s) {
 		limit: s.limit,
 		root: s.root,
 		offset: s.offset,
+		low: s.low,
 		taken: new Date().toISOString(),
 		pattern,
 	});

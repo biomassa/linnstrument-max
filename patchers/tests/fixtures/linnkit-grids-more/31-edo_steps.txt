@@ -1,0 +1,30 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +10   387 c ~5/4   3.03     2.0 cols    +1 cols, 3 rows  yes   2.47   
+  +8    310 c ~6/5   2.58     2.0 cols    -1 cols, 4 rows  yes   2.47   
+  +9    348 c ~11/9  2.81     1.0 cols    +4 cols, 3 rows  yes   2.97   
+  +11   426 c ~9/7   3.26     4.0 cols    -2 cols, 3 rows  yes   4.97   
+  +6    232 c ~8/7   2.13     2.0 cols    +7 cols, 4 rows  yes   6.59   
+
+rows +13, bottom-left MIDI 12, notes 12..127, root MIDI 60, lights steps
+row 8  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  R  L  L  L  L  L  
+row 7  L  R  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+row 6  L  L  L  L  L  L  L  L  L  L  L  L  L  L  R  L  L  L  L  L  L  L  L  L  L  
+row 5  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+row 4  L  L  L  L  L  L  L  L  L  R  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+row 3  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  R  L  L  
+row 2  L  L  L  L  R  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  
+row 1  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  L  R  L  L  L  L  L  L  L  
+R root  1 step sizes, largest first: L white
+
+CC22 colours (0 = unlit)
+row 8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  
+row 7  8  6  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  
+row 6  8  8  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  
+row 5  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  
+row 4  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  
+row 3  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  
+row 2  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  
+row 1  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  

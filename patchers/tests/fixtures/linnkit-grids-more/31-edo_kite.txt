@@ -1,0 +1,30 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +10   387 c ~5/4   3.03     2.0 cols    +1 cols, 3 rows  yes   2.47   
+  +8    310 c ~6/5   2.58     2.0 cols    -1 cols, 4 rows  yes   2.47   
+  +9    348 c ~11/9  2.81     1.0 cols    +4 cols, 3 rows  yes   2.97   
+  +11   426 c ~9/7   3.26     4.0 cols    -2 cols, 3 rows  yes   4.97   
+  +6    232 c ~8/7   2.13     2.0 cols    +7 cols, 4 rows  yes   6.59   
+
+rows +13, bottom-left MIDI 12, notes 12..127, root MIDI 60, lights kite
+row 8  zo wa .  zo ru .  wa .  yo gu .  yo ru zo wa .  yo .  .  R  .  .  gu .  wa 
+row 7  .  R  .  .  gu .  wa ru zo gu .  yo ru zo wa .  zo ru .  wa .  yo gu .  yo 
+row 6  .  wa .  yo gu .  yo ru zo wa .  yo .  .  R  .  .  gu .  wa ru zo gu .  yo 
+row 5  .  wa ru zo gu .  yo ru zo wa .  zo ru .  wa .  yo gu .  yo ru zo wa .  yo 
+row 4  .  yo ru zo wa .  yo .  .  R  .  .  gu .  wa ru zo gu .  yo ru zo wa .  zo 
+row 3  .  yo ru zo wa .  zo ru .  wa .  yo gu .  yo ru zo wa .  yo .  .  R  .  .  
+row 2  .  yo .  .  R  .  .  gu .  wa ru zo gu .  yo ru zo wa .  zo ru .  wa .  yo 
+row 1  .  zo ru .  wa .  yo gu .  yo ru zo wa .  yo .  .  R  .  .  gu .  wa ru zo 
+R root  wa white  yo yellow  gu green  zo blue  ru red  ilo lime  lu orange  tho pink  thu cyan  (limit 7)
+
+CC22 colours (0 = unlit)
+row 8  5  8  0  5  1  0  8  0  2  3  0  2  1  5  8  0  2  0  0  6  0  0  3  0  8  
+row 7  0  6  0  0  3  0  8  1  5  3  0  2  1  5  8  0  5  1  0  8  0  2  3  0  2  
+row 6  0  8  0  2  3  0  2  1  5  8  0  2  0  0  6  0  0  3  0  8  1  5  3  0  2  
+row 5  0  8  1  5  3  0  2  1  5  8  0  5  1  0  8  0  2  3  0  2  1  5  8  0  2  
+row 4  0  2  1  5  8  0  2  0  0  6  0  0  3  0  8  1  5  3  0  2  1  5  8  0  5  
+row 3  0  2  1  5  8  0  5  1  0  8  0  2  3  0  2  1  5  8  0  2  0  0  6  0  0  
+row 2  0  2  0  0  6  0  0  3  0  8  1  5  3  0  2  1  5  8  0  5  1  0  8  0  2  
+row 1  0  5  1  0  8  0  2  3  0  2  1  5  8  0  2  0  0  6  0  0  3  0  8  1  5  

@@ -1,0 +1,30 @@
+ji_13  5-limit 12-tone symmetrical scale with two tritones
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +4    369 c ~5/4   4.00     0.7 cols    +1 cols, 3 rows  yes   1.19   
+  +3    277 c ~7/6   3.46     1.3 cols    +1 cols, 4 rows  yes   1.73   
+  +2    185 c ~9/8   2.92     0.7 cols    +5 cols, 4 rows  yes   3.20   
+  +5    462 c ~9/7   4.54     2.7 cols    -2 cols, 3 rows  yes   3.65   fourth
+  +7    646 c ~10/7  5.62     3.3 cols    -1 cols, 2 rows  yes   3.71   
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights harmonics
+row 8  .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  
+row 7  9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   
+row 6  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   
+row 5  u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   
+row 4  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  
+row 3  3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   
+row 2  .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 
+row 1  u9  15  R   u15 9   .   5   u3  .   .   3   u5  .   u9  15  R   u15 9   .   5   u3  .   .   3   u5  
+R root  harmonics 1-16 yellow  subharmonics blue (u)  both white
+
+CC22 colours (0 = unlit)
+row 8  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  
+row 7  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  
+row 6  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  
+row 5  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  
+row 4  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  
+row 3  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  
+row 2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  
+row 1  5  2  6  5  2  0  2  5  0  0  2  5  0  5  2  6  5  2  0  2  5  0  0  2  5  

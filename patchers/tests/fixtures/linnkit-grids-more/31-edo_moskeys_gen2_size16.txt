@@ -1,0 +1,30 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +10   387 c ~5/4   3.03     2.0 cols    +1 cols, 3 rows  yes   2.47   
+  +8    310 c ~6/5   2.58     2.0 cols    -1 cols, 4 rows  yes   2.47   
+  +9    348 c ~11/9  2.81     1.0 cols    +4 cols, 3 rows  yes   2.97   
+  +11   426 c ~9/7   3.26     4.0 cols    -2 cols, 3 rows  yes   4.97   
+  +6    232 c ~8/7   2.13     2.0 cols    +7 cols, 4 rows  yes   6.59   
+
+rows +13, bottom-left MIDI 12, notes 12..127, root MIDI 60, lights moskeys
+row 8                                                           R                 
+row 7     R                                                                       
+row 6                                            R                                
+row 5                                                                             
+row 4                             R                                               
+row 3                                                                    R        
+row 2              R                                                              
+row 1                                                     R                       
+R root  white MOS (16 notes, generator 2)  blue other
+
+CC22 colours (0 = unlit)
+row 8  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  8  5  6  5  8  5  8  5  
+row 7  5  6  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  
+row 6  5  8  5  8  5  8  5  8  5  8  5  8  8  5  6  5  8  5  8  5  8  5  8  5  8  
+row 5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  
+row 4  8  5  8  5  8  5  8  8  5  6  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  
+row 3  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  8  5  6  5  8  
+row 2  5  8  8  5  6  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  
+row 1  8  5  8  5  8  5  8  5  8  5  8  5  8  5  8  8  5  6  5  8  5  8  5  8  5  

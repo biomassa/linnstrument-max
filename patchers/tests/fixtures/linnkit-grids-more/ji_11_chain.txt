@@ -1,0 +1,30 @@
+ji_11  3 and 7 prime rational interpretation of 11-tET. OdC 2000
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +3    327 c ~6/5   4.09     0.5 cols    -1 cols, 4 rows  yes   1.00   
+  +2    218 c ~8/7   3.45     0.7 cols    +3 cols, 4 rows  yes   2.19   
+  +4    436 c ~9/7   4.73     2.2 cols    -1 cols, 3 rows  yes   2.63   
+  +6    655 c ~10/7  6.00     2.7 cols    -1 cols, 2 rows  yes   3.17   fifth
+  +5    545 c ~7/5   5.36     2.9 cols    +1 cols, 2 rows  yes   3.31   fourth
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights chain
+row 8  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  
+row 7  Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  
+row 6  Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  
+row 5  F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  
+row 4  C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  
+row 3  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  
+row 2  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# 
+row 1  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# Bb C  D  E  F# Eb F  G  A  B  C# 
+C root  white k 0..4  yellow 5..8  green -1..-4  blue 9..12  red -5..-8  cyan 13..16  pink -9..-12  (generator 6)
+
+CC22 colours (0 = unlit)
+row 8  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  
+row 7  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  
+row 6  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  
+row 5  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  
+row 4  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  
+row 3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  
+row 2  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  
+row 1  8  2  2  3  6  8  8  2  3  3  8  8  2  2  3  6  8  8  2  3  3  8  8  2  2  

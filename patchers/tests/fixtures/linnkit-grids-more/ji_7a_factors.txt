@@ -1,0 +1,30 @@
+ji_7a  Superparticular approximation to 7-tET. Op de Coul, 1998
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +2    343 c ~5/4  5.43     0.0 cols    +1 cols, 3 rows  yes   0.45   
+  +1    171 c ~8/7  4.43     0.0 cols    +3 cols, 4 rows  yes   1.46   
+  +4    686 c ~3/2  7.43     2.0 cols    -1 cols, 2 rows  yes   2.43   fifth
+  +3    514 c ~4/3  6.43     2.0 cols    +1 cols, 2 rows  yes   2.44   fourth
+  +5    857 c ~5/3  8.43     3.0 cols    +2 cols, 1 rows  yes   3.92   
+
+rows +3, bottom-left MIDI 51, notes 51..96, root MIDI 60, lights factors
+row 8  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  
+row 7  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  
+row 6  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  
+row 5  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 
+row 4  R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  
+row 3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  
+row 2  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  
+row 1  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  .  3  3  .  35 R  .  
+R root (unlit)  3 red  5 green  7 blue  35 yellow  57 cyan  37 magenta  357 white  (limit 7)
+
+CC22 colours (0 = unlit)
+row 8  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  
+row 7  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  
+row 6  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  
+row 5  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  
+row 4  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  
+row 3  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  
+row 2  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  
+row 1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  0  1  1  0  2  0  0  

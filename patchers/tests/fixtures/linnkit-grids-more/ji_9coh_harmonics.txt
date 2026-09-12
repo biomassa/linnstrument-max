@@ -1,0 +1,30 @@
+ji_9coh  Differentially coherent 9-tone scale with subharmonic 30
+
+layout candidates (best first)
+  rows  interval      periods  triad span  period move      fits  score  
+  +3    400 c ~5/4    5.00     1.0 cols    +0 cols, 3 rows  yes   0.95   
+  +2    267 c ~7/6    4.22     1.0 cols    +1 cols, 4 rows  yes   1.46   
+  +5    667 c ~3/2    6.56     2.0 cols    -1 cols, 2 rows  yes   2.43   fifth
+  +4    533 c ~4/3    5.78     2.0 cols    +1 cols, 2 rows  yes   2.44   fourth
+  +1    133 c ~11/10  3.44     1.0 cols    +5 cols, 4 rows  yes   3.47   
+
+rows +4, bottom-left MIDI 48, notes 48..100, root MIDI 60, lights harmonics
+row 8  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  
+row 7  .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   
+row 6  15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 
+row 5  11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 
+row 4  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  
+row 3  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   
+row 2  u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   
+row 1  u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   11  u11 u5  .   15  R   u15 .   .   
+R root  harmonics 1-16 yellow  subharmonics blue (u)  both white
+
+CC22 colours (0 = unlit)
+row 8  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  
+row 7  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  
+row 6  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  
+row 5  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  
+row 4  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  
+row 3  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  
+row 2  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  
+row 1  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  2  5  5  0  2  6  5  0  0  

@@ -1,0 +1,30 @@
+ji_9  Pseudo-equal 7-limit 9-tET
+
+layout candidates (best first)
+  rows  interval      periods  triad span  period move      fits  score  
+  +3    400 c ~5/4    5.00     1.0 cols    +0 cols, 3 rows  yes   0.95   
+  +2    267 c ~7/6    4.22     1.0 cols    +1 cols, 4 rows  yes   1.46   generator
+  +5    667 c ~3/2    6.56     2.0 cols    -1 cols, 2 rows  yes   2.43   fifth
+  +4    533 c ~4/3    5.78     2.0 cols    +1 cols, 2 rows  yes   2.44   fourth
+  +1    133 c ~11/10  3.44     1.0 cols    +5 cols, 4 rows  yes   3.47   
+
+rows +4, bottom-left MIDI 48, notes 48..100, root MIDI 60, lights chain
+row 8  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  
+row 7  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  
+row 6  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  
+row 5  F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  
+row 4  C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  
+row 3  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  
+row 2  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  
+row 1  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# F  G  A  B  Bb C  D  E  F# 
+C root  white k 0..4  yellow 5..8  green -1..-4  blue 9..12  red -5..-8  cyan 13..16  pink -9..-12  (generator 5)
+
+CC22 colours (0 = unlit)
+row 8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  
+row 7  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  
+row 6  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  
+row 5  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  
+row 4  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  
+row 3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  
+row 2  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  
+row 1  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  3  8  8  2  3  6  8  8  2  

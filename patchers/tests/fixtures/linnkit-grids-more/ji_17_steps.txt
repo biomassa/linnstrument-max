@@ -1,0 +1,30 @@
+ji_17  3 and 7 prime rational interpretation of 17-tET. OdC
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +5    353 c ~11/9  3.47     0.4 cols    +2 cols, 3 rows  yes   1.35   
+  +6    424 c ~9/7   3.88     2.0 cols    -1 cols, 3 rows  yes   2.46   
+  +4    282 c ~7/6   3.06     2.0 cols    +1 cols, 4 rows  yes   2.47   
+  +3    212 c ~8/7   2.65     1.6 cols    +5 cols, 4 rows  yes   4.09   
+  +9    635 c ~10/7  5.12     4.6 cols    -1 cols, 2 rows  yes   5.07   
+
+rows +7, bottom-left MIDI 39, notes 39..112, root MIDI 60, lights steps
+row 8  M  s  L  s  M  s  R  M  s  L  s  M  s  s  M  s  s  M  s  L  s  M  s  R  M  
+row 7  s  M  s  s  M  s  s  M  s  L  s  M  s  R  M  s  L  s  M  s  s  M  s  s  M  
+row 6  s  M  s  R  M  s  L  s  M  s  s  M  s  s  M  s  L  s  M  s  R  M  s  L  s  
+row 5  s  M  s  s  M  s  L  s  M  s  R  M  s  L  s  M  s  s  M  s  s  M  s  L  s  
+row 4  R  M  s  L  s  M  s  s  M  s  s  M  s  L  s  M  s  R  M  s  L  s  M  s  s  
+row 3  s  M  s  L  s  M  s  R  M  s  L  s  M  s  s  M  s  s  M  s  L  s  M  s  R  
+row 2  L  s  M  s  s  M  s  s  M  s  L  s  M  s  R  M  s  L  s  M  s  s  M  s  s  
+row 1  L  s  M  s  R  M  s  L  s  M  s  s  M  s  s  M  s  L  s  M  s  R  M  s  L  
+R root  3 step sizes, largest first: L white  M green  s blue
+
+CC22 colours (0 = unlit)
+row 8  3  5  8  5  3  5  6  3  5  8  5  3  5  5  3  5  5  3  5  8  5  3  5  6  3  
+row 7  5  3  5  5  3  5  5  3  5  8  5  3  5  6  3  5  8  5  3  5  5  3  5  5  3  
+row 6  5  3  5  6  3  5  8  5  3  5  5  3  5  5  3  5  8  5  3  5  6  3  5  8  5  
+row 5  5  3  5  5  3  5  8  5  3  5  6  3  5  8  5  3  5  5  3  5  5  3  5  8  5  
+row 4  6  3  5  8  5  3  5  5  3  5  5  3  5  8  5  3  5  6  3  5  8  5  3  5  5  
+row 3  5  3  5  8  5  3  5  6  3  5  8  5  3  5  5  3  5  5  3  5  8  5  3  5  6  
+row 2  8  5  3  5  5  3  5  5  3  5  8  5  3  5  6  3  5  8  5  3  5  5  3  5  5  
+row 1  8  5  3  5  6  3  5  8  5  3  5  5  3  5  5  3  5  8  5  3  5  6  3  5  8  

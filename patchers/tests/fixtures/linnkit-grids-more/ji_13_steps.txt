@@ -1,0 +1,30 @@
+ji_13  5-limit 12-tone symmetrical scale with two tritones
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +4    369 c ~5/4   4.00     0.7 cols    +1 cols, 3 rows  yes   1.19   
+  +3    277 c ~7/6   3.46     1.3 cols    +1 cols, 4 rows  yes   1.73   
+  +2    185 c ~9/8   2.92     0.7 cols    +5 cols, 4 rows  yes   3.20   
+  +5    462 c ~9/7   4.54     2.7 cols    -2 cols, 3 rows  yes   3.65   fourth
+  +7    646 c ~10/7  5.62     3.3 cols    -1 cols, 2 rows  yes   3.71   
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights steps
+row 8  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  
+row 7  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  
+row 6  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  
+row 5  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  
+row 4  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  
+row 3  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  
+row 2  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  
+row 1  2  1  R  2  3  2  1  2  4  2  1  2  3  2  1  R  2  3  2  1  2  4  2  1  2  
+R root  4 step sizes, largest first: 1 white  2 green  3 cyan  4 blue
+
+CC22 colours (0 = unlit)
+row 8  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  
+row 7  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  
+row 6  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  
+row 5  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  
+row 4  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  
+row 3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  
+row 2  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  
+row 1  3  8  6  3  4  3  8  3  5  3  8  3  4  3  8  6  3  4  3  8  3  5  3  8  3  

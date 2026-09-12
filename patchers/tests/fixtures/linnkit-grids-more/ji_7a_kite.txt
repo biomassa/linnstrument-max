@@ -1,0 +1,30 @@
+ji_7a  Superparticular approximation to 7-tET. Op de Coul, 1998
+
+layout candidates (best first)
+  rows  interval    periods  triad span  period move      fits  score  
+  +2    343 c ~5/4  5.43     0.0 cols    +1 cols, 3 rows  yes   0.45   
+  +1    171 c ~8/7  4.43     0.0 cols    +3 cols, 4 rows  yes   1.46   
+  +4    686 c ~3/2  7.43     2.0 cols    -1 cols, 2 rows  yes   2.43   fifth
+  +3    514 c ~4/3  6.43     2.0 cols    +1 cols, 2 rows  yes   2.44   fourth
+  +5    857 c ~5/3  8.43     3.0 cols    +2 cols, 1 rows  yes   3.92   
+
+rows +3, bottom-left MIDI 51, notes 51..96, root MIDI 60, lights kite
+row 8  .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  
+row 7  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  
+row 6  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  
+row 5  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu 
+row 4  R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa 
+row 3  wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  
+row 2  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa 
+row 1  .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  .  wa wa .  gu R  .  
+R root  wa white  yo yellow  gu green  zo blue  ru red  ilo lime  lu orange  tho pink  thu cyan  (limit 7)
+
+CC22 colours (0 = unlit)
+row 8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  
+row 7  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  
+row 6  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  
+row 5  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  
+row 4  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  
+row 3  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  
+row 2  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  
+row 1  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  0  8  8  0  3  6  0  

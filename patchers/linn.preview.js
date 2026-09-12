@@ -71,8 +71,9 @@ function paint() {
 	if (!data) return;
 	const cw = w / COLS;
 	const ch = h / ROWS;
+	const size = Math.max(7, Math.min(cw, ch) * 0.4);
 	mgraphics.select_font_face("Arial Bold");
-	mgraphics.set_font_size(Math.max(7, Math.min(cw, ch) * 0.4));
+	mgraphics.set_font_size(size);
 	for (let r = 0; r < ROWS; r++)
 		for (let c = 0; c < COLS; c++) {
 			const x = c * cw;
@@ -93,9 +94,15 @@ function paint() {
 			if (color && label && label !== "!!") {
 				const ink = LIGHT.has(color) ? 0.08 : 1;
 				mgraphics.set_source_rgba(ink, ink, ink, 1);
-				const [tw, th] = mgraphics.text_measure(label);
+				let [tw, th] = mgraphics.text_measure(label);
+				const shrink = tw > cw - 4; // longer labels (357, Gbb, u13) shrink to fit the pad
+				if (shrink) {
+					mgraphics.set_font_size((size * (cw - 4)) / tw);
+					[tw, th] = mgraphics.text_measure(label);
+				}
 				mgraphics.move_to(x + (cw - tw) / 2, y + (ch + th * 0.6) / 2);
 				mgraphics.show_text(label);
+				if (shrink) mgraphics.set_font_size(size);
 			}
 		}
 }

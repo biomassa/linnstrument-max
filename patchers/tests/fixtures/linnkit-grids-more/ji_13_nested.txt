@@ -1,0 +1,30 @@
+ji_13  5-limit 12-tone symmetrical scale with two tritones
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +4    369 c ~5/4   4.00     0.7 cols    +1 cols, 3 rows  yes   1.19   
+  +3    277 c ~7/6   3.46     1.3 cols    +1 cols, 4 rows  yes   1.73   
+  +2    185 c ~9/8   2.92     0.7 cols    +5 cols, 4 rows  yes   3.20   
+  +5    462 c ~9/7   4.54     2.7 cols    -2 cols, 3 rows  yes   3.65   fourth
+  +7    646 c ~10/7  5.62     3.3 cols    -1 cols, 2 rows  yes   3.71   
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights nested
+row 8  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  
+row 7  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  
+row 6  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  
+row 5  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  
+row 4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  
+row 3  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  
+row 2  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  
+row 1  1  4  R  2  .  1  3  1  2  .  1  2  .  1  4  R  2  .  1  3  1  2  .  1  2  
+R root  1 white (5 notes)  2 yellow (8 notes)  3 blue (9 notes)  4 green (10 notes)
+
+CC22 colours (0 = unlit)
+row 8  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  
+row 7  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  
+row 6  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  
+row 5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  
+row 4  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  
+row 3  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  
+row 2  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  
+row 1  8  3  6  2  0  8  5  8  2  0  8  2  0  8  3  6  2  0  8  5  8  2  0  8  2  

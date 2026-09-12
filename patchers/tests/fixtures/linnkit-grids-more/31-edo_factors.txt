@@ -1,0 +1,30 @@
+31-edo  31 equal divisions of 2/1
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +10   387 c ~5/4   3.03     2.0 cols    +1 cols, 3 rows  yes   2.47   
+  +8    310 c ~6/5   2.58     2.0 cols    -1 cols, 4 rows  yes   2.47   
+  +9    348 c ~11/9  2.81     1.0 cols    +4 cols, 3 rows  yes   2.97   
+  +11   426 c ~9/7   3.26     4.0 cols    -2 cols, 3 rows  yes   4.97   
+  +6    232 c ~8/7   2.13     2.0 cols    +7 cols, 4 rows  yes   6.59   
+
+rows +13, bottom-left MIDI 12, notes 12..127, root MIDI 60, lights factors
+row 8  37 3  .  57 57 .  3  .  5  5  .  35 37 7  3  .  35 .  .  R  .  .  35 .  3  
+row 7  .  R  .  .  35 .  3  7  37 35 .  5  37 37 3  .  57 57 .  3  .  5  5  .  35 
+row 6  .  3  .  5  5  .  35 37 7  3  .  35 .  .  R  .  .  35 .  3  7  37 35 .  5  
+row 5  .  3  7  37 35 .  5  37 37 3  .  57 57 .  3  .  5  5  .  35 37 7  3  .  35 
+row 4  .  35 37 7  3  .  35 .  .  R  .  .  35 .  3  7  37 35 .  5  37 37 3  .  57 
+row 3  .  5  37 37 3  .  57 57 .  3  .  5  5  .  35 37 7  3  .  35 .  .  R  .  .  
+row 2  .  35 .  .  R  .  .  35 .  3  7  37 35 .  5  37 37 3  .  57 57 .  3  .  5  
+row 1  .  57 57 .  3  .  5  5  .  35 37 7  3  .  35 .  .  R  .  .  35 .  3  7  37 
+R root (unlit)  3 red  5 green  7 blue  35 yellow  57 cyan  37 magenta  357 white  (limit 7)
+
+CC22 colours (0 = unlit)
+row 8  6  1  0  4  4  0  1  0  3  3  0  2  6  5  1  0  2  0  0  0  0  0  2  0  1  
+row 7  0  0  0  0  2  0  1  5  6  2  0  3  6  6  1  0  4  4  0  1  0  3  3  0  2  
+row 6  0  1  0  3  3  0  2  6  5  1  0  2  0  0  0  0  0  2  0  1  5  6  2  0  3  
+row 5  0  1  5  6  2  0  3  6  6  1  0  4  4  0  1  0  3  3  0  2  6  5  1  0  2  
+row 4  0  2  6  5  1  0  2  0  0  0  0  0  2  0  1  5  6  2  0  3  6  6  1  0  4  
+row 3  0  3  6  6  1  0  4  4  0  1  0  3  3  0  2  6  5  1  0  2  0  0  0  0  0  
+row 2  0  2  0  0  0  0  0  2  0  1  5  6  2  0  3  6  6  1  0  4  4  0  1  0  3  
+row 1  0  4  4  0  1  0  3  3  0  2  6  5  1  0  2  0  0  0  0  0  2  0  1  5  6  

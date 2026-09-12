@@ -1,5 +1,5 @@
 // Tests for patchers/linn.lights.js outside Max. Run: node patchers/tests/linn.lights.test.mjs
-import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, readdirSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -369,6 +369,8 @@ assert.ok(t.status.some((m) => m[0] === "error" && String(m[1]).includes("no bac
 // --- light schemes, checked pad by pad against grids printed by linnkit (fixtures/linnkit-grids) ---
 
 const FIX = fileURLToPath(new URL("./fixtures/linnkit-grids/", import.meta.url));
+// labels as linnkit's text grid prints them: "." only for unlit pads without a label, "!!" outside MIDI 0..127
+const printed = (labels, colors) => labels.map((row, r) => row.map((l, c) => (l === "" && colors[r][c] === 0 ? "." : l)));
 // linnkit's grid labels -> CC22 colors, per scheme (cmd/linnkit/grid.go, lights/schemes.go)
 const labelColor = {
 	root: (l) => (l === "R" ? 6 : 0),
@@ -400,16 +402,14 @@ for (const line of fixtures) {
 	t.msg("limit", opt.limit);
 	t.msg("scheme", opt.scheme);
 	assert.deepEqual(plain(t.ctx.surface()), want, `${file}: ${cmd}`);
-	// labels as linnkit prints them: "." for unlit pads, "!!" outside MIDI 0..127
 	const colors = plain(t.ctx.surface());
-	const labels = plain(t.ctx.labelSurface()).map((row, r) => row.map((l, c) => (colors[r][c] === 0 && l !== "!!" ? "." : l)));
-	assert.deepEqual(labels, wantLabels, `${file} labels`);
+	assert.deepEqual(printed(plain(t.ctx.labelSurface()), colors), wantLabels, `${file} labels`);
 }
 
-// the scheme menu accepts linnkit's four; others are refused
+// the scheme menu accepts linnkit's 13; others are refused
 t = load();
 t.msg("scale", SCL + "31-edo.scl");
-for (const s of ["root", "ji", "names", "mos"]) {
+for (const s of ["root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics"]) {
 	t.msg("scheme", s);
 	assert.deepEqual(t.status.filter((m) => m[0] === "scheme").at(-1), ["scheme", s]);
 }
@@ -493,5 +493,109 @@ for (const [k, v] of [["offset", 10], ["limit", 5], ["root", 62], ["rootcolor", 
 t.status.length = 0;
 t.msg("bend", 24); // Bend Range doesn't change the pattern
 assert.ok(!t.status.some((m) => m[0] === "preview"));
+
+// --- the schemes in docs/light-schemes.md, checked pad by pad (labels and CC22 colours) and by legend ---
+
+// a grid file with CC colours: 8 label rows, the legend, then 8 CC22 rows; rows indexed row - 1
+function readGrid(path) {
+	const lines = readFileSync(path, "utf8").split("\n");
+	const rows = lines.filter((l) => /^row \d/.test(l));
+	assert.equal(rows.length, 16, path);
+	const labels = [];
+	const colors = [];
+	// "row N  " then 25 fixed-width cells: a lit pad without a label is a blank cell
+	rows.forEach((l, i) => {
+		const w = (l.length - 7) / 25;
+		assert.ok(Number.isInteger(w), `${path}: cell width`);
+		const cells = Array.from({ length: 25 }, (_, c) => l.slice(7 + c * w, 7 + (c + 1) * w).trim());
+		if (i < 8) labels[Number(l[4]) - 1] = cells;
+		else colors[Number(l[4]) - 1] = cells.map(Number);
+	});
+	return [labels, colors, lines[lines.indexOf(rows[7]) + 1]];
+}
+const lastLegend = (t) => t.status.filter((m) => m[0] === "legend").at(-1)[1];
+
+// linnkit grid -cc on the scales in SCL/ at our default offsets, and variants (fixtures/linnkit-grids-more)
+const MORE = fileURLToPath(new URL("./fixtures/linnkit-grids-more/", import.meta.url));
+const moreLines = readFileSync(join(MORE, "README.txt"), "utf8").split("\n").filter((l) => l.startsWith("linnkit grid"));
+assert.equal(moreLines.length, 105);
+for (const line of moreLines) {
+	const [cmd, file] = line.split(/\s+>\s+/);
+	const args = cmd.split(/\s+/).slice(2);
+	const opt = {};
+	for (let i = 0; i < args.length - 1; i += 2) opt[args[i].slice(1)] = isNaN(args[i + 1]) ? args[i + 1] : Number(args[i + 1]);
+	const [wantLabels, wantColors, wantLegend] = readGrid(join(MORE, file.trim()));
+	t = load();
+	t.msg("scale", SCL + args.at(-1));
+	// low after offset: a new offset resets it
+	for (const k of ["root", "offset", "limit", "generator", "mossize", "harmonics", "subharmonics", "low", "scheme"]) if (k in opt) t.msg(k, opt[k]);
+	const colors = plain(t.ctx.surface());
+	assert.deepEqual(colors, wantColors, `${file} colours: ${cmd}`);
+	assert.deepEqual(printed(plain(t.ctx.labelSurface()), colors), wantLabels, `${file} labels`);
+	assert.equal(lastLegend(t), wantLegend, `${file} legend`);
+}
+
+// linnkit's own goldens (internal/lights/testdata/more): rows +5 degrees, bottom-left MIDI 48, root 60,
+// default settings; 12edo and 53edo .scl written as linnkit's test makes them
+const GOLD = fileURLToPath(new URL("./fixtures/linnkit-goldens/", import.meta.url));
+const golds = readdirSync(GOLD).filter((f) => f.endsWith(".txt"));
+assert.equal(golds.length, 54);
+for (const file of golds) {
+	const [name, scheme] = file.replace(/\.txt$/, "").split(".");
+	const [wantLabels, wantColors, wantLegend] = readGrid(join(GOLD, file));
+	t = load();
+	t.msg("scale", (existsSync(join(GOLD, name + ".scl")) ? GOLD : SCL) + name + ".scl");
+	t.msg("scheme", scheme);
+	const sw = plain(t.ctx.swatches(t.ctx.settings()));
+	const n = sw.length;
+	const pads = Array.from({ length: 8 }, (_, r) => Array.from({ length: 25 }, (_, c) => sw[(((48 + 5 * r + c - 60) % n) + n) % n]));
+	const colors = pads.map((row) => row.map((p) => p[0]));
+	assert.deepEqual(colors, wantColors, `${file} colours`);
+	assert.deepEqual(printed(pads.map((row) => row.map((p) => p[1])), colors), wantLabels, `${file} labels`);
+	assert.equal(lastLegend(t), wantLegend, `${file} legend`);
+}
+
+// generator, mossize, harmonics and subharmonics are stored per scale; harmonics takes 16 or 32 only
+t = load();
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(
+	["generator", "mossize", "harmonics", "subharmonics"].map((k) => t.status.find((m) => m[0] === k)),
+	[["generator", 0], ["mossize", 0], ["harmonics", 16], ["subharmonics", 1]]
+);
+t.msg("scheme", "moskeys");
+t.msg("generator", 2);
+t.msg("mossize", 16);
+assert.equal(lastLegend(t), "R root  white MOS (16 notes, generator 2)  blue other");
+t.msg("harmonics", 20);
+assert.ok(t.status.some((m) => m[0] === "error" && String(m[1]).includes("16 or 32")));
+t.msg("scale", SCL + "22edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "generator").at(-1), ["generator", 0]);
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "mossize").at(-1), ["mossize", 16]);
+// the generator wraps mod n: 49 in 31-EDO is 18
+t.msg("scheme", "chain");
+t.msg("generator", 49);
+assert.ok(lastLegend(t).endsWith("(generator 18)"));
+
+// low: the bottom-left pad's note, per scale (default -1 = root on row 4); rows start there and follow
+// the offset; a new offset resets it; send writes those rows
+t = load();
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.find((m) => m[0] === "low"), ["low", -1]);
+t.msg("low", 40);
+let lowPv = JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]);
+assert.deepEqual(lowPv.notes.map((r) => r[0]), [40, 53, 66, 79, 92, 105, 118, 131]);
+assert.equal(lowPv.labels[7][24], "!!"); // 131 + 24: above MIDI 127
+t.msg("root", 62); // the rows stay; the root's colour moves
+assert.deepEqual(JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]).notes[0][0], 40);
+t.msg("scale", SCL + "22edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", -1]);
+t.msg("scale", SCL + "31-edo.scl");
+assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", 40]);
+t.msg("offset", 10);
+assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", -1]);
+assert.equal(JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]).notes[0][0], 32); // 62 - 3 x 10
+t.msg("low", 200);
+assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", 127]);
 
 console.log("linn.lights: all tests passed");

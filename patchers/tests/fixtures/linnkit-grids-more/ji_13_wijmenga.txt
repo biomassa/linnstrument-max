@@ -1,0 +1,30 @@
+ji_13  5-limit 12-tone symmetrical scale with two tritones
+
+layout candidates (best first)
+  rows  interval     periods  triad span  period move      fits  score  
+  +4    369 c ~5/4   4.00     0.7 cols    +1 cols, 3 rows  yes   1.19   
+  +3    277 c ~7/6   3.46     1.3 cols    +1 cols, 4 rows  yes   1.73   
+  +2    185 c ~9/8   2.92     0.7 cols    +5 cols, 4 rows  yes   3.20   
+  +5    462 c ~9/7   4.54     2.7 cols    -2 cols, 3 rows  yes   3.65   fourth
+  +7    646 c ~10/7  5.62     3.3 cols    -1 cols, 2 rows  yes   3.71   
+
+rows +5, bottom-left MIDI 45, notes 45..104, root MIDI 60, lights wijmenga
+row 8                    R                                      R                 
+row 7                                   R                                      R  
+row 6           R                                      R                          
+row 5                          R                                      R           
+row 4  R                                      R                                   
+row 3                 R                                      R                    
+row 2                                R                                      R     
+row 1        R                                      R                             
+R root  white naturals and a comma either side  green sharps  orange flats  (comma 2, chroma 0 degrees)
+
+CC22 colours (0 = unlit)
+row 8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  
+row 7  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  
+row 6  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  
+row 5  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  
+row 4  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  
+row 3  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  
+row 2  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  
+row 1  8  8  6  8  8  8  8  8  8  8  8  8  8  8  8  6  8  8  8  8  8  8  8  8  8  
