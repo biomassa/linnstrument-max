@@ -75,7 +75,3 @@ Both patches have:
 After you clone this repository, get the light controller patches:
 
     git submodule update --init
-
-## AI-assisted development
-
-This project is made with AI-assisted development. An AI coding assistant helps to write the patches, the code and the documentation.
