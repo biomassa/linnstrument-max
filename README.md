@@ -58,7 +58,6 @@ Both patches have:
 | `docs/light-schemes.md` | The light schemes (shared with linnkit) |
 | `docs/scala-synth-bends.md` | Bend conversion for synths that load the scale (shared with linnkit) |
 | `SCL/` | Scala scale files |
-| `LinnStrumentLights/` | Light controller patches by bfuhrman (git submodule, [github.com/bfuhrman/LinnStrumentLights](https://github.com/bfuhrman/LinnStrumentLights)) |
 
 ## Requirements
 
@@ -69,9 +68,3 @@ Both patches have:
 ## Tests
 
     for t in patchers/tests/*.test.mjs; do node "$t"; done
-
-## Get the submodule
-
-After you clone this repository, get the light controller patches:
-
-    git submodule update --init
