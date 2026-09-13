@@ -575,12 +575,12 @@ assert.deepEqual(t.take().at(-1), bendMsg(3, bend(6)));
 t.advance(50);
 t.take();
 
-// clock, start, continue and stop pass through, also inside another message; other realtime bytes don't
+// realtime bytes (clock, start, continue, stop, ...) are dropped, also inside another message
 t = load();
-t.bytes(0xfa, 0xf8, 0xfe, 0xff);
-close(t.take(), [[0xfa], [0xf8]]);
-t.bytes(0x91, 0xf8, 60, 100, 0xfc); // a clock byte inside a note-on
-close(t.take(), [[0xf8], bendMsg(2, 8192), on(2, 60, 100), [0xfc]]);
+t.bytes(0xfa, 0xf8, 0xfb, 0xfc, 0xfe, 0xff);
+close(t.take(), []);
+t.bytes(0x91, 0xf8, 60, 100, 0xfc); // a clock byte inside a note-on: the note still goes on
+close(t.take(), [bendMsg(2, 8192), on(2, 60, 100)]);
 
 // an unknown target is refused
 t.ctx.posts.length = 0;

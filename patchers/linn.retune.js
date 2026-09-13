@@ -26,7 +26,7 @@
 //          channels <first> <last>, voices <n>, notes <low> <high>, mono <0|1>,
 //          legato <0|1>, target <name>, vibrato <gain 1..3>, onset <ms>.
 // Inlet 1: list of 128 frequencies (Hz) for MIDI notes 0..127 (from mtof).
-// Outlet 0: midievent <status> <data1> [<data2>] (to vst~); MIDI clock and transport pass through.
+// Outlet 0: midievent <status> <data1> [<data2>] (to vst~); MIDI clock and transport are dropped.
 // Outlet 1: requests to mtof (scalename none + scale <n> <pairs...>, or scalename <name>; then the list 0..127).
 
 autowatch = 1;
@@ -77,8 +77,8 @@ function msg_int(b) {
 	if (inlet !== 0) return;
 	if (b & 0x80) {
 		if (b >= 0xf8) {
-			// realtime: clock, start, continue and stop pass through (as linnkit's relay); the rest is dropped
-			if (b === 0xf8 || b === 0xfa || b === 0xfb || b === 0xfc) send(b);
+			// realtime (clock, start, continue, stop, ...) is dropped: no clock or transport
+			// over the LinnStrument's connection (the user's choice, 2026-09-14)
 			return; // a realtime byte can arrive inside another message; that message goes on
 		}
 		const h = b & 0xf0;

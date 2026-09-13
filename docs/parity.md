@@ -35,7 +35,7 @@ State on 2026-09-12. linnkit's column includes the relay work in progress there 
 | Mutant Brain voices | mono on channel 1, notes 24-120, bend 24; setup text has the CV layout | mono on channel 1 (the user's choice) | none |
 | Voice limit, vibrato gain, onset fade-in, legato | yes (same formulas; relay window defaults vibrato 2.5, fade-in 40 ms, voices 16, legato on) | yes (vibrato and onset also in linnstrument.maxpat; the engine defaults vibrato to 1, the patches store 2.5) | none: same output for the same settings |
 | Main channel pass-through | none (its targets have none; its Scala target uses channels 2-16 and drops channel 1) | relay patch: none; linnstrument.maxpat passes channel 1 through to the plugin | small, by design |
-| MIDI clock and transport pass through | yes | yes (both patches) | none |
+| MIDI clock and transport | dropped: the relay drops every status >= 0xF0 (realtime, song position, sysex); nothing sends them to the LinnStrument (2026-09-14, not committed there yet) | dropped: no realtime or system messages pass, and none go to the LinnStrument (the user's choice, 2026-09-14; clock in may come later) | none |
 | Relay counters (messages, dropped, stolen, clamped) and sounding notes | yes | no (built, then removed at the user's request as not useful, 2026-09-12) | intended difference |
 | Send Bend Range (RPN 0) to the target | "send bend range", on by default: RPN 0 to each channel in use when the relay starts | no | intended difference (the user's choice, 2026-09-12: the K2600 and Mutant Brain ignore it) |
 | **Presets** | | | |
@@ -46,7 +46,7 @@ State on 2026-09-12. linnkit's column includes the relay work in progress there 
 
 Suggested order. Each item is a separate decision for the user.
 
-1. **Clock and transport pass through** in `linn.relay` (small). The Mutant Brain can turn clock into gates and a BPM CV.
+1. ~~**Clock and transport pass through** in `linn.relay`.~~ Built on 2026-09-12, dropped again on 2026-09-14 at the user's request: no clock or transport over the LinnStrument's connection.
 2. **MIDI setup on send**, as an option: Channel Per Note with main channel 1 and per-note channels 2–16, and the Bend Range. It is a settings write, covered by the backup.
 3. **Ranked row offsets**: port linnkit's layout scoring (`internal/layout`), show the best candidates in a menu with their interval, and make the best one the default, as in linnkit. Tested against `linnkit grid` output.
 4. **Relay counters and sounding notes** in `linnstrument-relay.maxpat`.

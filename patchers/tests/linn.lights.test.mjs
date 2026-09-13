@@ -251,6 +251,7 @@ t.msg("scale", SCL + "31-edo.scl");
 t.msg("offset", 13);
 t.msg("send");
 t.advance(20000);
+assert.ok(t.out.flat().every((b) => b < 0xf0), "no clock, transport or other system bytes to the LinnStrument");
 assert.deepEqual(readdirSync(t.dir).filter((f) => f !== "lights-slot2.json"), ["backup.json"], "one backup file");
 const snap = JSON.parse(readFileSync(join(t.dir, "backup.json"), "utf8"));
 assert.equal(Object.keys(snap.values).length, 197);

@@ -15,44 +15,6 @@
         "boxes": [
             {
                 "box": {
-                    "id": "obj-104",
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 324.0, -269.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 206.0, 0.0, 50.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-102",
-                    "maxclass": "attrui",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 324.0, -269.0, 150.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 53.0, 0.0, 150.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-100",
-                    "maxclass": "number",
-                    "numinlets": 1,
-                    "numoutlets": 2,
-                    "outlettype": [ "", "bang" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 324.0, -269.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 50.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
                     "id": "obj-94",
                     "maxclass": "newobj",
                     "numinlets": 1,
@@ -73,7 +35,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 410.0, 30.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 9.0, 384.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 10.0, 324.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -96,7 +58,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 400.0, 4.0, 98.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 36.0, 384.0, 93.0, 24.0 ],
+                    "presentation_rect": [ 37.0, 324.0, 93.0, 24.0 ],
                     "text": "MIDI setup",
                     "varname": "cmt_midisetup"
                 }
@@ -137,7 +99,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1653.0, 28.0, 110.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 690.0, 315.0, 179.0, 26.0 ],
+                    "presentation_rect": [ 691.0, 255.0, 179.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "+3  327 c ~6/5", "+2  218 c ~8/7", "+4  436 c ~9/7", "+6  655 c ~10/7", "+5  545 c ~7/5", "+7  764 c ~11/7", "+1  109 c ~13/12", "+8  873 c ~5/3", "+9  982 c ~7/4", "+12  1309 c ~13/6", "+10  1091 c ~13/7", "+14  1527 c ~12/5", "+13  1418 c ~9/4", "+11  1200 c ~2/1", "+15  1636 c ~13/5  (doesn't fit)", "+16  1745 c ~11/4  (doesn't fit)", "+17  1855 c ~20/7  (doesn't fit)", "+18  1964 c ~19/6  (doesn't fit)", "+19  2073 c ~10/3  (doesn't fit)", "+20  2182 c ~7/2  (doesn't fit)", "+21  2291 c ~15/4  (doesn't fit)", "+25  2727 c ~19/4  (doesn't fit)", "+24  2618 c ~9/2  (doesn't fit)", "+23  2509 c ~13/3  (doesn't fit)", "+22  2400 c ~4/1  (doesn't fit)" ],
@@ -176,7 +138,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 560.0, 160.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 739.0, 369.0, 57.0, 26.0 ],
+                    "presentation_rect": [ 740.0, 309.0, 57.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_onset",
@@ -199,7 +161,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 560.0, 136.0, 103.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 670.0, 369.0, 90.0, 24.0 ],
+                    "presentation_rect": [ 671.0, 309.0, 90.0, 24.0 ],
                     "text": "onset ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_onset"
@@ -231,7 +193,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 440.0, 144.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 738.0, 338.0, 60.0, 26.0 ],
+                    "presentation_rect": [ 739.0, 278.0, 60.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_vibrato",
@@ -255,7 +217,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 440.0, 120.0, 102.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 670.0, 339.0, 76.0, 24.0 ],
+                    "presentation_rect": [ 671.0, 279.0, 76.0, 24.0 ],
                     "text": "vibrato",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_vibrato"
@@ -313,7 +275,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 260.0, 8.0, 20.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 155.0, 340.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 156.0, 280.0, 24.0, 24.0 ],
                     "varname": "linn_rescanbtn"
                 }
             },
@@ -326,7 +288,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 284.0, 4.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 181.0, 340.0, 103.0, 24.0 ],
+                    "presentation_rect": [ 182.0, 280.0, 103.0, 24.0 ],
                     "text": "rescan folder",
                     "varname": "cmt_rescan"
                 }
@@ -353,7 +315,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 30.0, 116.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 155.0, 371.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 156.0, 311.0, 24.0, 24.0 ],
                     "varname": "linn_exportbtn"
                 }
             },
@@ -367,7 +329,7 @@
                     "patching_rect": [ 30.0, 82.0, 80.0, 33.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 181.0, 366.0, 59.0, 33.0 ],
+                    "presentation_rect": [ 182.0, 306.0, 59.0, 33.0 ],
                     "text": "export to madrona",
                     "varname": "cmt_export"
                 }
@@ -381,7 +343,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 600.0, 520.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 310.0, 316.0, 97.0, 24.0 ],
+                    "presentation_rect": [ 311.0, 256.0, 97.0, 24.0 ],
                     "text": "LED pattern",
                     "varname": "cmt_synthbend[1]"
                 }
@@ -425,7 +387,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 270.0, 116.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 96.0, 131.0, 38.0, 26.0 ],
+                    "presentation_rect": [ 97.0, 71.0, 38.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_synthbend",
@@ -448,7 +410,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 270.0, 90.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 3.0, 132.0, 91.0, 24.0 ],
+                    "presentation_rect": [ 4.0, 72.0, 91.0, 24.0 ],
                     "text": "synth bend",
                     "varname": "cmt_synthbend"
                 }
@@ -476,7 +438,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 116.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 97.0, 150.0, 36.0, 36.0 ],
+                    "presentation_rect": [ 98.0, 90.0, 36.0, 36.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -500,7 +462,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 170.0, 90.0, 70.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 156.0, 63.0, 24.0 ],
+                    "presentation_rect": [ 36.0, 96.0, 63.0, 24.0 ],
                     "text": "retune",
                     "textcolor": [ 0.9977086186408997, 0.5845433473587036, 0.2821178436279297, 1.0 ],
                     "varname": "cmt_retune"
@@ -577,7 +539,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 1995.0, 28.0, 114.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 446.0, 390.0, 64.0, 26.0 ],
+                    "presentation_rect": [ 447.0, 330.0, 64.0, 26.0 ],
                     "text": "261.63",
                     "varname": "linn_lhzinfo"
                 }
@@ -593,7 +555,7 @@
                     "patching_rect": [ 2109.0, 6.0, 117.0, 42.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 1.0, 188.0, 105.0, 42.0 ],
+                    "presentation_rect": [ 2.0, 128.0, 105.0, 42.0 ],
                     "text": "Linnstrument PB range",
                     "varname": "cmt_bend"
                 }
@@ -607,7 +569,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1881.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 310.0, 389.0, 40.0, 24.0 ],
+                    "presentation_rect": [ 311.0, 329.0, 40.0, 24.0 ],
                     "text": "root",
                     "varname": "cmt_root"
                 }
@@ -621,7 +583,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1767.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 310.0, 366.0, 84.0, 24.0 ],
+                    "presentation_rect": [ 311.0, 306.0, 84.0, 24.0 ],
                     "text": "bottom-left",
                     "varname": "cmt_low"
                 }
@@ -635,7 +597,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1653.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 615.0, 316.0, 79.0, 24.0 ],
+                    "presentation_rect": [ 616.0, 256.0, 79.0, 24.0 ],
                     "text": "row offset",
                     "textcolor": [ 0.9255475997924805, 0.9250496029853821, 0.5176522731781006, 1.0 ],
                     "varname": "cmt_offset"
@@ -651,7 +613,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1508.0, 6.0, 141.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 570.0, 365.0, 72.0, 24.0 ],
+                    "presentation_rect": [ 571.0, 305.0, 72.0, 24.0 ],
                     "text": "subharm",
                     "varname": "cmt_subharmonics"
                 }
@@ -666,7 +628,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1383.0, 6.0, 121.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 449.0, 365.0, 83.0, 24.0 ],
+                    "presentation_rect": [ 450.0, 305.0, 83.0, 24.0 ],
                     "text": "harmonics",
                     "varname": "cmt_harmonics"
                 }
@@ -680,7 +642,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1148.0, 6.0, 117.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 570.0, 339.0, 81.0, 24.0 ],
+                    "presentation_rect": [ 571.0, 279.0, 81.0, 24.0 ],
                     "text": "generator",
                     "varname": "cmt_generator"
                 }
@@ -694,7 +656,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1034.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 310.0, 340.0, 61.0, 24.0 ],
+                    "presentation_rect": [ 311.0, 280.0, 61.0, 24.0 ],
                     "text": "primes",
                     "varname": "cmt_limit"
                 }
@@ -736,7 +698,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1767.0, 28.0, 59.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 396.0, 365.0, 33.0, 26.0 ],
+                    "presentation_rect": [ 397.0, 305.0, 33.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_llow",
@@ -762,7 +724,7 @@
                     "patching_rect": [ 1034.0, 28.0, 55.0, 26.0 ],
                     "pattrmode": 1,
                     "presentation": 1,
-                    "presentation_rect": [ 365.0, 338.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 366.0, 278.0, 46.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "3", "5", "7", "11", "13" ],
@@ -919,7 +881,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1508.0, 28.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 638.0, 365.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 639.0, 305.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -946,7 +908,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1383.0, 28.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 526.0, 364.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 527.0, 304.0, 46.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "16", "32" ],
@@ -972,7 +934,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1269.0, 28.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 528.0, 338.0, 47.0, 26.0 ],
+                    "presentation_rect": [ 529.0, 278.0, 47.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_invisible": 1,
@@ -997,7 +959,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1148.0, 28.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 645.0, 338.0, 58.0, 26.0 ],
+                    "presentation_rect": [ 646.0, 278.0, 58.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_invisible": 1,
@@ -1021,7 +983,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 480.0, 560.0, 650.0, 208.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 159.0, 60.0, 710.0, 251.0 ],
+                    "presentation_rect": [ 160.0, 0.0, 710.0, 251.0 ],
                     "textfile": {
                         "filename": "linn.preview.js",
                         "flags": 0,
@@ -1116,7 +1078,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1881.0, 28.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 345.0, 389.0, 38.0, 26.0 ],
+                    "presentation_rect": [ 346.0, 329.0, 38.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_lroot",
@@ -1224,7 +1186,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 2109.0, 52.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 97.0, 204.0, 36.0, 26.0 ],
+                    "presentation_rect": [ 98.0, 144.0, 36.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_lbend",
@@ -1250,7 +1212,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 920.0, 28.0, 100.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 403.0, 315.0, 100.0, 26.0 ],
+                    "presentation_rect": [ 404.0, 255.0, 100.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics" ],
@@ -1287,7 +1249,7 @@
                     "patching_rect": [ 14.0, 445.0, 141.0, 114.0 ],
                     "pattrstorage": "linnstrument-b",
                     "presentation": 1,
-                    "presentation_rect": [ 1.0, 60.0, 149.0, 64.0 ],
+                    "presentation_rect": [ 2.0, 0.0, 149.0, 64.0 ],
                     "varname": "linn_preset"
                 }
             },
@@ -1356,7 +1318,7 @@
                     "pattrmode": 1,
                     "prefix": "SCL/",
                     "presentation": 1,
-                    "presentation_rect": [ 159.0, 315.0, 147.0, 26.0 ],
+                    "presentation_rect": [ 160.0, 255.0, 147.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "22edo.scl", "31-edo.scl", "ji_11.scl", "ji_13.scl", "ji_17.scl", "ji_7.scl", "ji_7a.scl", "ji_8coh.scl", "ji_9.scl", "ji_9coh.scl", "partch-grm.scl", "partch_43.scl" ],
@@ -1420,7 +1382,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 480.0, 28.0, 43.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 236.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 36.0, 176.0, 46.0, 26.0 ],
                     "text": "send",
                     "textcolor": [ 1.0, 0.5843137254901961, 0.2823529411764706, 1.0 ],
                     "varname": "linn_lsend"
@@ -1446,7 +1408,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 552.0, 28.0, 81.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 266.0, 81.0, 26.0 ],
+                    "presentation_rect": [ 36.0, 206.0, 81.0, 26.0 ],
                     "text": "sendlights",
                     "textcolor": [ 0.5490196078431373, 1.0, 0.4627450980392157, 1.0 ],
                     "varname": "linn_lsendlights"
@@ -1472,7 +1434,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 640.0, 28.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 298.0, 64.0, 26.0 ],
+                    "presentation_rect": [ 36.0, 238.0, 64.0, 26.0 ],
                     "text": "backup",
                     "varname": "linn_lbackup"
                 }
@@ -1497,7 +1459,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 712.0, 28.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 326.0, 64.0, 26.0 ],
+                    "presentation_rect": [ 36.0, 266.0, 64.0, 26.0 ],
                     "text": "restore",
                     "varname": "linn_lrestore"
                 }
@@ -1545,7 +1507,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 856.0, 28.0, 44.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 36.0, 354.0, 63.0, 26.0 ],
+                    "presentation_rect": [ 37.0, 294.0, 63.0, 26.0 ],
                     "text": "reset",
                     "varname": "linn_lreset"
                 }
@@ -1591,7 +1553,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1269.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 448.0, 339.0, 84.0, 24.0 ],
+                    "presentation_rect": [ 449.0, 279.0, 84.0, 24.0 ],
                     "text": "MOS size",
                     "textcolor": [ 1.0, 1.0, 1.0, 1.0 ],
                     "varname": "cmt_mossize"
@@ -1608,7 +1570,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1995.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 382.0, 390.0, 62.0, 24.0 ],
+                    "presentation_rect": [ 383.0, 330.0, 62.0, 24.0 ],
                     "text": "root Hz",
                     "textcolor": [ 1.0, 1.0, 1.0, 1.0 ],
                     "varname": "cmt_refhz"
