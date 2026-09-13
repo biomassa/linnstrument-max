@@ -95,7 +95,7 @@ function nrpnBytes(param, value) {
 
 function scale(path) {
 	path = String(path);
-	const s = readScale(path);
+	const s = readScale(localPath(path));
 	if (!s) return;
 	scaleName = path.split(/[\/:]/).pop();
 	scl = s;
@@ -1153,6 +1153,17 @@ function reply(ch, num, v) {
 }
 
 // --- backup and restore (linnkit's JSON format: {"taken", "values"}) ---
+
+// a relative path (the scale menu's prefix is "SCL/") is taken from this patcher's folder
+function localPath(path) {
+	if (/^[\/~]/.test(path) || /^[^\/]+:/.test(path)) return path;
+	let fp = "";
+	try {
+		fp = String(this.patcher.filepath || "");
+	} catch (e) {}
+	const i = fp.lastIndexOf("/");
+	return i >= 0 ? fp.slice(0, i + 1) + path : path;
+}
 
 function backupDir() {
 	let fp = "";

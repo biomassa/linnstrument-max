@@ -1375,7 +1375,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 114.0, 62.0, 100.0, 26.0 ],
                     "pattrmode": 1,
-                    "prefix": "~/Dropbox/musicstuff/Max 9/linnstrument/SCL/",
+                    "prefix": "SCL/",
                     "presentation": 1,
                     "presentation_rect": [ 159.0, 315.0, 147.0, 26.0 ],
                     "saved_attribute_attributes": {

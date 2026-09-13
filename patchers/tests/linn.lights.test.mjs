@@ -7,7 +7,7 @@ import vm from "node:vm";
 import assert from "node:assert/strict";
 
 const src = readFileSync(new URL("../linn.lights.js", import.meta.url), "utf8");
-const SCL = fileURLToPath(new URL("../../SCL/", import.meta.url));
+const SCL = fileURLToPath(new URL("../SCL/", import.meta.url));
 
 // --- stand-ins for Max's JS objects ---
 
@@ -178,6 +178,16 @@ t = load();
 assert.deepEqual(plain(t.ctx.rowStarts(5)), [45, 50, 55, 60, 65, 70, 75, 80]);
 assert.deepEqual(plain(t.ctx.rowStarts(13)), [12, 25, 38, 51, 64, 77, 90, 103]); // 21 + 115 > 127, so low = 127 - 115
 assert.deepEqual(plain(t.ctx.rowStarts(25)), [0, 25, 50, 75, 100, 125, 150, 175]); // cannot fit: low stays >= 0
+
+// a relative path, as the scale menu sends with the prefix SCL/, is read from the patcher's folder
+t = load();
+{
+	const scl = join(t.dir, "..", "..", "patchers", "SCL");
+	mkdirSync(scl, { recursive: true });
+	writeFileSync(join(scl, "31-edo.scl"), readFileSync(SCL + "31-edo.scl"));
+	t.msg("scale", "SCL/31-edo.scl");
+	assert.deepEqual(t.status[0], ["scale", "31-edo.scl", 31]);
+}
 
 // scale settings: defaults per scale, changes remembered per scale in the dict
 t = load();

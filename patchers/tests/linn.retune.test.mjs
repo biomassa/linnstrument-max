@@ -79,13 +79,14 @@ function scheduler() {
 	return { Task, advance, now: () => now };
 }
 
-function load() {
+function load(filepath) {
 	const out = [];
 	const posts = [];
 	const clock = scheduler();
 	const ctx = {
 		inlet: 0, File, posts, Task: clock.Task, Date: { now: clock.now },
 		post: (s) => posts.push(s), outlet: (i, ...a) => out.push([i, ...a.flat()]),
+		...(filepath && { patcher: { filepath } }),
 	};
 	vm.createContext(ctx);
 	vm.runInContext(src, ctx);
@@ -257,7 +258,7 @@ assert.deepEqual(req[0], [1, "scalename", "ji_11"]);
 assert.equal(req[1].length, 129);
 
 // scale <path> reads the .scl and sends it inline (the umenu sends full paths)
-const SCL = fileURLToPath(new URL("../../SCL/", import.meta.url)); // decodes the space in "Max 9"
+const SCL = fileURLToPath(new URL("../SCL/", import.meta.url)); // decodes the space in "Max 9"
 const inline = (file) => {
 	const t = load();
 	t.ctx.scale(SCL + file);
@@ -284,6 +285,16 @@ s = inline("22edo.scl");
 assert.equal(s[0], 22);
 assert.deepEqual(s.slice(1, 3), [54.54545, 0]);
 assert.deepEqual(s.slice(-2), [2, 1]);
+
+// a relative path, as the scale menu sends with the prefix SCL/, is read from the patcher's folder
+{
+	const t = load(join(SCL, "..", "linn.retune.maxpat"));
+	t.ctx.scale("SCL/ji_7.scl");
+	const r = t.out.splice(0).filter((m) => m[0] === 1);
+	assert.deepEqual(r[0], [1, "scalename", "none"]);
+	assert.equal(r[1][1], "scale");
+	assert.equal(t.ctx.posts.length, 0);
+}
 
 // every file in SCL/ parses to its stated count of pairs
 for (const f of ["22edo", "31-edo", "ji_11", "ji_13", "ji_17", "ji_7", "ji_7a", "ji_8coh", "ji_9", "ji_9coh"]) {

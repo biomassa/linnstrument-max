@@ -105,9 +105,10 @@ function list(...a) {
 function scale(name) {
 	name = String(name);
 	if (/[\/:]/.test(name)) {
-		const s = readScl(name);
+		const p = localPath(name);
+		const s = readScl(p);
 		if (!s) return;
-		sclPath = name;
+		sclPath = p;
 		outlet(1, "scalename", "none");
 		outlet(1, "scale", s.length, ...s.flat());
 	} else {
@@ -499,6 +500,17 @@ function exportDir() {
 	} catch (e) {}
 	const m = fp.match(/^(.*?\/Users\/[^\/]+)\//);
 	return (m ? m[1] : "/Users/ars") + "/Music/Madrona Labs/Scales/linnstrument/";
+}
+
+// a relative path (the scale menu's prefix is "SCL/") is taken from this patcher's folder
+function localPath(path) {
+	if (/^[\/~]/.test(path) || /^[^\/]+:/.test(path)) return path;
+	let fp = "";
+	try {
+		fp = String(this.patcher.filepath || "");
+	} catch (e) {}
+	const i = fp.lastIndexOf("/");
+	return i >= 0 ? fp.slice(0, i + 1) + path : path;
 }
 
 // exportscale: copy the .scl unchanged and write <name>.kbm next to it, like linnkit's

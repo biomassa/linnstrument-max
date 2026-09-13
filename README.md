@@ -21,7 +21,7 @@ NOTE: `research_1.maxpat` is an older version. It is a backup.
 
 The two patches have these controls:
 
-- A scale menu. It shows the files in `SCL/`. Click `rescan folder` to read the folder again.
+- A scale menu. It shows the files in `patchers/SCL/`. To add a scale, put its `.scl` file in this folder. Click `rescan folder` to read the folder again.
 - Controls for the LinnStrument layout: `row offset`, `bottom-left`, `root` and `Linnstrument PB range`. The `row offset` menu shows the best offsets first, as linnkit does.
 - `LED pattern`: a menu of 13 light schemes (`docs/light-schemes.md`). Each scheme has its settings.
 - `send`: this writes the MIDI setup, the rows, the Bend Range and the lights to the LinnStrument.
@@ -96,7 +96,7 @@ NOTE: The Mutant Brain plays only MIDI notes 24 to 120. When `legato` is on, the
 | `docs/light-schemes.md` | The light schemes (the same in linnkit) |
 | `docs/scala-synth-bends.md` | The bend conversion for synths that load the scale (the same in linnkit) |
 | `docs/parity.md` | The features of linnkit and of the two patches |
-| `SCL/` | Scala scale files |
+| `patchers/SCL/` | Scala scale files for the scale menu |
 
 ## Requirements
 
