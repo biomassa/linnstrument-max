@@ -2,71 +2,110 @@
 
 ![The linnstrument.maxpat patch: the pad preview with just-interval lights for 31-EDO, and the scale, light, layout and tuning controls](docs/linnstrument.png)
 
-Max 9 patches for the Roger Linn LinnStrument: scales from Scala (`.scl`) files, pad layout and lights, and tuning for MPE synths in Max and for 12-TET hardware.
+These Max 9 patches operate the Roger Linn LinnStrument. They read scales from Scala (`.scl`) files. They set the pad layout and the pad lights. They tune MPE synths in Max and 12-TET hardware.
 
-The terminal app [linnkit](https://github.com/biomassa/linnkit) does the same jobs outside Max. The two share their specs (`docs/`), and the Max code is tested against linnkit's output.
+The terminal app [linnkit](https://github.com/biomassa/linnkit) does the same tasks outside Max. The two projects use the same specifications (`docs/`). The tests compare the Max code with the output of linnkit.
 
-## Which patch to use
+## Select the patch
 
-Open one of these two patches in `patchers/`. Use one at a time: both listen to the LinnStrument.
+The folder `patchers/` has two patches. Select the patch for your instrument.
 
-| Patch | Use it for |
+| Patch | Use |
 |---|---|
-| `linnstrument.maxpat` | Synth plugins inside Max (`vst~`, for example Madrona Labs Kaivo). Two tuning modes, set with the `retune` toggle: **on** for a plugin tuned to 12-equal (the patch retunes each note with pitch bend, like Live's tuning system); **off** for a plugin that loads the scale itself (notes pass unchanged; the patch converts slides so they land on the pads; `export scale` writes the `.scl` and a matching `.kbm` for Madrona Labs synths). |
-| `linnstrument-relay.maxpat` | 12-TET hardware over MIDI (`MIDI out` menu). Targets: **k2600** (Kurzweil K2600 in Multi mode, one note per channel), **mutantbrain** (Hexinverter Mutant Brain, one voice), **generic** (any 12-TET MPE instrument). |
+| `linnstrument.maxpat` | For synth plugins in Max (`vst~`, for example Madrona Labs Kaivo). The `retune` toggle sets the tuning mode. **On**: for a plugin that has 12-equal tuning. The patch tunes each note with pitch bend. **Off**: for a plugin that loads the scale. The notes go to the plugin without change. The patch changes the slides so that they stop on the pads. |
+| `linnstrument-relay.maxpat` | For 12-TET hardware on a MIDI port. The `target` menu sets the instrument. **k2600**: Kurzweil K2600 in Multi mode, one note on each channel. **mutantbrain**: Hexinverter Mutant Brain, one voice. **generic**: a different 12-TET MPE instrument. |
 
-`research_1.maxpat` is an older version kept as a backup.
+CAUTION: Open only one patch at a time. The two patches receive MIDI from the same LinnStrument.
 
-Both patches have:
+NOTE: `research_1.maxpat` is an older version. It is a backup.
 
-- a scale menu filled from `SCL/` (`rescan` re-reads the folder)
-- layout and lights for the LinnStrument: row offset, bottom-left note, root note, Bend Range, and 13 light schemes (`docs/light-schemes.md`); `send` writes rows, Bend Range and lights, `sendlights` only the lights
-- a preview of the pads with their colours and labels; clicking a pad plays it
-- `vibrato` (wider side-to-side vibrato; slides still land on the pads) and `onset ms` (the vibrato widening fades in after each strike)
-- presets (the preset grid; slots in `linnstrument.json` and `linnstrument-relay.json`)
+The two patches have these controls:
 
-## Setup
+- A scale menu. It shows the files in `SCL/`. Click `rescan folder` to read the folder again.
+- Controls for the LinnStrument layout: `row offset`, `bottom-left`, `root` and `Linnstrument PB range`. The `row offset` menu shows the best offsets first, as linnkit does.
+- `LED pattern`: a menu of 13 light schemes (`docs/light-schemes.md`). Each scheme has its settings.
+- `send`: this writes the MIDI setup, the rows, the Bend Range and the lights to the LinnStrument.
+- `sendlights`: this writes only the lights.
+- A preview of the pads with their colors and labels. Click a pad to play it.
+- `vibrato`: this makes side-to-side vibrato wider. Slides continue to stop on the pads.
+- `onset ms`: this increases the vibrato effect slowly after each strike.
+- Presets (the preset grid). The patches keep the presets in `linnstrument.json` and `linnstrument-relay.json`.
+
+## Prepare the equipment
 
 ### LinnStrument
 
-- MIDI mode Channel Per Note (MPE): Y as CC 74, Z as channel pressure.
-- Bend Range 48. `send` sets it from the patch's Bend Range box.
-- Before its first write, `send` saves every readable setting to `reference/backups/backup.json`. `restore` writes them back. Create the folder `reference/backups/` first; it is not in the repository. Lights go to custom light slot 2 only.
+1. Make sure that the MIDI mode is Channel Per Note (MPE).
+2. Make sure that Y sends CC 74 and Z sends channel pressure.
+3. Set the Bend Range to 48.
+
+NOTE: When the `MIDI setup` toggle is on, `send` does steps 1 to 3 for you. `send` uses the value in the `Linnstrument PB range` box.
+
+Before the first write, `send` saves all the LinnStrument settings to `reference/backups/backup.json`. `restore` writes these settings back to the LinnStrument.
+
+1. Make the folder `reference/backups/` before you use `send`. This folder is not in the repository.
+
+NOTE: The patches write lights only to custom light slot 2.
 
 ### `linnstrument.maxpat`
 
-- Load the plugin into `vst~` with the `plug` message. The plugin needs MPE input.
-- `retune` on: set the plugin to 12-equal, with a per-note bend range of 48.
-- `retune` off: press `export scale`, then load the scale from `~/Music/Madrona Labs/Scales/linnstrument/` in the plugin. Set `synth bend` to the plugin's per-note bend range.
-- The patch saves the plugin's state. After changing a plugin setting that is not a parameter (for example Kaivo's scale menu), move any knob before saving or storing a preset. Otherwise the old setting is restored.
+1. Click the `plug` message and load the plugin into `vst~`.
+2. Make sure that the plugin receives MPE.
+3. If `retune` is on, set the plugin to 12-equal tuning.
+4. If `retune` is on, set the per-note bend range of the plugin to 48.
+5. If `retune` is off, click `export to madrona`. This writes the `.scl` file and a `.kbm` file.
+6. If `retune` is off, load the scale in the plugin from `~/Music/Madrona Labs/Scales/linnstrument/`.
+7. If `retune` is off, set `synth bend` to the per-note bend range of the plugin.
+
+CAUTION: Some plugin settings are not parameters, for example the scale menu of Kaivo. After you change such a setting, move a knob of the plugin. Then save the patch or store a preset. If you do not move a knob, the patch restores the old setting.
 
 ### `linnstrument-relay.maxpat`
 
-- Choose the MIDI output port in `MIDI out` and the instrument in `target`.
-- `voices` limits how many notes play at once (channels 1 to n).
-- K2600: MIDI receive mode Multi, the same program on channels 1 to `voices`, pitch bend range 24 semitones (2400 cents), no intonation table.
-- Mutant Brain: note input 1 on channel 1, last-note priority, pitch bend ±24. CV A: note input 1 pitch (V/Oct), CV B: note input 1 velocity, CV C: channel aftertouch on channel 1 (pressure), CV D: CC 74 on channel 1 (Y). Notes play in MIDI 24–120 only. `legato` on keeps the gate high when you move to a new pad.
+1. In the `MIDI out` menu, select the MIDI output port.
+2. In the `target` menu, select the instrument.
+3. In the `voices` box, set the maximum number of notes. The relay uses the channels 1 to this number.
+
+For the Kurzweil K2600:
+
+1. Set the MIDI receive mode to Multi.
+2. Set the same program on the channels 1 to `voices`.
+3. Set the pitch bend range of the program to 24 semitones (2400 cents).
+4. Do not use an intonation table.
+
+For the Hexinverter Mutant Brain:
+
+1. Set note input 1 to channel 1 with last-note priority.
+2. Set the pitch bend range of note input 1 to ±24.
+3. Set CV A to the pitch of note input 1 (V/Oct).
+4. Set CV B to the velocity of note input 1.
+5. Set CV C to channel aftertouch on channel 1. This gives the pressure.
+6. Set CV D to CC 74 on channel 1. This gives the Y position.
+
+NOTE: The Mutant Brain plays only MIDI notes 24 to 120. When `legato` is on, the gate stays high when you move to a new pad.
 
 ## Contents
 
 | Path | Contents |
 |---|---|
-| `patchers/linnstrument.maxpat`, `patchers/linnstrument-relay.maxpat` | The two patches to use |
-| `patchers/linn.lights.maxpat` + `.js` | Layout, lights, settings and backups on the LinnStrument |
-| `patchers/linn.retune.maxpat` + `.js` | Tuning for synth plugins; its script is also the engine of `linn.relay` |
-| `patchers/linn.relay.maxpat` | Tuning for 12-TET hardware, output to a MIDI port |
+| `patchers/linnstrument.maxpat`, `patchers/linnstrument-relay.maxpat` | The two patches |
+| `patchers/linn.lights.maxpat` + `.js` | The layout, lights, settings and backups of the LinnStrument |
+| `patchers/linn.retune.maxpat` + `.js` | The tuning for synth plugins. The script is also the engine of `linn.relay`. |
+| `patchers/linn.relay.maxpat` | The tuning for 12-TET hardware, with output to a MIDI port |
 | `patchers/linn.preview.js` | The pad preview (`v8ui`) |
-| `patchers/tests/` | Node tests for the scripts, with reference grids printed by linnkit |
-| `docs/light-schemes.md` | The light schemes (shared with linnkit) |
-| `docs/scala-synth-bends.md` | Bend conversion for synths that load the scale (shared with linnkit) |
+| `patchers/tests/` | Node tests for the scripts, with reference grids from linnkit |
+| `docs/light-schemes.md` | The light schemes (the same in linnkit) |
+| `docs/scala-synth-bends.md` | The bend conversion for synths that load the scale (the same in linnkit) |
+| `docs/parity.md` | The features of linnkit and of the two patches |
 | `SCL/` | Scala scale files |
 
 ## Requirements
 
-- Max 9.
-- A LinnStrument (full size, 200 pads), firmware 2.3.4.
-- Node.js, only for the tests.
+- Max 9
+- A LinnStrument (full size, 200 pads) with firmware 2.3.4
+- Node.js (only for the tests)
 
 ## Tests
+
+To do the tests, use this command:
 
     for t in patchers/tests/*.test.mjs; do node "$t"; done

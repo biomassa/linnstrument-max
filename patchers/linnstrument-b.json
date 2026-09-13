@@ -1,0 +1,301 @@
+{
+    "pattrstorage": {
+        "name": "linnstrument-b",
+        "slots": {
+            "1": {
+                "id": 1,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [],
+                    "linn_scale": [
+                        "22edo.scl"
+                    ],
+                    "linn_synthbend": [],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "2": {
+                "id": 2,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [],
+                    "linn_scale": [
+                        "22edo.scl"
+                    ],
+                    "linn_synthbend": [],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "3": {
+                "id": 3,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "4": {
+                "id": 4,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [],
+                    "linn_scale": [
+                        "ji_17.scl"
+                    ],
+                    "linn_synthbend": [],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "9": {
+                "id": 9,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        1
+                    ],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "12": {
+                "id": 12,
+                "data": {
+                    "linn_lmidisetup": [
+                        1
+                    ],
+                    "linn_onset": [
+                        40
+                    ],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [
+                        2.5
+                    ],
+                    "linn_lightsstate": [
+                        "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"ji\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":11,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"partch-grm.scl\":{\"scheme\":\"names\",\"offset\":3,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"partch_43.scl\":{\"scheme\":\"ji\",\"offset\":14,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":11,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1}}"
+                    ]
+                }
+            },
+            "17": {
+                "id": 17,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        1
+                    ],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "25": {
+                "id": 25,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "26": {
+                "id": 26,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [],
+                    "linn_lightsstate": []
+                }
+            },
+            "49": {
+                "id": 49,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [
+                        40
+                    ],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [
+                        2.5
+                    ],
+                    "linn_lightsstate": [
+                        "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"wijmenga\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1}}"
+                    ]
+                }
+            },
+            "50": {
+                "id": 50,
+                "data": {
+                    "linn_lmidisetup": [],
+                    "linn_onset": [
+                        40
+                    ],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "31-edo.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [
+                        2.5
+                    ],
+                    "linn_lightsstate": [
+                        "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"wijmenga\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1}}"
+                    ]
+                }
+            },
+            "56": {
+                "id": 56,
+                "data": {
+                    "linn_lmidisetup": [
+                        1
+                    ],
+                    "linn_onset": [
+                        40
+                    ],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "ji_11.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [
+                        2.5
+                    ],
+                    "linn_lightsstate": [
+                        "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"ji\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1}}"
+                    ]
+                }
+            },
+            "58": {
+                "id": 58,
+                "data": {
+                    "linn_lmidisetup": [
+                        1
+                    ],
+                    "linn_onset": [
+                        40
+                    ],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        0
+                    ],
+                    "linn_scale": [
+                        "ji_11.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [
+                        2.5
+                    ],
+                    "linn_lightsstate": [
+                        "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"ji\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1}}"
+                    ]
+                }
+            },
+            "59": {
+                "id": 59,
+                "data": {
+                    "linn_lmidisetup": [
+                        1
+                    ],
+                    "linn_onset": [
+                        40
+                    ],
+                    "linn_preview": [],
+                    "linn_retuneon": [
+                        1
+                    ],
+                    "linn_scale": [
+                        "ji_11.scl"
+                    ],
+                    "linn_synthbend": [
+                        48
+                    ],
+                    "linn_vibrato": [
+                        2.5
+                    ],
+                    "linn_lightsstate": [
+                        "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"ji\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1}}"
+                    ]
+                }
+            }
+        }
+    }
+}
