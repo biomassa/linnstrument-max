@@ -17,6 +17,8 @@ The folder `patchers/` has two patches. Select the patch for your instrument.
 
 CAUTION: Open only one patch at a time. The two patches receive MIDI from the same LinnStrument.
 
+`linnstrument-b.maxpat` is `linnstrument.maxpat` for use as a bpatcher in a larger patch. It has no `vst~`, no `ezdac~` and no `plug` message. Connect its outlet to your `vst~`. Its presets are in `linnstrument-b.json`.
+
 NOTE: `research_1.maxpat` is an older version. It is a backup.
 
 The two patches have these controls:
@@ -88,6 +90,7 @@ NOTE: The Mutant Brain plays only MIDI notes 24 to 120. When `legato` is on, the
 | Path | Contents |
 |---|---|
 | `patchers/linnstrument.maxpat`, `patchers/linnstrument-relay.maxpat` | The two patches |
+| `patchers/linnstrument-b.maxpat` | `linnstrument.maxpat` as a bpatcher, with an outlet for `vst~` |
 | `patchers/linn.lights.maxpat` + `.js` | The layout, lights, settings and backups of the LinnStrument |
 | `patchers/linn.retune.maxpat` + `.js` | The tuning for synth plugins. The script is also the engine of `linn.relay`. |
 | `patchers/linn.relay.maxpat` | The tuning for 12-TET hardware, with output to a MIDI port |
