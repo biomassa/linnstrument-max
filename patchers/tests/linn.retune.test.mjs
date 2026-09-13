@@ -1,5 +1,5 @@
 // Tests for patchers/linn.retune.js outside Max. Run: node patchers/tests/linn.retune.test.mjs
-import { readFileSync, writeFileSync, existsSync, mkdtempSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdtempSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -413,6 +413,24 @@ t.ctx.posts.length = 0;
 t.ctx.scale("ji_11");
 t.ctx.exportscale();
 assert.match(t.ctx.posts.join(""), /no \.scl file/);
+// the export folder: kbmdir, else the Madrona Labs folder under /Users/<name>/, else the patch's folder
+assert.equal(load("/Users/bob/linnstrument/patchers/linn.retune.maxpat").ctx.exportDir(), "/Users/bob/Music/Madrona Labs/Scales/linnstrument/");
+assert.equal(load("/Volumes/Music/linnstrument/patchers/linn.retune.maxpat").ctx.exportDir(), "/Volumes/Music/linnstrument/patchers/Madrona/");
+{
+	const here = mkdtempSync(join(tmpdir(), "linnretune-patch-"));
+	mkdirSync(join(here, "Madrona"));
+	const t = load(join(here, "linn.retune.maxpat"));
+	t.ctx.scale(SCL + "ji_7.scl");
+	t.ctx.exportscale();
+	assert.ok(existsSync(join(here, "Madrona", "ji_7.scl")) && existsSync(join(here, "Madrona", "ji_7.kbm")));
+	assert.match(t.ctx.posts.join(""), /not the synth's Scales folder/);
+}
+{
+	const t = load(); // a patch that was never saved has no folder
+	t.ctx.scale(SCL + "ji_7.scl");
+	t.ctx.exportscale();
+	assert.match(t.ctx.posts.join(""), /no folder to export to/);
+}
 
 // --- relay (linn.relay): targets, channels, note range, mono ---
 

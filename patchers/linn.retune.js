@@ -492,6 +492,9 @@ function kbmdir(path) {
 	kbmDir = path.endsWith("/") ? path : path + "/";
 }
 
+// kbmdir if set; else ~/Music/Madrona Labs/Scales/linnstrument/ (Mac: the home folder is
+// found in the patch's path, /Users/<name>/); else Madrona/ in the patcher's own folder
+// (patchers/Madrona/ in the repo; Max can't create folders); "" if unsaved
 function exportDir() {
 	if (kbmDir) return kbmDir;
 	let fp = "";
@@ -499,7 +502,9 @@ function exportDir() {
 		fp = String(this.patcher.filepath || "");
 	} catch (e) {}
 	const m = fp.match(/^(.*?\/Users\/[^\/]+)\//);
-	return (m ? m[1] : "/Users/ars") + "/Music/Madrona Labs/Scales/linnstrument/";
+	if (m) return m[1] + "/Music/Madrona Labs/Scales/linnstrument/";
+	const i = fp.lastIndexOf("/");
+	return i >= 0 ? fp.slice(0, i + 1) + "Madrona/" : "";
 }
 
 // a relative path (the scale menu's prefix is "SCL/") is taken from this patcher's folder
@@ -525,9 +530,14 @@ function exportscale() {
 	if (!pairs || !bytes) return;
 	const name = sclPath.split(/[\/:]/).pop().replace(/\.[^.]*$/, "");
 	const dir = exportDir();
+	if (!dir) {
+		post("linn.retune: no folder to export to: save the patch, or set one with kbmdir <folder>\n");
+		return;
+	}
 	if (!writeBytes(dir + name + ".scl", bytes)) return;
 	if (!writeBytes(dir + name + ".kbm", Array.from(kbm(name, pairs.length, rootNote, rootHz), (ch) => ch.charCodeAt(0)))) return;
 	post("linn.retune: wrote " + dir + name + ".scl and .kbm (degree 0 on MIDI " + rootNote + " at " + rootHz.toFixed(2) + " Hz)\n");
+	if (!kbmDir && !/\/Madrona Labs\/Scales\//.test(dir)) post("linn.retune: that is not the synth's Scales folder: copy the files there, or set it with kbmdir <folder>\n");
 	if (pairs.length >= 127) post("linn.retune: " + pairs.length + " degrees: Aalto and Kaivo ignore a .kbm this long\n");
 }
 

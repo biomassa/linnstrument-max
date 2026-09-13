@@ -127,7 +127,7 @@ function device(state) {
 	};
 }
 
-function load(devState) {
+function load(devState, filepath) {
 	Dict.all = new Map(); // each test starts with an empty linn.lights.settings
 	const out = [];
 	const status = [];
@@ -137,7 +137,7 @@ function load(devState) {
 	const root = mkdtempSync(join(tmpdir(), "linnlights-"));
 	const dir = join(root, "reference", "backups");
 	mkdirSync(dir, { recursive: true });
-	const ctx = { inlet: 0, File, Folder, Dict, Task, posts, post: (s) => posts.push(s), outlet: null, patcher: { filepath: join(root, "patchers", "linn.lights.maxpat") } };
+	const ctx = { inlet: 0, File, Folder, Dict, Task, posts, post: (s) => posts.push(s), outlet: null, patcher: { filepath: filepath ?? join(root, "patchers", "linn.lights.maxpat") } };
 	const dev = devState ? device({ ...devState }) : null; // own copy: sends change the device state
 	const reply = (b) => { ctx.inlet = 1; ctx.msg_int(b); };
 	ctx.outlet = (i, ...a) => {
@@ -188,6 +188,14 @@ t = load();
 	t.msg("scale", "SCL/31-edo.scl");
 	assert.deepEqual(t.status[0], ["scale", "31-edo.scl", 31]);
 }
+
+// the backup folder: reference/backups/ in the repo, else the patch's folder, else none (never saved)
+assert.equal(load(null, "/Volumes/x/stuff/linn.lights.maxpat").ctx.backupDir(), "/Volumes/x/stuff/");
+t = load(null, "");
+assert.equal(t.ctx.backupDir(), "");
+assert.equal(t.ctx.hasBackup(), false);
+assert.equal(t.ctx.writeJSON("lights-slot2.json", {}), false);
+assert.ok(t.status.some((m) => m[0] === "error" && String(m[1]).includes("save the patch")));
 
 // scale settings: defaults per scale, changes remembered per scale in the dict
 t = load();

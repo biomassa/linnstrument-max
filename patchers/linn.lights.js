@@ -62,7 +62,6 @@ const MORE_SCHEMES = ["chain", "moskeys", "wijmenga", "kite", "factors", "steps"
 const SCHEMES = ["root", "ji", "names", "mos"].concat(MORE_SCHEMES);
 const DELAY = 2; // ms after each message, as linnkit
 const TIMEOUT = 1500; // ms to wait for readback replies
-const FALLBACK_DIR = "/Users/ars/Dropbox/musicstuff/Max 9/linnstrument/reference/backups/";
 
 const store = new Dict("linn.lights.settings"); // per scale, JSON strings keyed by file name
 let scaleName = "";
@@ -1165,13 +1164,17 @@ function localPath(path) {
 	return i >= 0 ? fp.slice(0, i + 1) + path : path;
 }
 
+// reference/backups/ in the repo when the script sits in patchers/; else the patcher's own
+// folder; "" when the patch was never saved
 function backupDir() {
 	let fp = "";
 	try {
 		fp = String(this.patcher.filepath || "");
 	} catch (e) {}
 	const i = fp.lastIndexOf("/patchers/");
-	return i >= 0 ? fp.slice(0, i) + "/reference/backups/" : FALLBACK_DIR;
+	if (i >= 0) return fp.slice(0, i) + "/reference/backups/";
+	const j = fp.lastIndexOf("/");
+	return j >= 0 ? fp.slice(0, j + 1) : "";
 }
 
 function backup() {
@@ -1180,6 +1183,11 @@ function backup() {
 }
 
 function makeBackup(cb) {
+	if (!backupDir()) {
+		report("error", "no folder for the backup: save the patch first");
+		cb(false);
+		return;
+	}
 	read(readableParams(), (got, missing) => {
 		const n = Object.keys(got).length;
 		if (!n) {
@@ -1217,6 +1225,7 @@ function backupPath() {
 }
 
 function hasBackup() {
+	if (!backupDir()) return false;
 	const f = new File(backupPath(), "read");
 	const ok = f.isopen;
 	f.close();
@@ -1237,6 +1246,10 @@ function readJSON(path) {
 }
 
 function writeJSON(path, obj) {
+	if (!/[\/:]/.test(path)) {
+		report("error", "no folder for " + path + ": save the patch first");
+		return false;
+	}
 	const f = new File(path, "write", "TEXT");
 	if (!f.isopen) {
 		report("error", "can't write " + path);
