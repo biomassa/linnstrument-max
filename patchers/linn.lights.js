@@ -1310,9 +1310,25 @@ function restore(path) {
 	const snap = data.values;
 	const lights = validLights(data.lights) ? data.lights : null;
 	busy = true;
+	// a backup taken after a send records the Y expression as 3 (CC74), which NRPN 39 refuses
+	// (0-2 only). Write the Y CC number first and then 2: the firmware promotes it to CC74.
+	// A recorded CC of 1 would block the promotion, so use 74 first and set 1 again after.
+	const yFix = [];
+	for (const base of [0, P.right]) {
+		if (snap[base + 39] !== 3) continue;
+		const cc = snap[base + 25] === undefined || snap[base + 25] === 1 ? 74 : snap[base + 25];
+		yFix.push([base + 25, cc], [base + 39, 2]);
+		if (snap[base + 25] === 1) yFix.push([base + 25, 1]);
+	}
+	const yParams = new Set(yFix.map(([p]) => p));
 	const nums = Object.keys(snap).map(Number).filter((n) => !NO_RESTORE.has(n)).sort((a, b) => a - b);
 	read(nums, (current) => {
-		const changed = nums.filter((n) => current[n] !== snap[n] && setNRPN(n, snap[n]));
+		const changed = nums.filter((n) => !yParams.has(n) && current[n] !== snap[n] && setNRPN(n, snap[n]));
+		// the Y writes go in their own order, and only when the device isn't there already
+		if (yFix.some(([p]) => current[p] !== snap[p])) {
+			yFix.forEach(([p, v]) => setNRPN(p, v));
+			yParams.forEach((p) => changed.push(p));
+		}
 		if (lights) {
 			// show slot 2, repaint it, save it; then show the slot the backup had showing
 			setNRPN(P.noteLights, P.custom0 + SLOT);

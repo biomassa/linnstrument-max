@@ -121,10 +121,16 @@ function device(state) {
 				} else {
 					state[p] = val;
 					written.push([p, val]);
-					// as the firmware: a Y CC number (25) other than 1 promotes the Y
-					// expression (39) from CC1 (2) to CC74 (3)
+					// as the firmware (ls_midi.ino cases 25 and 39): a Y CC number other
+					// than 1 promotes the Y expression from CC1 (2) to CC74 (3), writing
+					// the Y expression as 2 promotes the same way, and 0/1 set the CC to 128/129
 					const split = p >= 100 ? 100 : 0;
 					if (p - split === 25 && val !== 1 && state[split + 39] === 2) state[split + 39] = 3;
+					if (p - split === 39) {
+						if (val === 0) state[split + 25] = 128;
+						else if (val === 1) state[split + 25] = 129;
+						else if (val === 2 && state[split + 25] !== 1) state[split + 39] = 3;
+					}
 				}
 			}
 		},
@@ -301,6 +307,23 @@ assert.deepEqual(t.dev.written.map(([p, v]) => `${p}=${v}`).sort(), ["119=24", "
 	"restore: " + JSON.stringify(t.status.slice(-3)) + " " + t.posts.join(""));
 assert.ok(!t.dev.written.some(([p]) => [234, 243, 245, 62, 63, 64, 65, 66].includes(p)));
 assert.ok(t.status.some((m) => m[0] === "restored"));
+
+// restore: a backup taken after a send records the Y expression as 3, which NRPN 39 refuses.
+// It is restored by writing the Y CC number and then 2, which the firmware promotes to CC74.
+t = load(full);
+t.msg("scale", SCL + "31-edo.scl");
+t.msg("send"); // MIDI setup on: the device ends at 39 = 3 with the Y CC at 74
+t.advance(20000);
+t.msg("backup"); // a new baseline, recording the promoted value
+t.advance(20000);
+assert.equal(JSON.parse(readFileSync(join(t.dir, "backup.json"), "utf8")).values["39"], 3);
+for (const p of [39, 139]) t.dev.state[p] = 1; // channel pressure, which sets the Y CC to 129
+for (const p of [25, 125]) t.dev.state[p] = 129;
+t.posts.length = 0;
+t.msg("restore");
+t.advance(20000);
+assert.deepEqual([t.dev.state[39], t.dev.state[25], t.dev.state[139], t.dev.state[125]], [3, 74, 3, 74], "Y expression restored on both splits");
+assert.ok(!t.posts.join("").includes("outside"), "nothing skipped as out of range: " + t.posts.join(""));
 
 // no answer (device asleep): backup reports it and send stops before writing
 t = load();
