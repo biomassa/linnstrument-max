@@ -121,6 +121,10 @@ function device(state) {
 				} else {
 					state[p] = val;
 					written.push([p, val]);
+					// as the firmware: a Y CC number (25) other than 1 promotes the Y
+					// expression (39) from CC1 (2) to CC74 (3)
+					const split = p >= 100 ? 100 : 0;
+					if (p - split === 25 && val !== 1 && state[split + 39] === 2) state[split + 39] = 3;
 				}
 			}
 		},
@@ -270,7 +274,8 @@ for (const base of [0, 100]) {
 	const at = (p) => t.dev.state[base + p];
 	assert.deepEqual([at(0), at(1), at(2)], [1, 1, 0], `split ${base}: mode, main channel, channel 1 off`);
 	for (let ch = 2; ch <= 16; ch++) assert.equal(at(1 + ch), 1, `split ${base}: channel ${ch} per note`);
-	assert.deepEqual([at(20), at(24), at(39), at(25), at(27), at(28)], [1, 1, 2, 74, 1, 1], `split ${base}: X/Y/Z`);
+	// 39 reads back as 3 (CC74), not the 2 (CC1) that was written: the CC number promotes it
+	assert.deepEqual([at(20), at(24), at(39), at(25), at(27), at(28)], [1, 1, 3, 74, 1, 1], `split ${base}: X/Y/Z`);
 }
 assert.ok(has(sent, nrpn(0, 1)) < has(sent, nrpn(19, 48)), "MIDI setup before the Bend Range");
 // midisetup 0: send leaves the MIDI mode and channels alone

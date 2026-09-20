@@ -1067,6 +1067,9 @@ function write(withLayout) {
 			set(base + 24, 1);
 			set(base + 39, 2);
 			set(base + 25, 74);
+			// the firmware only accepts 0-2 for the Y expression, but setting the Y CC number
+			// (25) to anything but 1 promotes CC1 (2) to CC74 (3), so 3 is what reads back
+			if (expect[base + 39] !== undefined) expect[base + 39] = 3;
 			set(base + 27, 1);
 			set(base + 28, 1);
 		}
