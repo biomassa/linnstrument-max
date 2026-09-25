@@ -7,7 +7,8 @@
 //
 // Values are in dac~ units for the ES-8 (1 = 10 V):
 //   pitch: 1 V/oct = 0.1 per octave, 0 V = MIDI 60 in 12-TET (C4, 261.63 Hz), clamped to -1..1;
-//          bends ramp over slew ms (the LinnStrument sends one every 6-12 ms), new notes jump
+//          bends ramp over slew ms here (default 0: the patch slews in the audio domain, after
+//          linn.cv, with linn.slew), new notes jump
 //   gate: strike velocity / 127 while a note is held
 //   pressure, Y: 0..1 from the sounding note's channel pressure (or poly pressure) and Y CC
 //   (velocity, pressure, Y and release go through response curves: curve <which> <128 floats>,
@@ -23,12 +24,14 @@
 // Outlets 2 pressure, 3 Y, 5 release: floats (for sig~).
 // Outlet 0 pitch: <value> <ms> (for line~). Outlets 1 gate, 4 trigger: line~ lists of <target> <ms> pairs, so pulse widths are exact.
 // Outlet 6: requests to mtof (as linn.retune's outlet 1).
+// Outlet 7: note count (for sig~), one up on each new sounding note: linn.slew resets on a change,
+//           so pitch jumps to a new note while slides are slewed.
 // Curve positions: pos <strike|press|slide|lift> <input 0..1> <1 = a note sounds, 0 = none> to the
 // receiver linn_curves, for the dots on the linn.curve editors.
 
 autowatch = 1;
 inlets = 2;
-outlets = 7;
+outlets = 8;
 
 let range = 48; // LinnStrument Bend Range: full bend = this many scale steps
 let vibratoGain = 1;
@@ -38,7 +41,7 @@ let trigMs = 4;
 let trigVel = 0; // 1: trigger height follows the Strike curve
 let trigLen = 0; // 1: trigger length follows it, 2..20 ms
 let retrigMs = 1;
-let slewMs = 10; // pitch ramp for bends (0 = steps as they come)
+let slewMs = 0; // pitch ramp for bends here (0 = steps as they come; the patch slews after linn.cv)
 
 // response curves: 7-bit input -> 0..1
 const LINEAR = Array.from({ length: 128 }, (_, v) => v / 127);
@@ -52,6 +55,7 @@ const inPress = new Array(16).fill(0);
 const inY = new Array(16).fill(0);
 const stack = []; // held notes { c, note, vel, t0 }, oldest first; the last one sounds
 let gate = 0; // gate level now
+let noteCount = 0; // new sounding notes so far (outlet 7)
 let faded = true; // the sounding note's vibrato gain has faded in
 const last = [NaN, NaN, NaN, NaN, NaN, NaN]; // last float sent per outlet
 
@@ -277,6 +281,7 @@ function noteOff(c, note, vel) {
 function sound() {
 	const s = sounding();
 	faded = onsetMs <= 0 || vibratoGain <= 1 || Date.now() - s.t0 >= onsetMs;
+	outlet(7, ++noteCount);
 	tune(true);
 	send(2, curves.press[inPress[s.c]]);
 	send(3, curves.slide[inY[s.c]]);

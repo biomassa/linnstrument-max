@@ -129,7 +129,8 @@ function getvalueof() {
 
 // a stored value: the name (older presets have none), then the nodes
 function setvalueof(...a) {
-	const name = a.length && isNaN(Number(a[0])) ? String(a.shift()) : null;
+	// (names saved through the dialog before 2026-09-23 start with "symbol ": drop it)
+	const name = a.length && isNaN(Number(a[0])) ? String(a.shift()).replace(/^symbol /, "") : null;
 	const n = fromFlat(a);
 	if (!n) return;
 	nodes = n;
@@ -201,6 +202,9 @@ const FACTORY = {
 	Exponential: n3([0, 0, -0.6], [1, 1, 0]),
 	"Press Dead Zone Heavy": n3([0, 0, 0], [0.85, 0, -0.5], [1, 1, 0]),
 	"Press Dead Zone Lite": n3([0, 0, 0], [0.25, 0, -0.5], [1, 1, 0]),
+	// the user's (2026-09-25): 1 at both edges, 0.5 in the middle
+	"mirrored linear": n3([0, 1, 0], [0.5, 0.5, 0], [1, 1, 0]),
+	"mirrored exp": n3([0, 1, -0.6], [0.5, 0.5, -0.6], [1, 1, 0]),
 };
 
 function libPath() {

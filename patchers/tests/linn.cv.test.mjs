@@ -164,11 +164,14 @@ t.bytes(off(2, 60, 50));
 r = t.take();
 assert.equal(r[5], undefined, "the note was forgotten");
 
-// slew: a new note jumps (0 ms), a bend ramps over slew ms (default 10), slew 0 = steps
+// slew here: default 0 (the patch slews after linn.cv); slew <ms> still ramps bends, new notes jump
 t = load();
 t.bytes(on(2, 60, 100));
 assert.deepEqual(t.take()[0], [[0, 0]], "a new note jumps");
 t.bytes(bend(2, 8192 + 2048));
+assert.equal(lastOf(t.take(), 0)[1], 0, "no ramp by default");
+t.ctx.slew(10);
+t.bytes(bend(2, 8192 + 1024));
 assert.equal(lastOf(t.take(), 0)[1], 10, "a bend ramps over 10 ms");
 t.ctx.slew(0);
 t.bytes(bend(2, 8192));
@@ -231,5 +234,14 @@ t.take();
 t.ctx.curve("strike", ...Array.from({ length: 128 }, () => 0));
 t.bytes(on(6, 66, 10));
 assert.deepEqual(t.take()[4], [[0, 0, 0, 2, 0, 0]], "softest: 2 ms");
+
+// note count (outlet 7): one up on each new sounding note, also on a return to a held note
+t = load();
+t.bytes(on(2, 60, 100));
+assert.deepEqual(t.take()[7], [1]);
+t.bytes(bend(2, 9000), [0xd1, 50]);
+assert.equal(t.take()[7], undefined, "slides and pressure don't count");
+t.bytes(on(3, 62, 100), off(3, 62, 0));
+assert.deepEqual(t.take()[7], [2, 3], "new note, then the return");
 
 console.log("linn.cv: all tests passed");

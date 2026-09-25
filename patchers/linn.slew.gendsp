@@ -1,0 +1,133 @@
+{
+	"patcher": {
+		"fileversion": 1,
+		"appversion": {
+			"major": 9,
+			"minor": 1,
+			"revision": 5,
+			"architecture": "x64",
+			"modernui": 1
+		},
+		"classnamespace": "dsp.gen",
+		"rect": [
+			100.0,
+			100.0,
+			600.0,
+			500.0
+		],
+		"boxes": [
+			{
+				"box": {
+					"id": "obj-1",
+					"maxclass": "newobj",
+					"text": "in 1",
+					"numinlets": 0,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						30.0,
+						20.0,
+						30.0,
+						22.0
+					],
+					"comment": "signal to slew"
+				}
+			},
+			{
+				"box": {
+					"id": "obj-2",
+					"maxclass": "newobj",
+					"text": "in 2",
+					"numinlets": 0,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						300.0,
+						20.0,
+						30.0,
+						22.0
+					],
+					"comment": "reset: a change jumps (linn.cv note count)"
+				}
+			},
+			{
+				"box": {
+					"id": "obj-3",
+					"maxclass": "codebox",
+					"code": "// linn.slew: linear slew in the audio domain. Each new input value is reached in a straight line\n// over ms; a change on the right inlet (linn.cv's note count) jumps straight to the input instead,\n// so a new note lands on its pitch while slides are smoothed. ms 0 = no slew.\nParam ms(10, min=0);\nHistory y(0);\nHistory tgt(0);\nHistory dy(0);\nHistory rem(0);\nHistory last(0);\nn = max(1, mstosamps(ms));\njump = in2 != last;\nlast = in2;\nif (jump || ms <= 0) {\n\ty = in1;\n\ttgt = in1;\n\trem = 0;\n} else if (in1 != tgt) {\n\ttgt = in1;\n\tdy = (in1 - y) / n;\n\trem = n;\n}\nif (rem > 0) {\n\ty = y + dy;\n\trem = rem - 1;\n\tif (rem <= 0) {\n\t\ty = tgt;\n\t}\n}\nout1 = y;",
+					"fontface": 0,
+					"fontname": "Arial",
+					"fontsize": 12.0,
+					"numinlets": 2,
+					"numoutlets": 1,
+					"outlettype": [
+						""
+					],
+					"patching_rect": [
+						30.0,
+						60.0,
+						520.0,
+						380.0
+					]
+				}
+			},
+			{
+				"box": {
+					"id": "obj-4",
+					"maxclass": "newobj",
+					"text": "out 1",
+					"numinlets": 1,
+					"numoutlets": 0,
+					"patching_rect": [
+						30.0,
+						460.0,
+						35.0,
+						22.0
+					]
+				}
+			}
+		],
+		"lines": [
+			{
+				"patchline": {
+					"source": [
+						"obj-1",
+						0
+					],
+					"destination": [
+						"obj-3",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"source": [
+						"obj-2",
+						0
+					],
+					"destination": [
+						"obj-3",
+						1
+					]
+				}
+			},
+			{
+				"patchline": {
+					"source": [
+						"obj-3",
+						0
+					],
+					"destination": [
+						"obj-4",
+						0
+					]
+				}
+			}
+		]
+	}
+}

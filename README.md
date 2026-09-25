@@ -8,20 +8,21 @@ The terminal app [linnkit](https://github.com/biomassa/linnkit) does the same ta
 
 ## Select the patch
 
-The folder `patchers/` has two patches. Select the patch for your instrument.
+The folder `patchers/` has three patches. Select the patch for your instrument.
 
 | Patch | Use |
 |---|---|
 | `linnstrument.maxpat` | For synth plugins in Max (`vst~`, for example Madrona Labs Kaivo). The `retune` toggle sets the tuning mode. **On**: for a plugin that has 12-equal tuning. The patch tunes each note with pitch bend. **Off**: for a plugin that loads the scale. The notes go to the plugin without change. The patch changes the slides so that they stop on the pads. |
+| `linnstrument-es8.maxpat` | For modular synths through the Expert Sleepers ES-8. One voice. The patch sends six CV signals: pitch (1 V/oct, 0 V = MIDI 60), gate, pressure, Y, trigger and release velocity. Connect its outlets to `dac~`. |
 | `linnstrument-relay.maxpat` | For 12-TET hardware on a MIDI port. The `target` menu sets the instrument. **k2600**: Kurzweil K2600 in Multi mode, one note on each channel. **mutantbrain**: Hexinverter Mutant Brain, one voice. **generic**: a different 12-TET MPE instrument. |
 
-CAUTION: Open only one patch at a time. The two patches receive MIDI from the same LinnStrument.
+CAUTION: Open only one patch at a time. The patches receive MIDI from the same LinnStrument.
 
 `linnstrument-b.maxpat` is `linnstrument.maxpat` for use as a bpatcher in a larger patch. It has no `vst~`, no `ezdac~` and no `plug` message. Connect its outlet to your `vst~`. Its presets are in `linnstrument-b.json`.
 
 NOTE: `research_1.maxpat` is an older version. It is a backup.
 
-The two patches have these controls:
+The patches have these controls:
 
 - A scale menu. It shows the files in `patchers/SCL/`. To add a scale, put its `.scl` file in this folder. Click `rescan folder` to read the folder again.
 - Controls for the LinnStrument layout: `row offset`, `bottom-left`, `root` and `Linnstrument PB range`. The `row offset` menu shows the best offsets first, as linnkit does.
@@ -31,7 +32,7 @@ The two patches have these controls:
 - A preview of the pads with their colors and labels. Click a pad to play it.
 - `vibrato`: this makes side-to-side vibrato wider. Slides continue to stop on the pads.
 - `onset ms`: this increases the vibrato effect slowly after each strike.
-- Presets (the preset grid). The patches keep the presets in `linnstrument.json` and `linnstrument-relay.json`.
+- Presets (the preset grid). The patches keep the presets in `linnstrument.json`, `linnstrument-es8.json` and `linnstrument-relay.json`.
 
 ## Prepare the equipment
 
@@ -61,6 +62,26 @@ NOTE: The patches write lights only to custom light slot 2.
 
 CAUTION: Some plugin settings are not parameters, for example the scale menu of Kaivo. After you change such a setting, move a knob of the plugin. Then save the patch or store a preset. If you do not move a knob, the patch restores the old setting.
 
+### `linnstrument-es8.maxpat`
+
+1. Set the LinnStrument to Channel Per Note. When `MIDI setup` is on, `send` does this for you.
+2. Connect the six outlets to `dac~` and to the ES-8 outputs.
+
+The newest note that you hold plays. When you release it, the newest note that you still hold plays again.
+
+- `slides slew ms`, `press slew ms`, `Y slew ms`: these make pitch, pressure and Y change smoothly, in the audio signal after `linn.cv` (`linn.slew~`). New notes do not slide.
+- `trig ms`: the length of the trigger, 2 to 20 ms.
+- `vel > trig level`: when this is on, the strike velocity sets the trigger level.
+- `vel > trig length`: when this is on, the strike velocity sets the trigger length, from 2 ms (soft) to 20 ms (hard).
+
+The four curves set the response to strike (velocity), press (pressure), slide (Y) and lift (release velocity). The yellow dot shows the value of the note that plays.
+
+- Double-click an empty area to add a node. Double-click a node to delete it.
+- Drag a node to move it. Hold Shift to snap it to the grid.
+- Move the pointer near the line. A point shows between two nodes. Drag this point to bend the line. Double-click it to make the line straight.
+- Use the menu to load a curve. Click the button next to the name to save the curve. The patch keeps the saved curves in `patchers/linn.curves.json`.
+- `reset curves`: this deletes all saved curves and sets the four curves to linear.
+
 ### `linnstrument-relay.maxpat`
 
 1. In the `MIDI out` menu, select the MIDI output port.
@@ -89,11 +110,14 @@ NOTE: The Mutant Brain plays only MIDI notes 24 to 120. When `legato` is on, the
 
 | Path | Contents |
 |---|---|
-| `patchers/linnstrument.maxpat`, `patchers/linnstrument-relay.maxpat` | The two patches |
+| `patchers/linnstrument.maxpat`, `patchers/linnstrument-es8.maxpat`, `patchers/linnstrument-relay.maxpat` | The three patches |
 | `patchers/linnstrument-b.maxpat` | `linnstrument.maxpat` as a bpatcher, with an outlet for `vst~` |
 | `patchers/linn.lights.maxpat` + `.js` | The layout, lights, settings and backups of the LinnStrument |
 | `patchers/linn.retune.maxpat` + `.js` | The tuning for synth plugins. The script is also the engine of `linn.relay`. |
 | `patchers/linn.relay.maxpat` | The tuning for 12-TET hardware, with output to a MIDI port |
+| `patchers/linn.cv.maxpat` + `.js` | One-voice CV for the ES-8 |
+| `patchers/linn.curve.js` | The response curve editor (`v8ui`) |
+| `patchers/linn.slew~.maxpat` + `linn.slew.gendsp` | Linear slew in the audio signal (`gen~`) |
 | `patchers/linn.preview.js` | The pad preview (`v8ui`) |
 | `patchers/tests/` | Node tests for the scripts, with reference grids from linnkit |
 | `docs/light-schemes.md` | The light schemes (the same in linnkit) |

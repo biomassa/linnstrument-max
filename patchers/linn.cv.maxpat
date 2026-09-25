@@ -80,8 +80,9 @@
 					"maxclass": "newobj",
 					"text": "v8 linn.cv.js",
 					"numinlets": 2,
-					"numoutlets": 7,
+					"numoutlets": 8,
 					"outlettype": [
+						"",
 						"",
 						"",
 						"",
@@ -93,7 +94,7 @@
 					"patching_rect": [
 						30.0,
 						120.0,
-						340.0,
+						400.0,
 						22.0
 					],
 					"saved_object_attributes": {
@@ -339,7 +340,41 @@
 						620.0,
 						104.0
 					],
-					"text": "linn.cv: LinnStrument MPE (Channel Per Note) to monophonic CV for the Expert Sleepers ES-8, in the loaded scale. The newest held note sounds; releasing it returns to the newest note still held. Each new sounding note retriggers the gate (1 ms low) and fires a trigger (trigger <ms> 2-20, default 4; trigvel 1: height from the Strike curve; triglen 1: 2-20 ms by velocity). Outlets, in dac~ units (1 = 10 V): pitch (1 V/oct, 0 V = MIDI 60 in 12-TET), gate, pressure, Y (CC 74, ycc <n>), trigger, release velocity. Pitch bends ramp over slew <ms> (default 10, 0-50; new notes jump). The player's bend counts in scale steps (bendrange = the LinnStrument Bend Range)."
+					"text": "linn.cv: LinnStrument MPE (Channel Per Note) to monophonic CV for the Expert Sleepers ES-8, in the loaded scale. The newest held note sounds; releasing it returns to the newest note still held. Each new sounding note retriggers the gate (1 ms low) and fires a trigger (trigger <ms> 2-20, default 4; trigvel 1: height from the Strike curve; triglen 1: 2-20 ms by velocity). Outlets, in dac~ units (1 = 10 V): pitch (1 V/oct, 0 V = MIDI 60 in 12-TET), gate, pressure, Y (CC 74, ycc <n>), trigger, release velocity, note count (steps on each new note: linn.slew's reset). Slew happens after linn.cv (linn.slew); slew <ms> here defaults to 0. The player's bend counts in scale steps (bendrange = the LinnStrument Bend Range)."
+				}
+			},
+			{
+				"box": {
+					"id": "obj-16",
+					"maxclass": "newobj",
+					"text": "sig~",
+					"numinlets": 1,
+					"numoutlets": 1,
+					"outlettype": [
+						"signal"
+					],
+					"patching_rect": [
+						366.0,
+						200.0,
+						50.0,
+						22.0
+					]
+				}
+			},
+			{
+				"box": {
+					"id": "obj-26",
+					"maxclass": "outlet",
+					"index": 7,
+					"numinlets": 1,
+					"numoutlets": 0,
+					"patching_rect": [
+						366.0,
+						260.0,
+						30.0,
+						30.0
+					],
+					"comment": "note count: steps on each new sounding note (linn.slew's reset inlet, so pitch jumps)"
 				}
 			}
 		],
@@ -544,6 +579,30 @@
 					],
 					"destination": [
 						"obj-25",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"source": [
+						"obj-4",
+						7
+					],
+					"destination": [
+						"obj-16",
+						0
+					]
+				}
+			},
+			{
+				"patchline": {
+					"source": [
+						"obj-16",
+						0
+					],
+					"destination": [
+						"obj-26",
 						0
 					]
 				}

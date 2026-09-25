@@ -190,4 +190,9 @@ near(t.ctx.valueAt(0.3), 0.3, "linear");
 const m2 = t.out.filter((m) => m[0] === 1).map((m) => m.slice(1).join(" "));
 assert.ok(!m2.includes("append <separator>"), "no user curves in the menu");
 
+// a stored name with the old "symbol " prefix is shown without it
+t = load();
+t.ctx.setvalueof("symbol mirror", 2, 0, 0, 0, 1, 1, 0);
+assert.equal(t.ctx.getvalueof()[0], "mirror");
+
 console.log("linn.curve: all tests passed");
