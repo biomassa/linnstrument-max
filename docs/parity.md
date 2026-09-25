@@ -38,6 +38,7 @@ State on 2026-09-12. linnkit's column includes the relay work in progress there 
 | MIDI clock and transport | dropped: the relay drops every status >= 0xF0 (realtime, song position, sysex); nothing sends them to the LinnStrument (2026-09-14, not committed there yet) | dropped: no realtime or system messages pass, and none go to the LinnStrument (the user's choice, 2026-09-14; clock in may come later) | none |
 | Relay counters (messages, dropped, stolen, clamped) and sounding notes | yes | no (built, then removed at the user's request as not useful, 2026-09-12) | intended difference |
 | Send Bend Range (RPN 0) to the target | "send bend range", on by default: RPN 0 to each channel in use when the relay starts | no | intended difference (the user's choice, 2026-09-12: the K2600 and Mutant Brain ignore it) |
+| Response curves (strike, press, slide, lift; editors like Equator's, a shared curve library) | no | yes (linnstrument, -b, -relay: on the MIDI; -es8: on the CV) | intended difference for now (the user's choice, 2026-09-25: no curves in linnkit at least for now) |
 | **Presets** | | | |
 | Settings per scale | yes | yes | none |
 | Presets | named presets (scale, settings, slot, send options); the last send is reopened at start | numbered slots of the preset grid (scale, lights settings, synth or relay settings, plugin state) | different models; see the plan |

@@ -49,7 +49,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1210.0, 154.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 836.0, 456.0, 50.0, 26.0 ],
+                    "presentation_rect": [ 861.0, 451.0, 50.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_slewy",
@@ -72,7 +72,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1210.0, 130.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 694.0, 457.0, 140.0, 24.0 ],
+                    "presentation_rect": [ 719.0, 452.0, 140.0, 24.0 ],
                     "text": "Y slew ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_slewy"
@@ -114,7 +114,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1060.0, 154.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 836.0, 426.0, 50.0, 26.0 ],
+                    "presentation_rect": [ 861.0, 421.0, 50.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_slewpress",
@@ -137,7 +137,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1060.0, 130.0, 140.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 694.0, 427.0, 140.0, 24.0 ],
+                    "presentation_rect": [ 719.0, 422.0, 140.0, 24.0 ],
                     "text": "press slew ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_slewpress"
@@ -202,7 +202,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1060.0, 816.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 616.0, 372.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 641.0, 367.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[4]"
@@ -217,7 +217,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 695.0, 820.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 446.0, 372.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 471.0, 367.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[3]"
@@ -232,7 +232,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 317.0, 821.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 269.0, 372.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 294.0, 367.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[2]"
@@ -247,7 +247,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1341.0, 824.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 97.0, 372.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 122.0, 367.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[1]"
@@ -262,7 +262,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1550.0, 820.0, 156.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 697.0, 372.0, 98.0, 24.0 ],
+                    "presentation_rect": [ 722.0, 367.0, 98.0, 24.0 ],
                     "text": "reset curves",
                     "textcolor": [ 1.0, 0.26666666666666666, 0.26666666666666666, 1.0 ],
                     "varname": "cmt_curvereset"
@@ -274,8 +274,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 1520.0, 910.0, 100.0, 22.0 ],
-                    "text": "s linn_curves",
+                    "patching_rect": [ 1520.0, 910.0, 105.0, 22.0 ],
+                    "text": "s linn_es8_curves",
                     "varname": "linn_scurvereset"
                 }
             },
@@ -302,7 +302,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1520.0, 820.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 797.0, 372.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 822.0, 367.0, 24.0, 24.0 ],
                     "varname": "linn_curvereset"
                 }
             },
@@ -312,8 +312,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 840.0, 330.0, 100.0, 22.0 ],
-                    "text": "s linn_cv_curve",
+                    "patching_rect": [ 840.0, 330.0, 111.0, 22.0 ],
+                    "text": "s linn_es8_cvcurve",
                     "varname": "linn_strig"
                 }
             },
@@ -363,7 +363,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 720.0, 254.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 836.0, 546.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 861.0, 541.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -387,7 +387,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 560.0, 254.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 836.0, 516.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 861.0, 511.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -414,7 +414,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 440.0, 254.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 836.0, 485.0, 50.0, 26.0 ],
+                    "presentation_rect": [ 861.0, 480.0, 50.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_trigms",
@@ -438,7 +438,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 720.0, 230.0, 160.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 694.0, 546.0, 140.0, 24.0 ],
+                    "presentation_rect": [ 719.0, 541.0, 140.0, 24.0 ],
                     "text": "vel > trig length",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_triglen"
@@ -453,7 +453,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 560.0, 230.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 694.0, 516.0, 140.0, 24.0 ],
+                    "presentation_rect": [ 719.0, 511.0, 140.0, 24.0 ],
                     "text": "vel > trig level",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_trigvel"
@@ -468,7 +468,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 440.0, 230.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 694.0, 486.0, 140.0, 24.0 ],
+                    "presentation_rect": [ 719.0, 481.0, 140.0, 24.0 ],
                     "text": "trig ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_trigms"
@@ -483,7 +483,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1324.0, 1000.0, 180.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 522.0, 372.0, 36.0, 24.0 ],
+                    "presentation_rect": [ 547.0, 367.0, 36.0, 24.0 ],
                     "text": "lift",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_lift"
@@ -498,7 +498,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 944.0, 1000.0, 190.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 350.0, 372.0, 71.0, 24.0 ],
+                    "presentation_rect": [ 375.0, 367.0, 71.0, 24.0 ],
                     "text": "slide (Y)",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_slide"
@@ -513,7 +513,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 564.0, 1000.0, 190.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 178.0, 372.0, 58.0, 24.0 ],
+                    "presentation_rect": [ 203.0, 367.0, 58.0, 24.0 ],
                     "text": "press",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_press"
@@ -602,7 +602,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1414.0, 820.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 658.0, 372.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 683.0, 367.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_lift"
                 }
             },
@@ -617,7 +617,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1034.0, 820.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 486.0, 372.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 511.0, 367.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_slide"
                 }
             },
@@ -632,7 +632,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 654.0, 820.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 314.0, 372.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 339.0, 367.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_press"
                 }
             },
@@ -684,7 +684,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1154.0, 880.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 522.0, 562.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 547.0, 557.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_lift"
                 }
             },
@@ -700,7 +700,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 774.0, 880.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 350.0, 562.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 375.0, 557.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_slide"
                 }
             },
@@ -716,7 +716,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 394.0, 880.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 178.0, 562.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 203.0, 557.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_press"
                 }
             },
@@ -726,8 +726,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 1154.0, 1170.0, 100.0, 22.0 ],
-                    "text": "s linn_cv_curve",
+                    "patching_rect": [ 1154.0, 1170.0, 111.0, 22.0 ],
+                    "text": "s linn_es8_cvcurve",
                     "varname": "linn_scurve_lift"
                 }
             },
@@ -737,8 +737,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 774.0, 1170.0, 100.0, 22.0 ],
-                    "text": "s linn_cv_curve",
+                    "patching_rect": [ 774.0, 1170.0, 111.0, 22.0 ],
+                    "text": "s linn_es8_cvcurve",
                     "varname": "linn_scurve_slide"
                 }
             },
@@ -748,8 +748,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 394.0, 1170.0, 100.0, 22.0 ],
-                    "text": "s linn_cv_curve",
+                    "patching_rect": [ 394.0, 1170.0, 111.0, 22.0 ],
+                    "text": "s linn_es8_cvcurve",
                     "varname": "linn_scurve_press"
                 }
             },
@@ -801,7 +801,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1154.0, 970.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 522.0, 398.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 547.0, 393.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linn.curve.js",
                         "flags": 0,
@@ -823,7 +823,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 774.0, 970.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 350.0, 398.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 375.0, 393.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linn.curve.js",
                         "flags": 0,
@@ -845,7 +845,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 394.0, 970.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 178.0, 398.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 203.0, 393.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linn.curve.js",
                         "flags": 0,
@@ -864,7 +864,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 184.0, 1000.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 6.0, 372.0, 57.0, 24.0 ],
+                    "presentation_rect": [ 31.0, 367.0, 57.0, 24.0 ],
                     "text": "strike",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_strike"
@@ -905,7 +905,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 274.0, 820.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 142.0, 372.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 167.0, 367.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_strike"
                 }
             },
@@ -933,7 +933,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 14.0, 880.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 6.0, 562.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 31.0, 557.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_strike"
                 }
             },
@@ -943,8 +943,8 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 14.0, 1170.0, 100.0, 22.0 ],
-                    "text": "s linn_cv_curve",
+                    "patching_rect": [ 14.0, 1170.0, 111.0, 22.0 ],
+                    "text": "s linn_es8_cvcurve",
                     "varname": "linn_scurve_strike"
                 }
             },
@@ -967,8 +967,8 @@
                     "numinlets": 0,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 200.0, 150.0, 100.0, 22.0 ],
-                    "text": "r linn_cv_curve",
+                    "patching_rect": [ 200.0, 150.0, 109.0, 22.0 ],
+                    "text": "r linn_es8_cvcurve",
                     "varname": "linn_rcvcurve"
                 }
             },
@@ -984,7 +984,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 14.0, 970.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 6.0, 398.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 31.0, 393.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linn.curve.js",
                         "flags": 0,
@@ -1007,7 +1007,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 680.0, 160.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 833.0, 398.0, 53.0, 26.0 ],
+                    "presentation_rect": [ 858.0, 393.0, 53.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_slew",
@@ -1030,7 +1030,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 680.0, 136.0, 140.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 694.0, 398.0, 140.0, 24.0 ],
+                    "presentation_rect": [ 719.0, 393.0, 140.0, 24.0 ],
                     "text": "slides slew ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_slew"
@@ -2125,7 +2125,7 @@
                     "patching_rect": [ 10.0, 520.0, 141.0, 114.0 ],
                     "pattrstorage": "linnstrument-es8",
                     "presentation": 1,
-                    "presentation_rect": [ -3.0, -1.0, 149.0, 64.0 ],
+                    "presentation_rect": [ 4.0, 0.0, 149.0, 64.0 ],
                     "varname": "linn_preset"
                 }
             },
@@ -2547,7 +2547,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 184.0, 940.0, 150.0, 22.0 ],
-                    "text": "r linn_curves",
+                    "text": "r linn_es8_curves",
                     "varname": "linn_rrefresh_strike"
                 }
             },
@@ -2562,7 +2562,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 564.0, 940.0, 150.0, 22.0 ],
-                    "text": "r linn_curves",
+                    "text": "r linn_es8_curves",
                     "varname": "linn_rrefresh_press"
                 }
             },
@@ -2577,7 +2577,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 944.0, 940.0, 150.0, 22.0 ],
-                    "text": "r linn_curves",
+                    "text": "r linn_es8_curves",
                     "varname": "linn_rrefresh_slide"
                 }
             },
@@ -2592,7 +2592,7 @@
                     "numoutlets": 1,
                     "outlettype": [ "" ],
                     "patching_rect": [ 1324.0, 940.0, 150.0, 22.0 ],
-                    "text": "r linn_curves",
+                    "text": "r linn_es8_curves",
                     "varname": "linn_rrefresh_lift"
                 }
             },
@@ -2607,7 +2607,7 @@
                     "numoutlets": 7,
                     "outlettype": [ "signal", "signal", "signal", "signal", "signal", "signal", "signal" ],
                     "patching_rect": [ 14.0, 190.0, 340.0, 22.0 ],
-                    "text": "linn.cv",
+                    "text": "linn.cv linn_es8_curves",
                     "varname": "linn_cv"
                 }
             },
@@ -2652,9 +2652,20 @@
                     "numoutlets": 3,
                     "outlettype": [ "", "bang", "bang" ],
                     "patching_rect": [ 1520.0, 850.0, 460.0, 22.0 ],
-                    "presentation_linecount": 6,
                     "text": "dialog @mode 2 @label \"Delete all saved curves and set the four curves to Linear?\"",
                     "varname": "linn_curveresetdialog"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-9000",
+                    "maxclass": "newobj",
+                    "numinlets": 0,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1520.0, 950.0, 130.0, 22.0 ],
+                    "text": "r linn_curves_lib",
+                    "varname": "linn_rcurveslib"
                 }
             }
         ],
@@ -3583,6 +3594,34 @@
                 "patchline": {
                     "destination": [ "obj-79", 0 ],
                     "source": [ "obj-90", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-107", 0 ],
+                    "order": 2,
+                    "source": [ "obj-9000", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-109", 0 ],
+                    "order": 1,
+                    "source": [ "obj-9000", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-111", 0 ],
+                    "order": 0,
+                    "source": [ "obj-9000", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-47", 0 ],
+                    "order": 3,
+                    "source": [ "obj-9000", 0 ]
                 }
             },
             {

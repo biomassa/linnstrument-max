@@ -13,8 +13,12 @@
 //
 // Argument (jsarguments): strike | press | slide | lift: which curve this is (for the dot).
 // Inlet: bang (send the table again), linear, load <name>, save <name>, refresh, resetcurves,
-//        pos <which> <input 0..1> <active 0|1> (from linn.cv, for the editor named <which>: a dot
-//        where the sounding note sits). The editors share the receiver linn_curves (pos, refresh).
+//        pos <which> <input 0..1> <active 0|1> [<voice>] (from linn.cv or linn.curvemidi, for the
+//        editor named <which>: a dot per voice, or one dot
+//        where the sounding note sits). Each patch gives its editors one receiver of its own
+//        (e.g. linn_b_curves: pos, resetcurves). The saved-curve library is shared by every patch:
+//        after a save or a reset, refresh goes to the global receiver linn_curves_lib, which each
+//        patch connects to its editors, so every menu shows the library again.
 //        setnodes [<name>] <n x0 y0 b0 x1 y1 b1 ...> (the stored form, also what pattr keeps: the
 //        curve's name, shown in the menu after a preset recall, then its nodes).
 // Outlet 0: 128 floats: the curve at input 0/127 .. 127/127 (for linn.cv: prepend curve <which>).
@@ -46,8 +50,20 @@ let drag = null; // { kind: "node" | "bend", i, b0, y0 }
 let curveName = "Linear"; // the curve loaded or saved last (edits keep it)
 let dotX = -1; // the sounding note's input (0..1), -1 = none yet
 let dotOn = 0; // 1 while a note sounds; the dot dims after
+const voiceDots = new Map(); // poly (linn.curvemidi): voice -> input (0..1), one dot per held note
 
 const DOT = [0.97, 0.8, 0.2]; // yellow, on every curve (the user's choice)
+
+// poly dots: a colour per voice (MIDI channel), the same in every editor, so one finger's dots
+// match across the four curves; hues spread by the golden ratio so neighbouring channels differ
+function voiceColor(voice) {
+	const h = (voice * 0.618034) % 1;
+	const f = (n) => {
+		const k = (n + h * 6) % 6;
+		return 1 - 0.75 * Math.max(0, Math.min(k, 4 - k, 1));
+	};
+	return [f(5), f(3), f(1)];
+}
 // this editor's name, from its arguments (whether or not jsarguments starts with the file name)
 function myName() {
 	try {
@@ -157,11 +173,18 @@ function changed(edit = true) {
 	if (edit) notifyclients();
 }
 
-// pos <which> <x> <active>: where the sounding note's input sits on the curve named <which>
-function pos(which, x, on) {
+// pos <which> <x> <active> [<voice>]: where a note's input sits on the curve named <which>.
+// Without a voice (linn.cv, mono; or linn.curvemidi's lift) there is one dot, dimmed when not
+// active. With a voice (linn.curvemidi, poly: the MIDI channel) each voice has its own dot, and
+// active 0 removes it.
+function pos(which, x, on, voice) {
 	if (String(which) !== myName()) return;
-	dotX = clamp(Number(x) || 0, 0, 1);
-	dotOn = on ? 1 : 0;
+	x = clamp(Number(x) || 0, 0, 1);
+	if (voice === undefined) {
+		dotX = x;
+		dotOn = on ? 1 : 0;
+	} else if (on) voiceDots.set(Number(voice), x);
+	else voiceDots.delete(Number(voice));
 	mgraphics.redraw();
 }
 
@@ -273,13 +296,14 @@ function load(...name) {
 	changed();
 }
 
-// resetcurves: delete every saved curve and go back to Linear (the patch sends it to all editors
-// through linn_curves after a confirmation dialog)
+// resetcurves: delete every saved curve and go back to Linear (the patch sends it to its four
+// editors after a confirmation dialog); every patch's menus are refreshed
 function resetcurves() {
 	if (!writeLib({})) return;
 	nodes = linearNodes();
 	curveName = "Linear";
 	changed();
+	messnamed("linn_curves_lib", "refresh");
 	refresh();
 }
 
@@ -296,7 +320,7 @@ function save(...name) {
 	if (!writeLib(lib)) return;
 	curveName = name;
 	notifyclients();
-	messnamed("linn_curves", "refresh");
+	messnamed("linn_curves_lib", "refresh");
 	refresh();
 }
 
@@ -367,14 +391,13 @@ function paint() {
 		mgraphics.ellipse(px(n.x) - 4, py(n.y) - 4, 8, 8);
 		mgraphics.fill();
 	});
-	if (dotX >= 0) {
-		const [r, g, b] = DOT;
-		const X = px(dotX);
-		const Y = py(valueAt(dotX));
-		mgraphics.set_source_rgba(r, g, b, dotOn ? 1 : 0.35);
-		mgraphics.ellipse(X - 5, Y - 5, 10, 10);
+	const drawDot = (x, alpha, rgb = DOT) => {
+		mgraphics.set_source_rgba(rgb[0], rgb[1], rgb[2], alpha);
+		mgraphics.ellipse(px(x) - 5, py(valueAt(x)) - 5, 10, 10);
 		mgraphics.fill();
-	}
+	};
+	if (dotX >= 0) drawDot(dotX, dotOn ? 1 : 0.35);
+	voiceDots.forEach((x, voice) => drawDot(x, 1, voiceColor(voice)));
 	const seg = drag && drag.kind === "bend" ? drag.i : hover;
 	if (seg >= 0 && seg < nodes.length - 1) {
 		const [X, Y] = handle(seg);

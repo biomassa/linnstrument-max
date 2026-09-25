@@ -125,7 +125,7 @@ near(t.ctx.valueAt(0.8), 0, "dead zone");
 near(t.ctx.valueAt(1), 1, "top");
 t.ctx.save("my", "curve");
 assert.ok(existsSync(join(dir, "linn.curves.json")));
-assert.deepEqual(t.named, [["linn_curves", "refresh"]]);
+assert.deepEqual(t.named, [["linn_curves_lib", "refresh"]]);
 t.out.length = 0;
 t.ctx.refresh();
 const menu = t.out.filter((m) => m[0] === 1).map((m) => m.slice(1).join(" "));
@@ -194,5 +194,20 @@ assert.ok(!m2.includes("append <separator>"), "no user curves in the menu");
 t = load();
 t.ctx.setvalueof("symbol mirror", 2, 0, 0, 0, 1, 1, 0);
 assert.equal(t.ctx.getvalueof()[0], "mirror");
+
+// poly dots: pos with a voice adds or removes that voice's dot; without one, the single dot
+t = load();
+t.ctx.jsarguments = ["linn.curve.js", "press"];
+t.ctx.pos("press", 0.2, 1, 2);
+t.ctx.pos("press", 0.7, 1, 5);
+assert.equal(JSON.stringify([...vm.runInContext("voiceDots", t.ctx).entries()]), "[[2,0.2],[5,0.7]]");
+t.ctx.pos("press", 0, 0, 2);
+assert.equal(JSON.stringify([...vm.runInContext("voiceDots", t.ctx).keys()]), "[5]");
+assert.equal(vm.runInContext("dotX", t.ctx), -1, "the single dot is untouched");
+
+// voice colours: fixed per channel, and the 15 per-note channels all differ
+const cols = Array.from({ length: 15 }, (_, i) => JSON.stringify(t.ctx.voiceColor(i + 2).map((x) => x.toFixed(2))));
+assert.equal(new Set(cols).size, 15);
+assert.equal(JSON.stringify(t.ctx.voiceColor(3)), JSON.stringify(t.ctx.voiceColor(3)));
 
 console.log("linn.curve: all tests passed");

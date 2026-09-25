@@ -244,4 +244,14 @@ assert.equal(t.take()[7], undefined, "slides and pressure don't count");
 t.bytes(on(3, 62, 100), off(3, 62, 0));
 assert.deepEqual(t.take()[7], [2, 3], "new note, then the return");
 
+// the dots' receiver comes from the argument (linn.cv <name> -> v8 linn.cv.js #1)
+t = load();
+t.ctx.jsarguments = ["linn.cv.js", "linn_es8_curves"];
+t.bytes(on(2, 60, 127));
+assert.equal(t.ctx.dots[0][0], "linn_es8_curves");
+t = load();
+t.ctx.jsarguments = ["linn.cv.js", 0];
+t.bytes(on(2, 60, 127));
+assert.equal(t.ctx.dots[0][0], "linn_curves", "no name (#1 empty): the old global name");
+
 console.log("linn.cv: all tests passed");

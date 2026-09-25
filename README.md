@@ -32,6 +32,7 @@ The patches have these controls:
 - A preview of the pads with their colors and labels. Click a pad to play it.
 - `vibrato`: this makes side-to-side vibrato wider. Slides continue to stop on the pads.
 - `onset ms`: this increases the vibrato effect slowly after each strike.
+- Four response curves (strike, press, slide, lift), as in `linnstrument-es8.maxpat` (see there). In `linnstrument.maxpat`, `linnstrument-b.maxpat` and `linnstrument-relay.maxpat` they change the MIDI to the synth: velocity, pressure, Y (CC 74) and release velocity. With linear curves (the default) the MIDI does not change. A coloured dot shows each note that you hold.
 - Presets (the preset grid). The patches keep the presets in `linnstrument.json`, `linnstrument-es8.json` and `linnstrument-relay.json`.
 
 ## Prepare the equipment
@@ -117,6 +118,7 @@ NOTE: The Mutant Brain plays only MIDI notes 24 to 120. When `legato` is on, the
 | `patchers/linn.relay.maxpat` | The tuning for 12-TET hardware, with output to a MIDI port |
 | `patchers/linn.cv.maxpat` + `.js` | One-voice CV for the ES-8 |
 | `patchers/linn.curve.js` | The response curve editor (`v8ui`) |
+| `patchers/linn.curvemidi.js` | The response curves on the MIDI before `linn.retune` and `linn.relay` |
 | `patchers/linn.slew~.maxpat` + `linn.slew.gendsp` | Linear slew in the audio signal (`gen~`) |
 | `patchers/linn.preview.js` | The pad preview (`v8ui`) |
 | `patchers/tests/` | Node tests for the scripts, with reference grids from linnkit |

@@ -27,7 +27,7 @@
 // Outlet 7: note count (for sig~), one up on each new sounding note: linn.slew resets on a change,
 //           so pitch jumps to a new note while slides are slewed.
 // Curve positions: pos <strike|press|slide|lift> <input 0..1> <1 = a note sounds, 0 = none> to the
-// receiver linn_curves, for the dots on the linn.curve editors.
+// receiver named by the argument (linn.cv <name>; default linn_curves), for the linn.curve dots.
 
 autowatch = 1;
 inlets = 2;
@@ -185,9 +185,20 @@ function curve(which, ...t) {
 	if (which === "slide") send(3, curves.slide[inY[s.c]]);
 }
 
+// the receiver for the curve editors' dots: the first word argument (the patch passes its own,
+// e.g. linn_es8_curves, through linn.cv's #1); linn_curves if none
+function bus() {
+	try {
+		const a = Array.from(jsarguments).slice(1).find((x) => isNaN(Number(x)));
+		return a ? String(a) : "linn_curves";
+	} catch (e) {
+		return "linn_curves";
+	}
+}
+
 // where the sounding note's input sits on a curve (a dot on its editor)
 function dot(which, v, on = 1) {
-	messnamed("linn_curves", "pos", which, v / 127, on);
+	messnamed(bus(), "pos", which, v / 127, on);
 }
 
 // slew <ms>: bends ramp to their new pitch over this long; new notes still jump

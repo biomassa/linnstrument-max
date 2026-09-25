@@ -78,7 +78,7 @@
 				"box": {
 					"id": "obj-4",
 					"maxclass": "newobj",
-					"text": "v8 linn.cv.js",
+					"text": "v8 linn.cv.js #1",
 					"numinlets": 2,
 					"numoutlets": 8,
 					"outlettype": [
