@@ -8,3 +8,9 @@ refs/
 # linn.retune's scale export when the Madrona Labs folder isn't found; the folder itself stays
 patchers/Madrona/*
 !patchers/Madrona/.gitkeep
+
+# preset files written by pattrstorage when the patches are saved (user, 2026-09-25)
+patchers/linnstrument.json
+patchers/linnstrument-b.json
+patchers/linnstrument-relay.json
+patchers/linnstrument-es8.json
