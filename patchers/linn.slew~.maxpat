@@ -78,10 +78,11 @@
 				"box": {
 					"id": "obj-4",
 					"maxclass": "newobj",
-					"text": "prepend ms",
+					"text": "route ms",
 					"numinlets": 1,
-					"numoutlets": 1,
+					"numoutlets": 2,
 					"outlettype": [
+						"",
 						""
 					],
 					"patching_rect": [
@@ -96,8 +97,8 @@
 				"box": {
 					"id": "obj-5",
 					"maxclass": "newobj",
-					"text": "gen~ @gen linn.slew",
-					"numinlets": 2,
+					"text": "gen~ linn_slew",
+					"numinlets": 3,
 					"numoutlets": 1,
 					"outlettype": [
 						"signal"
@@ -139,7 +140,7 @@
 						480.0,
 						48.0
 					],
-					"text": "linn.slew~ <name>: linear slew in the audio domain (linn.slew.gendsp). Each new value is reached in a straight line over ms. A change on the right inlet jumps straight to the input. Set the time with ms <n> to the receiver <name>."
+					"text": "linn.slew~ <name>: linear slew in the audio domain (linn_slew.gendsp). Each new value is reached in a straight line over ms. A change on the right inlet jumps straight to the input. Set the time with ms <n> to the receiver <name>; it goes to the gen~'s third inlet as a number (a gen~ Param set by message gave \"ms: bad number\", 2026-09-25)."
 				}
 			}
 		],
@@ -183,11 +184,11 @@
 			{
 				"patchline": {
 					"source": [
-						"obj-4",
+						"obj-5",
 						0
 					],
 					"destination": [
-						"obj-5",
+						"obj-6",
 						0
 					]
 				}
@@ -195,12 +196,12 @@
 			{
 				"patchline": {
 					"source": [
-						"obj-5",
+						"obj-4",
 						0
 					],
 					"destination": [
-						"obj-6",
-						0
+						"obj-5",
+						2
 					]
 				}
 			}
