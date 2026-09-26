@@ -25,6 +25,7 @@ State on 2026-09-12. linnkit's column includes the relay work in progress there 
 | MIDI setup (Channel Per Note, main 1, per-note 2-16, or One Channel) | yes (`c`) | `MIDI setup` toggle, on by default: Channel Per Note, main 1, per-note 2-16, X/Y/Z (One Channel not offered) | none |
 | Backups | one per send in `~/.config/linnkit/backups`; restore the latest | one file, kept from the first send; restore | none in effect |
 | Slot 2 light pattern in the backup, repainted by restore | no (ignores the extra entry) | yes | linnkit |
+| Columns of a CC-fader split left dark (`docs/fader-lights.md`) | spec sent 2026-09-26 | yes | linnkit |
 | **Synths** | | | |
 | Synth profiles (bend ranges, setup notes) | yes | no (a `synth bend` box) | Max, if wanted |
 | Bend Range for Scala synths | approximate B from the profile, or exact with the Scala-synth relay | exact: Bend Range stays 48, bends converted (`retune 0`) | none |

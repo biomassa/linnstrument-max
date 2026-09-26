@@ -233,24 +233,53 @@ for (let r = 0; r < 8; r++) for (let c = 1; c <= 25; c++) {
 }
 assert.ok(lit > 0);
 
-// sendlights: slot 2 selected, 200 pads column by column, then CC23 2; nothing else
+// sendlights: the split read first (no answer here: all columns lit), then slot 2 selected,
+// 200 pads column by column, then CC23 2; nothing else
 t = load({});
 t.msg("scale", SCL + "31-edo.scl");
 t.msg("offset", 13);
 t.msg("sendlights");
-t.advance(5000);
+t.advance(10000);
 let sent = ccs(t.out);
-assert.equal(has(sent, nrpn(247, 11)), 0);
-const pads = sent.slice(6, 6 + 600);
+const q0 = has(sent, nrpn(247, 11));
+assert.ok(q0 > 0 && sent.slice(0, q0).every((m) => [99, 98, 6, 38, 101, 100].includes(m[1])), "only split queries before the lights");
+assert.ok(t.posts.join("").includes("split settings not read"));
+const pads = sent.slice(q0 + 6, q0 + 6 + 600);
 for (let col = 1, i = 0; col <= 25; col++) for (let row = 0; row < 8; row++, i += 3) {
 	assert.deepEqual(pads[i], [0xb0, 20, col]);
 	assert.deepEqual(pads[i + 1], [0xb0, 21, row]);
 	assert.deepEqual(pads[i + 2], [0xb0, 22, surf[row][col - 1]]);
 }
-assert.deepEqual(sent[606], [0xb0, 23, 2]);
+assert.deepEqual(sent[q0 + 606], [0xb0, 23, 2]);
 assert.ok(sent.filter((m) => m[1] === 23).every((m) => m[2] === 2), "CC23 only to slot 2");
 assert.ok(!t.dev.written.some(([p]) => p === 227 || p === 19), "lights only: no rows, no bend");
 assert.ok(t.status.some((m) => m[0] === "verified"), "readback verifies the slot");
+
+// CC faders: columns of a split in faders mode stay dark (split on at column 13: right = 13..25)
+const lightsAt = (state) => {
+	const x = load(state);
+	x.msg("scale", SCL + "31-edo.scl");
+	x.msg("offset", 13);
+	x.msg("sendlights");
+	x.advance(10000);
+	const m = ccs(x.out), q = has(m, nrpn(247, 11));
+	const got = Array.from({ length: 8 }, () => []);
+	for (let col = 1, i = q + 6; col <= 25; col++) for (let row = 0; row < 8; row++, i += 3) got[row][col - 1] = m[i + 2][2];
+	const prev = x.status.filter((s) => s[0] === "preview").pop();
+	return { got, preview: prev && JSON.parse(prev[1]), x };
+};
+const split = (on, point, left, right, current = 0) => ({ 200: on, 201: current, 202: point, 35: left, 135: right });
+const darkFrom = (g, cols) => g.every((row) => row.every((v, i) => (cols.includes(i + 1) ? v === 0 : v === surf[g.indexOf(row)][i])));
+const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+let r = lightsAt(split(1, 13, 0, 2));
+assert.ok(darkFrom(r.got, range(13, 25)), "right split faders: columns 13-25 dark");
+assert.ok(r.preview.colors.every((row) => row.slice(12).every((v) => v === 0)) && r.preview.labels.every((row) => row.slice(12).every((v) => v === "")), "preview dark too");
+assert.ok(r.x.status.some((m) => m[0] === "verified"));
+assert.ok(darkFrom(lightsAt(split(1, 13, 2, 0)).got, range(1, 12)), "left split faders: columns 1-12 dark");
+assert.ok(darkFrom(lightsAt(split(1, 13, 0, 1)).got, []), "right split arpeggiator: all lit");
+assert.ok(darkFrom(lightsAt(split(0, 13, 0, 2)).got, []), "split off, left shown: all lit");
+assert.ok(darkFrom(lightsAt(split(0, 13, 0, 2, 1)).got, range(1, 25)), "split off, right (faders) shown: all dark");
+assert.ok(JSON.parse(readFileSync(join(r.x.dir, "lights-slot2.json"), "utf8")).pattern.every((row) => row.slice(12).every((v) => v === 0)), "record holds what was painted");
 
 // send: automatic backup first, then Bend Range, rows, lights; readback verifies
 const full = {};

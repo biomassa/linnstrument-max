@@ -4,6 +4,8 @@
 // Device rule (CLAUDE.md): lights go to custom slot 2 only; rows and Bend Range
 // are settings, so "send" first makes the one backup, reference/backups/backup.json,
 // unless it exists already (restore then always returns to the original settings).
+// send and sendlights first read the split; the columns of a split in CC faders mode are
+// painted dark, since the custom lights would cover the faders.
 //
 // Inlet 0: messages: scale <path>, send, sendlights, backup, restore [path],
 //          scheme <name> (root ji names mos chain moskeys wijmenga kite factors steps nested
@@ -323,7 +325,7 @@ function derived(s, which) {
 		outlet(1, "offsetindex", candidates(s.root).findIndex((c) => c.offset === s.offset));
 	if (which.includes("legend")) outlet(1, "legend", legend(s));
 	if (which.includes("tuning")) outlet(1, "tuning", s.root, s.refhz > 0 ? s.refhz : 440 * Math.pow(2, (s.root - 69) / 12));
-	if (which.includes("preview")) outlet(1, "preview", JSON.stringify(grid(s)));
+	if (which.includes("preview")) outlet(1, "preview", JSON.stringify(masked(grid(s))));
 }
 
 // "9 steps = 491 c ~4/3": the row interval and the simplest ratio near it (linnkit's candidate list)
@@ -1050,7 +1052,43 @@ function send() {
 	} else makeBackup((ok) => (ok ? write(true) : done()));
 }
 
+// --- CC faders: pads in a split that shows faders stay dark, so the faders can be seen ---
+
+// the firmware draws the faders under the custom light layer; send and sendlights read the split
+// (NRPN 200 on/off, 201 the split shown when off, 202 first column of the right split) and each
+// split's Special mode (35 / 135, 2 = CC faders) and leave those columns dark
+const SPLIT = { on: 200, current: 201, point: 202, special: 35, faders: 2 };
+let dark = new Set(); // columns 1..25 left dark
+
+function faderColumns(v) {
+	const cols = new Set();
+	const faders = (side) => v[SPLIT.special + (side ? P.right : 0)] === SPLIT.faders;
+	const sp = v[SPLIT.point];
+	if (v[SPLIT.on] === 1 && sp >= 2 && sp <= COLS) {
+		if (faders(0)) for (let c = 1; c < sp; c++) cols.add(c);
+		if (faders(1)) for (let c = sp; c <= COLS; c++) cols.add(c);
+	} else if (v[SPLIT.on] === 0 && faders(v[SPLIT.current] === 1)) {
+		for (let c = 1; c <= COLS; c++) cols.add(c);
+	}
+	return cols;
+}
+
+// a grid with the dark columns off and unlabelled
+function masked(g) {
+	const off = (rows, blank) => rows.map((r) => r.map((x, i) => (dark.has(i + 1) ? blank : x)));
+	return Object.assign({}, g, { colors: off(g.colors, COLORS.off), labels: off(g.labels, "") });
+}
+
 function write(withLayout) {
+	read([SPLIT.on, SPLIT.current, SPLIT.point, SPLIT.special, SPLIT.special + P.right], (got, missing) => {
+		if (missing.length) post("linn.lights: split settings not read (" + missing.join(" ") + "), all columns lit\n");
+		dark = missing.length ? new Set() : faderColumns(got);
+		derived(settings(), ["preview"]);
+		writeNow(withLayout);
+	});
+}
+
+function writeNow(withLayout) {
 	const s = settings();
 	const expect = {};
 	const set = (p, v) => {
@@ -1081,7 +1119,7 @@ function write(withLayout) {
 		rowsOf(s).forEach((v, i) => set(P.guitarRow1 + i, Math.max(0, Math.min(127, v))));
 	}
 	set(P.noteLights, P.custom0 + SLOT);
-	const surf = surface();
+	const surf = masked(grid(s)).colors;
 	paint(surf);
 	enqueue([0xb0, 23, SLOT]); // saves the slot and all settings to flash
 	enqueue(() => recordLights(surf, s));
@@ -1106,20 +1144,22 @@ const cc = Array.from({ length: 16 }, () => ({ msb: 0, lsb: 0, vmsb: 0, rpn: fal
 let buf = [];
 
 function read(params, cb, retries = 2) {
-	reading = { want: new Set(params), got: {}, cb, retries };
+	const r = { want: new Set(params), got: {}, cb, retries };
+	reading = r;
 	params.forEach((p) => enqueueBytes(nrpnBytes(P.query, p)));
-	enqueue(() => later(TIMEOUT, finishRead));
+	enqueue(() => later(TIMEOUT, () => finishRead(r)));
 }
 
-function finishRead() {
-	const r = reading;
-	if (!r) return;
+// ends a read when every reply is in, or after the timeout (with retries for the missing ones);
+// a timer left over from a read that already ended does nothing
+function finishRead(r) {
+	if (!r || reading !== r) return;
 	const missing = [...r.want].filter((p) => !(p in r.got));
 	if (missing.length && r.retries > 0) {
 		r.retries--;
 		later(300, () => {
 			missing.forEach((p) => enqueueBytes(nrpnBytes(P.query, p)));
-			enqueue(() => later(TIMEOUT, finishRead));
+			enqueue(() => later(TIMEOUT, () => finishRead(r)));
 		});
 		return;
 	}
@@ -1150,7 +1190,10 @@ function reply(ch, num, v) {
 	else if (num === 6) st.vmsb = v;
 	else if (num === 38 && !st.rpn && reading) {
 		const p = (st.msb << 7) | st.lsb;
-		if (reading.want.has(p)) reading.got[p] = (st.vmsb << 7) | v;
+		if (reading.want.has(p)) {
+			reading.got[p] = (st.vmsb << 7) | v;
+			if (Object.keys(reading.got).length === reading.want.size) finishRead(reading);
+		}
 	}
 }
 
@@ -1287,6 +1330,7 @@ function recordLights(pattern, s) {
 		root: s.root,
 		offset: s.offset,
 		low: s.low,
+		dark: [...dark],
 		taken: new Date().toISOString(),
 		pattern,
 	});
