@@ -2667,6 +2667,495 @@
                     "text": "r linn_curves_lib",
                     "varname": "linn_rcurveslib"
                 }
+            },
+            {
+                "box": {
+                    "fontface": 0,
+                    "fontname": "Arial",
+                    "fontsize": 12.0,
+                    "id": "obj-8001",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 330.0, 1260.0, 520.0, 20.0 ],
+                    "text": "CC faders: CC 1-8 on channel 1 (a split in CC Faders mode)",
+                    "textcolor": [ 1.0, 1.0, 1.0, 1.0 ],
+                    "varname": "cmt_faders"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8002",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "patching_rect": [ 330.0, 1290.0, 152.0, 22.0 ],
+                    "text": "midiin \"LinnStrument MIDI\""
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8003",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 8,
+                    "outlettype": [ "", "", "", "", "", "", "", "" ],
+                    "patching_rect": [ 330.0, 1322.0, 470.0, 22.0 ],
+                    "text": "v8 linn.faders.js 1",
+                    "varname": "linn_faders"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8005",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 330.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8006",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 330.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader1"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 1 CV (CC 1, 0-1)",
+                    "id": "obj-8007",
+                    "index": 6,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 330.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader1"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8009",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 390.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8010",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 390.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader2"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 2 CV (CC 2, 0-1)",
+                    "id": "obj-8011",
+                    "index": 7,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 390.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader2"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8013",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 450.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8014",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 450.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader3"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 3 CV (CC 3, 0-1)",
+                    "id": "obj-8015",
+                    "index": 8,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 450.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader3"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8017",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 510.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8018",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 510.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader4"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 4 CV (CC 4, 0-1)",
+                    "id": "obj-8019",
+                    "index": 9,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 510.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader4"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8021",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 570.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8022",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 570.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader5"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 5 CV (CC 5, 0-1)",
+                    "id": "obj-8023",
+                    "index": 10,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 570.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader5"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8025",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 630.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8026",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 630.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader6"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 6 CV (CC 6, 0-1)",
+                    "id": "obj-8027",
+                    "index": 11,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 630.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader6"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8029",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 690.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8030",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 690.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader7"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 7 CV (CC 7, 0-1)",
+                    "id": "obj-8031",
+                    "index": 12,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 690.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader7"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8033",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 750.0, 1390.0, 50.0, 22.0 ],
+                    "text": "sig~"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8034",
+                    "linecount": 4,
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 1,
+                    "outlettype": [ "signal" ],
+                    "patching_rect": [ 750.0, 1420.0, 50.0, 62.0 ],
+                    "text": "linn.slew~ linn_slewf",
+                    "varname": "linn_slew_fader8"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 8 CV (CC 8, 0-1)",
+                    "id": "obj-8035",
+                    "index": 13,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 750.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "cv_out_fader8"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 1 (CC 1, 0-1)",
+                    "id": "obj-8036",
+                    "index": 14,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 810.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader1"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 2 (CC 2, 0-1)",
+                    "id": "obj-8037",
+                    "index": 15,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 870.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader2"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 3 (CC 3, 0-1)",
+                    "id": "obj-8038",
+                    "index": 16,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 930.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader3"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 4 (CC 4, 0-1)",
+                    "id": "obj-8039",
+                    "index": 17,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 990.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader4"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 5 (CC 5, 0-1)",
+                    "id": "obj-8040",
+                    "index": 18,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1050.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader5"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 6 (CC 6, 0-1)",
+                    "id": "obj-8041",
+                    "index": 19,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1110.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader6"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 7 (CC 7, 0-1)",
+                    "id": "obj-8042",
+                    "index": 20,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1170.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader7"
+                }
+            },
+            {
+                "box": {
+                    "comment": "fader 8 (CC 8, 0-1)",
+                    "id": "obj-8043",
+                    "index": 21,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1230.0, 1500.0, 30.0, 30.0 ],
+                    "varname": "out_fader8"
+                }
+            },
+            {
+                "box": {
+                    "fontsize": 16.0,
+                    "id": "obj-8044",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1330.0, 1290.0, 130.0, 24.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 719.0, 571.0, 140.0, 24.0 ],
+                    "text": "fader slew ms",
+                    "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
+                    "varname": "cmt_slewfader"
+                }
+            },
+            {
+                "box": {
+                    "fontsize": 16.0,
+                    "id": "obj-8045",
+                    "maxclass": "number",
+                    "maximum": 200,
+                    "minimum": 0,
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "bang" ],
+                    "parameter_enable": 1,
+                    "patching_rect": [ 1330.0, 1322.0, 58.0, 26.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 861.0, 571.0, 50.0, 26.0 ],
+                    "saved_attribute_attributes": {
+                        "valueof": {
+                            "parameter_initial": [ 20 ],
+                            "parameter_initial_enable": 1,
+                            "parameter_longname": "linn_slewfader",
+                            "parameter_mmax": 200.0,
+                            "parameter_modmode": 3,
+                            "parameter_shortname": "linn_slewfader",
+                            "parameter_type": 0
+                        }
+                    },
+                    "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
+                    "varname": "linn_slewfader"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8046",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1330.0, 1360.0, 100.0, 22.0 ],
+                    "text": "prepend ms",
+                    "varname": "linn_pslewfader"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-8047",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1330.0, 1390.0, 100.0, 22.0 ],
+                    "text": "s linn_slewf",
+                    "varname": "linn_sslewfader"
+                }
             }
         ],
         "lines": [
@@ -3706,6 +4195,216 @@
                 "patchline": {
                     "destination": [ "obj-100", 0 ],
                     "source": [ "obj-99", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8003", 0 ],
+                    "source": [ "obj-8002", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8006", 0 ],
+                    "source": [ "obj-8005", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8007", 0 ],
+                    "source": [ "obj-8006", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8010", 0 ],
+                    "source": [ "obj-8009", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8011", 0 ],
+                    "source": [ "obj-8010", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8014", 0 ],
+                    "source": [ "obj-8013", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8015", 0 ],
+                    "source": [ "obj-8014", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8018", 0 ],
+                    "source": [ "obj-8017", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8019", 0 ],
+                    "source": [ "obj-8018", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8022", 0 ],
+                    "source": [ "obj-8021", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8023", 0 ],
+                    "source": [ "obj-8022", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8026", 0 ],
+                    "source": [ "obj-8025", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8027", 0 ],
+                    "source": [ "obj-8026", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8030", 0 ],
+                    "source": [ "obj-8029", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8031", 0 ],
+                    "source": [ "obj-8030", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8034", 0 ],
+                    "source": [ "obj-8033", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8035", 0 ],
+                    "source": [ "obj-8034", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8036", 0 ],
+                    "source": [ "obj-8003", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8037", 0 ],
+                    "source": [ "obj-8003", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8038", 0 ],
+                    "source": [ "obj-8003", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8039", 0 ],
+                    "source": [ "obj-8003", 3 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8040", 0 ],
+                    "source": [ "obj-8003", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8041", 0 ],
+                    "source": [ "obj-8003", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8042", 0 ],
+                    "source": [ "obj-8003", 6 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8043", 0 ],
+                    "source": [ "obj-8003", 7 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8046", 0 ],
+                    "source": [ "obj-8045", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8047", 0 ],
+                    "source": [ "obj-8046", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8021", 0 ],
+                    "source": [ "obj-8003", 4 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8033", 0 ],
+                    "source": [ "obj-8003", 7 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8005", 0 ],
+                    "source": [ "obj-8003", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8013", 0 ],
+                    "source": [ "obj-8003", 2 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8009", 0 ],
+                    "source": [ "obj-8003", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8029", 0 ],
+                    "source": [ "obj-8003", 6 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8025", 0 ],
+                    "source": [ "obj-8003", 5 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8017", 0 ],
+                    "source": [ "obj-8003", 3 ]
                 }
             }
         ],

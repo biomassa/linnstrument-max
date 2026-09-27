@@ -281,6 +281,22 @@ assert.ok(darkFrom(lightsAt(split(0, 13, 0, 2)).got, []), "split off, left shown
 assert.ok(darkFrom(lightsAt(split(0, 13, 0, 2, 1)).got, range(1, 25)), "split off, right (faders) shown: all dark");
 assert.ok(JSON.parse(readFileSync(join(r.x.dir, "lights-slot2.json"), "utf8")).pattern.every((row) => row.slice(12).every((v) => v === 0)), "record holds what was painted");
 
+// loadbang: the split is read 1 s after opening, nothing is written, the preview shows it
+{
+	const x = load(split(1, 13, 0, 2));
+	x.msg("scale", SCL + "31-edo.scl");
+	x.msg("offset", 13);
+	x.status.length = 0;
+	x.msg("loadbang");
+	x.advance(10000);
+	const prev = x.status.filter((s) => s[0] === "preview").pop();
+	assert.ok(prev && JSON.parse(prev[1]).colors.every((row) => row.slice(12).every((v) => v === 0)), "preview dark after load");
+	assert.equal(x.dev.written.length, 0, "load only reads");
+	x.msg("sendlights"); // not busy afterwards
+	x.advance(10000);
+	assert.ok(x.status.some((m) => m[0] === "verified"));
+}
+
 // send: automatic backup first, then Bend Range, rows, lights; readback verifies
 const full = {};
 for (const p of load().ctx.readableParams()) full[p] = 0;

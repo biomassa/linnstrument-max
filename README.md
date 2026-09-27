@@ -13,7 +13,7 @@ The folder `patchers/` has three patches. Select the patch for your instrument.
 | Patch | Use |
 |---|---|
 | `linnstrument.maxpat` | For synth plugins in Max (`vst~`, for example Madrona Labs Kaivo). The `retune` toggle sets the tuning mode. **On**: for a plugin that has 12-equal tuning. The patch tunes each note with pitch bend. **Off**: for a plugin that loads the scale. The notes go to the plugin without change. The patch changes the slides so that they stop on the pads. |
-| `linnstrument-es8.maxpat` | For modular synths through the Expert Sleepers ES-8. One voice. The patch sends six CV signals: pitch (1 V/oct, 0 V = MIDI 60), gate, pressure, Y, trigger and release velocity. Connect its outlets to `dac~`. |
+| `linnstrument-es8.maxpat` | For modular synths through the Expert Sleepers ES-8. One voice. The patch sends six CV signals: pitch (1 V/oct, 0 V = MIDI 60), gate, pressure, Y, trigger and release velocity. Connect its outlets to `dac~`. It also has outlets for the 8 CC faders (see "Split with CC faders"). |
 | `linnstrument-relay.maxpat` | For 12-TET hardware on a MIDI port. The `target` menu sets the instrument. **k2600**: Kurzweil K2600 in Multi mode, one note on each channel. **mutantbrain**: Hexinverter Mutant Brain, one voice. **generic**: a different 12-TET MPE instrument. |
 
 CAUTION: Open only one patch at a time. The patches receive MIDI from the same LinnStrument.
@@ -61,11 +61,16 @@ You can use one split of the LinnStrument as 8 CC faders, for example the right 
 4. To set the MIDI channel of the faders, tap the top pad of column 2. Then tap a channel in columns 3 to 6, top four rows (channels 1 to 16, row by row). For a split with only faders, One Channel mode (top pad of column 1) is the simplest.
 5. Leave Per-Split Settings. The LinnStrument saves the settings.
 
-`send` and `sendlights` read the split settings from the LinnStrument. The columns of a split with CC faders stay dark, in the pads and in the preview. The custom lights would otherwise hide the faders. If you change the split on the LinnStrument, click `sendlights` again.
+`send` and `sendlights` read the split settings from the LinnStrument. The columns of a split with CC faders stay dark, in the pads and in the preview. The custom lights would otherwise hide the faders. The patch also reads the split when it opens, so the preview shows it. If you change the split on the LinnStrument, click `sendlights` again.
 
-CAUTION: When the `MIDI setup` toggle is on, `send` sets both splits to Channel Per Note, main channel 1. This removes the MIDI mode and channel of a faders split. Turn off `MIDI setup` after the first `send`.
+NOTE: When the `MIDI setup` toggle is on, `send` sets both splits to Channel Per Note, main channel 1. The faders keep working if the main channel of the faders split is on (lit): `send` does not change that, and in Channel Per Note the faders send on the main channel. If it is off, the faders send on every per-note channel and the patches do not receive them.
 
-NOTE: The patches do not use the fader CCs yet.
+`linnstrument-b.maxpat` and `linnstrument-es8.maxpat` receive CC 1 to 8 on channel 1 (`linn.faders`). Set the main channel of the faders split to 1 and turn it on.
+
+- `linnstrument-b.maxpat`: 8 outlets after the `vst~` outlet, one for each fader, 0 to 1 (floats). Use them for `vst~` parameters.
+- `linnstrument-es8.maxpat`: after the six CV outlets, 8 CV outlets (0 to 1, smoothed by `fader slew ms`), then 8 outlets with the values 0 to 1 (floats).
+
+The outlets send a value only when you move a fader. The LinnStrument does not send the fader positions when the patch opens.
 
 ### `linnstrument.maxpat`
 
@@ -88,6 +93,7 @@ The newest note that you hold plays. When you release it, the newest note that y
 
 - `slides slew ms`, `press slew ms`, `Y slew ms`: these make pitch, pressure and Y change smoothly, in the audio signal after `linn.cv` (`linn.slew~`). New notes do not slide.
 - `trig ms`: the length of the trigger, 2 to 20 ms.
+- `fader slew ms`: this makes the 8 fader CVs change smoothly (default 20 ms). A fader sends 128 steps, which are audible without a slew.
 - `vel > trig level`: when this is on, the strike velocity sets the trigger level.
 - `vel > trig length`: when this is on, the strike velocity sets the trigger length, from 2 ms (soft) to 20 ms (hard).
 
@@ -135,11 +141,13 @@ NOTE: The Mutant Brain plays only MIDI notes 24 to 120. When `legato` is on, the
 | `patchers/linn.cv.maxpat` + `.js` | One-voice CV for the ES-8 |
 | `patchers/linn.curve.js` | The response curve editor (`v8ui`) |
 | `patchers/linn.curvemidi.js` | The response curves on the MIDI before `linn.retune` and `linn.relay` |
+| `patchers/linn.faders.js` | The 8 CC faders of a split as 8 outlets |
 | `patchers/linn.slew~.maxpat` + `linn.slew.gendsp` | Linear slew in the audio signal (`gen~`) |
 | `patchers/linn.preview.js` | The pad preview (`v8ui`) |
 | `patchers/tests/` | Node tests for the scripts, with reference grids from linnkit |
 | `docs/light-schemes.md` | The light schemes (the same in linnkit) |
 | `docs/scala-synth-bends.md` | The bend conversion for synths that load the scale (the same in linnkit) |
+| `docs/fader-lights.md` | Dark lights for a split with CC faders (the same in linnkit) |
 | `docs/parity.md` | The features of linnkit and of the two patches |
 | `patchers/SCL/` | Scala scale files for the scale menu |
 

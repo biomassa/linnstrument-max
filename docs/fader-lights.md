@@ -30,12 +30,12 @@ Dark columns (sent as colour 0, and shown dark in the preview):
 Only CC faders (2) count. Arp, strum and sequencer are left alone.
 
 If any of the five values doesn't answer, nothing is dark and a note is shown; the send goes on.
-Nothing is written. The split is read on each send only: after changing it on the instrument, send again.
+Nothing is written. The split is read on each send and when the app or patch starts (so the preview shows it before the first send): after changing it on the instrument, send again.
 
 The recorded slot-2 pattern (Max: `lights-slot2.json`) is the painted one, dark columns included.
 
 ## Max
 
 `linn.lights.js`: `write()` reads the five values, sets the dark columns, sends the preview again and
-paints. A read now ends as soon as every reply is in, instead of always waiting the 1.5 s timeout.
+paints; `readsplit` (also run 1 s after the patch opens) only reads it for the preview. A read now ends as soon as every reply is in, instead of always waiting the 1.5 s timeout.
 Tests in `patchers/tests/linn.lights.test.mjs`.

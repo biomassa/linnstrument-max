@@ -5,9 +5,10 @@
 // are settings, so "send" first makes the one backup, reference/backups/backup.json,
 // unless it exists already (restore then always returns to the original settings).
 // send and sendlights first read the split; the columns of a split in CC faders mode are
-// painted dark, since the custom lights would cover the faders.
+// painted dark, since the custom lights would cover the faders. The split is also read
+// 1 s after the patch opens (readsplit), so the preview shows it.
 //
-// Inlet 0: messages: scale <path>, send, sendlights, backup, restore [path],
+// Inlet 0: messages: scale <path>, send, sendlights, readsplit, backup, restore [path],
 //          scheme <name> (root ji names mos chain moskeys wijmenga kite factors steps nested
 //          consonance harmonics; see docs/light-schemes.md), offset <n>, limit <n>, root <note>,
 //          refhz <hz>, rootcolor <name>, bend <n>, generator <n>, mossize <n>, harmonics <16|32>,
@@ -1079,13 +1080,34 @@ function masked(g) {
 	return Object.assign({}, g, { colors: off(g.colors, COLORS.off), labels: off(g.labels, "") });
 }
 
-function write(withLayout) {
+// reads the split, sets the dark columns and sends the preview again
+function readSplit(cb) {
 	read([SPLIT.on, SPLIT.current, SPLIT.point, SPLIT.special, SPLIT.special + P.right], (got, missing) => {
 		if (missing.length) post("linn.lights: split settings not read (" + missing.join(" ") + "), all columns lit\n");
 		dark = missing.length ? new Set() : faderColumns(got);
 		derived(settings(), ["preview"]);
-		writeNow(withLayout);
+		cb();
 	});
+}
+
+// readsplit: only read the split, for the preview (also 1 s after the patch opens)
+function readsplit() {
+	if (busy) {
+		report("error", "busy");
+		return;
+	}
+	busy = true;
+	readSplit(done);
+}
+
+function loadbang() {
+	later(1000, () => {
+		if (!busy) readsplit();
+	});
+}
+
+function write(withLayout) {
+	readSplit(() => writeNow(withLayout));
 }
 
 function writeNow(withLayout) {
