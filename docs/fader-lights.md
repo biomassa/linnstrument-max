@@ -39,3 +39,39 @@ The recorded slot-2 pattern (Max: `lights-slot2.json`) is the painted one, dark 
 `linn.lights.js`: `write()` reads the five values, sets the dark columns, sends the preview again and
 paints; `readsplit` (also run 1 s after the patch opens) only reads it for the preview. A read now ends as soon as every reply is in, instead of always waiting the 1.5 s timeout.
 Tests in `patchers/tests/linn.lights.test.mjs`.
+
+## Faders setup and fader bars (2026-10-01)
+
+Added in Max after the dark columns; proposed for linnkit.
+
+### Faders setup
+
+One action (Max: the `faders` button) turns the right split into 8 CC faders:
+
+| NRPN | Value | Meaning |
+|---|---|---|
+| 200 | 1 | split on |
+| 135 | 2 | right split Special = CC faders (firmware case 35 turns arp, strum and sequencer off) |
+| 101 | 1 | right split main channel 1 (where the faders' CCs are read) |
+
+The split column (202) stays as it is on the instrument. These are settings writes, so the one backup
+is made first if none exists (as for send). The three values are read back; a mismatch is reported.
+Then the lights are sent again, so the fader columns are dark (see above). The main channel's on/off
+flag can't be set by NRPN; the user keeps it on.
+
+### Fader bars in the preview
+
+The faders send CC 1-8 (bottom row first) on channel 1, value 0-127. The preview draws, in each row of
+the dark columns, one bar from the split's first dark column, as long as value / 127 of the dark
+columns' width, in LED blue, not segmented (unlike the LinnStrument's own fader display). A row has no
+bar until its fader has sent a value (the LinnStrument doesn't report fader positions).
+
+Max: `linn.faders.js` outlet 8 sends `fader <row> <0..1>`; `linn.preview.js` `fader` draws the bars
+over the preview's `dark` columns. Tests: `linn.lights.test.mjs` (faders), `linn.preview.test.mjs`
+(bars), `linn.faders.test.mjs`.
+
+### Toggle and polling (2026-10-01)
+
+The faders setup is a toggle: off writes 135 = 0 and 200 = 0. The split (200, 201, 202, 35, 135) is read
+about once a second; on a change the dark columns, the preview and the toggle follow, and the lights are
+painted again without CC23. The polling replies (NRPN on channel 1) are dropped before the synth.

@@ -291,7 +291,7 @@ const names = (() => {
 // following the SPLIT button: polling reads 200/201; split off shows the side in play on all columns,
 // repainted without CC23; split on again brings both sides back
 {
-	const x = load({ 200: 1, 201: 0, 202: 13 });
+	const x = load({ 200: 1, 201: 0, 202: 13, 247: 11 });
 	x.msg("scale", SCL + "31-edo.scl");
 	x.msg("offset", 13);
 	x.msg("scheme", "l", "names");
@@ -310,7 +310,8 @@ const names = (() => {
 	const rootOnly = pv.colors.flat().every((c, i) => c === 0 || c === 6);
 	assert.ok(rootOnly, "all columns show the right side's root scheme");
 	const m = ccs(x.out);
-	assert.ok(has(m, nrpn(247, 11)) >= 0 && m.filter((c) => c[1] === 22).length === 200, "repainted");
+	assert.ok(m.filter((c) => c[1] === 22).length === 200, "repainted");
+	assert.equal(has(m, nrpn(247, 11)), -1, "the shown slot is not switched");
 	assert.ok(!m.some((c) => c[1] === 23), "not saved to flash");
 	x.dev.state[200] = 1;
 	x.advance(4000);
@@ -323,6 +324,13 @@ const names = (() => {
 	assert.deepEqual(x.status.filter((m) => m[0] === "splitcol").pop(), ["splitcol", 9]);
 	assert.equal(JSON.parse(x.status.filter((m) => m[0] === "preview").pop()[1]).split, 9);
 	assert.equal(ccs(x.out).filter((c) => c[1] === 22).length, 200, "repainted");
+	// slot 2 not showing: the state follows, but nothing is painted
+	x.dev.state[247] = 10;
+	x.dev.state[200] = 0;
+	x.out.length = 0;
+	x.advance(4000);
+	assert.deepEqual(x.status.filter((m) => m[0] === "split").pop(), ["split", 0, "r"]);
+	assert.equal(ccs(x.out).filter((c) => c[1] === 22).length, 0, "no painting over another slot");
 	x.msg("poll", 0);
 }
 

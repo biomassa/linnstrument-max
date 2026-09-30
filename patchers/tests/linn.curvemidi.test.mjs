@@ -69,4 +69,15 @@ t.ctx.curve("wobble", ...half);
 t.ctx.curve("press", 1, 2);
 assert.equal(t.posts.length, 2);
 
+// NRPN readback replies are dropped; RPN and other CCs pass
+t = load();
+t.bytes([0xb0, 99, 1], [0xb0, 98, 72], [0xb0, 6, 0], [0xb0, 38, 1], [0xb0, 101, 127], [0xb0, 100, 127]);
+t.bytes([0xb0, 101, 0], [0xb0, 100, 0], [0xb0, 6, 48], [0xb0, 38, 0], [0xb0, 1, 64]);
+assert.deepEqual(t.out, [0xb0, 101, 0, 0xb0, 100, 0, 0xb0, 6, 48, 0xb0, 38, 0, 0xb0, 1, 64]);
+
+// after an exchange's null, a lone CC 6 on channel 1 is fader 6 and passes
+t = load();
+t.bytes([0xb0, 99, 1], [0xb0, 98, 72], [0xb0, 6, 0], [0xb0, 38, 1], [0xb0, 101, 127], [0xb0, 100, 127], [0xb0, 6, 90]);
+assert.deepEqual(t.out, [0xb0, 6, 90]);
+
 console.log("linn.curvemidi: all tests passed");

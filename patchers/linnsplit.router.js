@@ -28,7 +28,12 @@ function keep(m) {
 		return false;
 	}
 	if (n === 101 || n === 100) {
-		if (nrpn[c] && m[2] === 127) return false;
+		// the null (127) ends an exchange: dropped while one is open, and closes it (a lone CC 6
+		// afterwards is fader 6, not data entry)
+		if (nrpn[c] && m[2] === 127) {
+			if (n === 100) nrpn[c] = false;
+			return false;
+		}
 		nrpn[c] = false;
 		return true;
 	}

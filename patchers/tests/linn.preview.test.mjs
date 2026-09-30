@@ -98,4 +98,27 @@ const sizes = t.calls.filter((c) => c[0] === "set_font_size").map((c) => c[1]);
 assert.ok(sizes.some((v) => v < sizes[0]), "a 4-character label is drawn smaller");
 assert.equal(sizes.at(-1), sizes[0]);
 
+// fader bars: over the dark columns, one per row with a value, as long as the value
+t = load();
+t.ctx.preview(JSON.stringify({ colors, labels, notes, dark: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25] }));
+t.calls.length = 0;
+t.ctx.paint();
+const pads = t.calls.filter((c) => c[0] === "rectangle").length;
+t.ctx.fader(0, 0.5);
+t.ctx.fader(7, 1);
+t.ctx.fader(3, 0);
+t.calls.length = 0;
+t.ctx.paint();
+const rects = t.calls.filter((c) => c[0] === "rectangle");
+assert.equal(rects.length, pads + 2, "two bars (row 3 is at 0)");
+const span = 13 * W - 6;
+const bar0 = rects.find((c) => Math.abs(c[3] - span * 0.5) < 1e-6);
+assert.ok(bar0 && Math.abs(bar0[1] - (12 * W + 3)) < 1e-6 && Math.abs(bar0[2] - (7 * H + H * 0.25)) < 1e-6, "row 0 at the bottom, half length");
+assert.ok(rects.some((c) => Math.abs(c[3] - span) < 1e-6 && Math.abs(c[2] - H * 0.25) < 1e-6), "row 7 at the top, full length");
+// without dark columns: no bars
+t.ctx.preview(json);
+t.calls.length = 0;
+t.ctx.paint();
+assert.equal(t.calls.filter((c) => c[0] === "rectangle").length, 1 + 200);
+
 console.log("linn.preview: all tests passed");

@@ -297,6 +297,56 @@ assert.ok(JSON.parse(readFileSync(join(r.x.dir, "lights-slot2.json"), "utf8")).p
 	assert.ok(x.status.some((m) => m[0] === "verified"));
 }
 
+// faders: split on, right split CC faders, its main channel 1; backup first; the lights are painted
+// again with the fader columns dark, and the preview lists them
+{
+	const st = {};
+	for (const p of load().ctx.readableParams()) st[p] = 0;
+	Object.assign(st, { 200: 0, 201: 0, 202: 13, 35: 0, 135: 0, 101: 16 });
+	const x = load(st);
+	x.msg("scale", SCL + "31-edo.scl");
+	x.msg("offset", 13);
+	x.msg("faders");
+	x.advance(30000);
+	assert.deepEqual([200, 135, 101].map((p) => x.dev.state[p]), [1, 2, 1]);
+	assert.ok(existsSync(join(x.dir, "backup.json")), "backup made first");
+	assert.deepEqual(x.status.filter((m) => m[0] === "faders").pop(), ["faders", 1]);
+	const pv = JSON.parse(x.status.filter((m) => m[0] === "preview").pop()[1]);
+	assert.deepEqual(pv.dark, Array.from({ length: 13 }, (_, i) => 13 + i));
+	assert.equal(x.dev.state[247], 11, "lights painted again");
+	// faders 0: right split back to normal, split off; lights lit again
+	x.msg("faders", 0);
+	x.advance(30000);
+	assert.deepEqual([200, 135].map((p) => x.dev.state[p]), [0, 0]);
+	assert.deepEqual(x.status.filter((m) => m[0] === "faders").pop(), ["faders", 0]);
+	assert.deepEqual(JSON.parse(x.status.filter((m) => m[0] === "preview").pop()[1]).dark, []);
+	// polling: the split changed on the instrument; dark columns, faders state and lights follow
+	x.msg("poll", 1);
+	x.advance(3000);
+	x.dev.state[200] = 1;
+	x.dev.state[135] = 2;
+	x.dev.state[202] = 20;
+	x.out.length = 0;
+	x.advance(4000);
+	assert.deepEqual(x.status.filter((m) => m[0] === "faders").pop(), ["faders", 1]);
+	assert.deepEqual(JSON.parse(x.status.filter((m) => m[0] === "preview").pop()[1]).dark, [20, 21, 22, 23, 24, 25]);
+	const m = ccs(x.out);
+	assert.equal(m.filter((c) => c[1] === 22).length, 200, "repainted");
+	assert.ok(!m.some((c) => c[1] === 23), "not saved to flash");
+	x.out.length = 0;
+	x.advance(4000);
+	assert.equal(ccs(x.out).filter((c) => c[1] === 22).length, 0, "no change, no repaint");
+	assert.equal(has(m, nrpn(247, 11)), -1, "the shown slot is not switched");
+	// slot 2 not showing: the state follows, nothing is painted
+	x.dev.state[247] = 10;
+	x.dev.state[135] = 0;
+	x.out.length = 0;
+	x.advance(4000);
+	assert.deepEqual(x.status.filter((m) => m[0] === "faders").pop(), ["faders", 0]);
+	assert.equal(ccs(x.out).filter((c) => c[1] === 22).length, 0, "no painting over another slot");
+	x.msg("poll", 0);
+}
+
 // send: automatic backup first, then Bend Range, rows, lights; readback verifies
 const full = {};
 for (const p of load().ctx.readableParams()) full[p] = 0;

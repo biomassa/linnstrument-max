@@ -55,13 +55,15 @@ NOTE: The patches write lights only to custom light slot 2.
 
 You can use one split of the LinnStrument as 8 CC faders, for example the right split.
 
+The `faders` toggle does it for the right split. On: split on, right split CC Faders with main channel 1. Off: right split back to notes, split off. It keeps the split column that is set on the LinnStrument, paints the lights again, and before the first write makes the backup, as `send` does. The patch reads the split once a second, so the toggle, the dark columns and the preview also follow changes made on the LinnStrument. By hand:
+
 1. Press **SPLIT**. Hold SPLIT and touch a column. This column is the first column of the right split.
 2. Press **Per-Split Settings**. Tap column 16 in the top row to select the right split. Column 15 selects the left split.
 3. In column 14, tap the second pad from the top (**CC Faders**). Each row is a fader. The faders send CC 1 to 8, from the bottom row up. Hold the pad to change the CC numbers.
 4. To set the MIDI channel of the faders, tap the top pad of column 2. Then tap a channel in columns 3 to 6, top four rows (channels 1 to 16, row by row). For a split with only faders, One Channel mode (top pad of column 1) is the simplest.
 5. Leave Per-Split Settings. The LinnStrument saves the settings.
 
-`send` and `sendlights` read the split settings from the LinnStrument. The columns of a split with CC faders stay dark, in the pads and in the preview. The custom lights would otherwise hide the faders. The patch also reads the split when it opens, so the preview shows it. If you change the split on the LinnStrument, click `sendlights` again.
+`send` and `sendlights` read the split settings from the LinnStrument. The columns of a split with CC faders stay dark, in the pads and in the preview. The custom lights would otherwise hide the faders. The patch reads the split once a second, so the lights and the preview follow changes on the LinnStrument (a repaint is saved with the next `sendlights`). In the preview, a blue bar in each row of the dark columns shows that fader's position. The LinnStrument can't report its fader positions, so the patch keeps the last position of each fader (with the patch and in presets) and sends it to the LinnStrument, the fader outlets and the preview when the patch opens, when a preset is recalled and when the faders are switched on. A fader that was never moved is not sent.
 
 NOTE: When the `MIDI setup` toggle is on, `send` sets both splits to Channel Per Note, main channel 1. The faders keep working if the main channel of the faders split is on (lit): `send` does not change that, and in Channel Per Note the faders send on the main channel. If it is off, the faders send on every per-note channel and the patches do not receive them.
 

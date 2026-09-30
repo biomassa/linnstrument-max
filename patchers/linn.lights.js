@@ -8,7 +8,7 @@
 // painted dark, since the custom lights would cover the faders. The split is also read
 // 1 s after the patch opens (readsplit), so the preview shows it.
 //
-// Inlet 0: messages: scale <path>, send, sendlights, readsplit, backup, restore [path],
+// Inlet 0: messages: scale <path>, send, sendlights, readsplit, faders <1|0>, poll <1|0>, backup, restore [path],
 //          scheme <name> (root ji names mos chain moskeys wijmenga kite factors steps nested
 //          consonance harmonics; see docs/light-schemes.md), offset <n>, limit <n>, root <note>,
 //          refhz <hz>, rootcolor <name>, bend <n>, generator <n>, mossize <n>, harmonics <16|32>,
@@ -1075,16 +1075,62 @@ function faderColumns(v) {
 }
 
 // a grid with the dark columns off and unlabelled
+// a grid with the dark columns off and unlabelled; dark lists them (for linn.preview's fader bars)
 function masked(g) {
 	const off = (rows, blank) => rows.map((r) => r.map((x, i) => (dark.has(i + 1) ? blank : x)));
-	return Object.assign({}, g, { colors: off(g.colors, COLORS.off), labels: off(g.labels, "") });
+	return Object.assign({}, g, { colors: off(g.colors, COLORS.off), labels: off(g.labels, ""), dark: [...dark].sort((a, b) => a - b) });
+}
+
+// faders <1|0>: 1 turns the right split into 8 CC faders: split on (NRPN 200 = 1), right split
+// Special = CC faders (135 = 2), its main channel 1 (101 = 1, where linn.faders listens); the split
+// column stays. 0 turns them off: right split Special off (135 = 0) and split off (200 = 0). Makes the
+// one backup first if there is none (settings are written), checks the values, then paints the
+// lights again (with a scale) so the fader columns are dark or lit. Sends faders <state> back.
+function faders(on) {
+	on = on === undefined ? 1 : on ? 1 : 0;
+	if (busy) {
+		report("error", "busy");
+		outlet(1, "faders", faderState);
+		return;
+	}
+	busy = true;
+	const want = on ? { [SPLIT.on]: 1, [SPLIT.special + P.right]: 2, [P.right + 1]: 1 } : { [SPLIT.special + P.right]: 0, [SPLIT.on]: 0 };
+	const go = () => {
+		Object.keys(want).forEach((p) => setNRPN(Number(p), want[p]));
+		enqueue(() =>
+			later(300, () =>
+				read(Object.keys(want).map(Number), (got) => {
+					const bad = Object.keys(want).filter((p) => got[p] !== want[p]);
+					if (bad.length) report("error", "faders: " + bad.map((p) => p + "=" + got[p] + " expected " + want[p]).join(", "));
+					if (scl && scaleName) write(false);
+					else readSplit(done);
+				})
+			)
+		);
+	};
+	if (hasBackup()) go();
+	else makeBackup((ok) => (ok ? go() : done()));
 }
 
 // reads the split, sets the dark columns and sends the preview again
+const SPLIT_PARAMS = [SPLIT.on, SPLIT.current, SPLIT.point, SPLIT.special, SPLIT.special + P.right];
+let lastSplit = ""; // the split settings last read, to notice changes
+let faderState = 0; // 1 when the right split shows CC faders with the split on
+
+function splitRead(got) {
+	lastSplit = SPLIT_PARAMS.map((p) => got[p]).join(" ");
+	dark = faderColumns(got);
+	const f = got[SPLIT.on] === 1 && got[SPLIT.special + P.right] === SPLIT.faders ? 1 : 0;
+	faderState = f;
+	outlet(1, "faders", f);
+}
+
 function readSplit(cb) {
-	read([SPLIT.on, SPLIT.current, SPLIT.point, SPLIT.special, SPLIT.special + P.right], (got, missing) => {
-		if (missing.length) post("linn.lights: split settings not read (" + missing.join(" ") + "), all columns lit\n");
-		dark = missing.length ? new Set() : faderColumns(got);
+	read(SPLIT_PARAMS, (got, missing) => {
+		if (missing.length) {
+			post("linn.lights: split settings not read (" + missing.join(" ") + "), all columns lit\n");
+			dark = new Set();
+		} else splitRead(got);
 		derived(settings(), ["preview"]);
 		cb();
 	});
@@ -1103,7 +1149,42 @@ function readsplit() {
 function loadbang() {
 	later(1000, () => {
 		if (!busy) readsplit();
+		poll(1);
 	});
+}
+
+// --- following the instrument: the split is read about once a second (reads only). When it changes
+// (split on/off, column, a split's Special mode) the dark columns, the preview and the faders state
+// follow, and the lights are painted again without CC23 (the next send or sendlights saves them).
+// poll <0|1>; on from loadbang. ---
+
+const POLL_MS = 1000;
+const poller = new Task(pollTick, this);
+poller.interval = POLL_MS;
+
+function poll(on) {
+	if (on) poller.repeat();
+	else poller.cancel();
+}
+
+function pollTick() {
+	if (busy || reading || queue.length) return;
+	read(
+		SPLIT_PARAMS.concat(P.noteLights),
+		(got, missing) => {
+			if (missing.length) return; // asleep or away
+			if (SPLIT_PARAMS.map((p) => got[p]).join(" ") === lastSplit) return;
+			splitRead(got);
+			if (!scl || busy) return;
+			derived(settings(), ["preview"]);
+			// repaint only when slot 2 is the one showing (as linnkit): never switch the lights
+			if (got[P.noteLights] !== P.custom0 + SLOT) return;
+			busy = true;
+			paint(masked(grid(settings())).colors);
+			enqueue(done);
+		},
+		0
+	);
 }
 
 function write(withLayout) {

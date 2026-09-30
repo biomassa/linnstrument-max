@@ -7,11 +7,13 @@ const src = readFileSync(new URL("../linn.faders.js", import.meta.url), "utf8");
 
 function load(args = ["linn.faders.js", 16]) {
 	const out = [];
-	const ctx = { jsarguments: args, outlet: (i, v) => out.push([i, Math.round(v * 127)]) }; // values 0..1, compared as CC values
+	const bars = [];
+	const midi = [];
+	const ctx = { jsarguments: args, notifyclients: () => {}, outlet: (i, ...v) => (i === 9 ? midi.push(v[0]) : i === 8 ? bars.push(v) : out.push([i, Math.round(v[0] * 127)])) }; // values 0..1, compared as CC values
 	vm.createContext(ctx);
 	vm.runInContext(src, ctx);
 	const bytes = (...b) => b.flat().forEach((x) => ctx.msg_int(x));
-	return { out, bytes };
+	return { ctx, out, bars, midi, bytes };
 }
 const plain = (x) => JSON.parse(JSON.stringify(x));
 
@@ -37,5 +39,35 @@ assert.deepEqual(plain(t.out), [[0, 1], [7, 127]]);
 t = load(["linn.faders.js"]);
 t.bytes([0xb0, 1, 64]);
 assert.deepEqual(plain(t.out), [[0, 64]]);
+
+// outlet 8: fader <row> <value> for the preview
+t = load();
+t.bytes([0xbf, 3, 127]);
+assert.deepEqual(JSON.parse(JSON.stringify(t.bars)), [["fader", 2, 1]]);
+
+// kept values: stored (getvalueof), restored and pushed (setvalueof) to the LinnStrument, the
+// outlets and the bars; unknown faders (-1) are not sent; faders 1 pushes again, once per turn-on
+t = load(["linn.faders.js", 1]);
+t.bytes([0xb0, 2, 100], [0xb0, 5, 7]);
+assert.deepEqual(JSON.parse(JSON.stringify(t.ctx.getvalueof())), [-1, 100, -1, -1, 7, -1, -1, -1]);
+assert.deepEqual(t.midi, [], "moving a fader sends nothing back");
+t = load(["linn.faders.js", 1]);
+t.ctx.setvalueof(-1, 100, -1, -1, 7, -1, -1, -1);
+assert.deepEqual(t.midi, [0xb0, 2, 100, 0xb0, 5, 7]);
+assert.deepEqual(JSON.parse(JSON.stringify(t.out)), [[1, 100], [4, 7]]);
+assert.equal(t.bars.length, 2);
+t.midi.length = 0;
+t.ctx.faders(1);
+t.ctx.faders(1);
+assert.deepEqual(t.midi, [0xb0, 2, 100, 0xb0, 5, 7], "pushed once when the faders come on");
+t.ctx.faders(0);
+t.midi.length = 0;
+t.ctx.faders(1);
+assert.equal(t.midi.length, 6);
+// nothing known: nothing sent
+t = load(["linn.faders.js", 1]);
+t.ctx.faders(1);
+t.ctx.setvalueof(-1, -1, -1, -1, -1, -1, -1, -1);
+assert.deepEqual([t.midi, t.out], [[], []]);
 
 console.log("linn.faders: all tests passed");

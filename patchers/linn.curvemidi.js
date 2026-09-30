@@ -8,6 +8,9 @@
 //           lift has one dot, pos lift <input> <active>, dimmed when no note is held.
 // Inlet: raw MIDI bytes (from midiin or linn.preview), or curve <which> <128 floats>, ycc <n>.
 // Outlet: raw MIDI bytes, one int at a time (for linn.retune's or linn.relay's left inlet).
+// NRPN exchanges (CC 99/98, then data entry 6/38/96/97 and the 101/100 = 127 null) are dropped: they
+// are linn.lights' readback of the LinnStrument (the split is polled every second) and must not reach
+// the synth. RPN (101/100 other than 127) passes and ends an exchange.
 
 autowatch = 1;
 inlets = 1;
@@ -23,6 +26,25 @@ const chPress = new Array(16).fill(0); // latest pressure and Y per channel (the
 const chY = new Array(16).fill(0);
 
 let buf = [];
+const nrpn = new Array(16).fill(false); // per channel: inside an NRPN exchange
+
+// false for the CCs of an NRPN exchange
+function keep(m) {
+	if ((m[0] & 0xf0) !== 0xb0) return true;
+	const c = m[0] & 0x0f, n = m[1];
+	if (n === 99 || n === 98) return !(nrpn[c] = true);
+	if (n === 101 || n === 100) {
+		// the null (127) ends an exchange: dropped while one is open, and closes it (a lone CC 6
+		// afterwards is fader 6, not data entry)
+		if (nrpn[c] && m[2] === 127) {
+			if (n === 100) nrpn[c] = false;
+			return false;
+		}
+		nrpn[c] = false;
+		return true;
+	}
+	return !(nrpn[c] && (n === 6 || n === 38 || n === 96 || n === 97));
+}
 let need = 0;
 
 function bus() {
@@ -62,7 +84,7 @@ function msg_int(b) {
 	}
 	buf.push(b);
 	if (buf.length === need) {
-		handle(buf);
+		if (keep(buf)) handle(buf);
 		buf = [buf[0]]; // running status
 	}
 }

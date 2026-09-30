@@ -1,8 +1,10 @@
 // linn.preview: shows linn.lights' pad pattern the way the LinnStrument lights it, and plays a
 // pad when you click it. For a v8ui (Max 9).
 //
-// Inlet: preview <json> from linn.lights: { colors, labels, notes }, each [row][col - 1],
-//        row 0 nearest the player (drawn at the bottom).
+// Inlet: preview <json> from linn.lights: { colors, labels, notes, dark }, each [row][col - 1],
+//        row 0 nearest the player (drawn at the bottom); dark = the columns of a CC-fader split.
+//        fader <row 0-7> <0..1> (from linn.faders): a blue bar across the dark columns of that row,
+//        as long as the fader's value (not segmented like the LinnStrument's).
 // Outlet: raw MIDI bytes for linn.retune's left inlet: note-on while a pad is pressed,
 //         note-off on release, on MIDI channel 16.
 
@@ -37,6 +39,14 @@ const LIGHT = new Set([2, 3, 4, 8, 9, 10, 11]); // colors that need dark text
 
 let data = null;
 let held = null; // [row, col, note] while a pad is pressed
+const faderValues = new Array(ROWS).fill(null); // last value of each fader (row), null = not moved yet
+
+function fader(row, v) {
+	row = Math.round(row);
+	if (row < 0 || row >= ROWS) return;
+	faderValues[row] = Math.max(0, Math.min(1, Number(v) || 0));
+	mgraphics.redraw();
+}
 
 function preview(json) {
 	try {
@@ -105,6 +115,23 @@ function paint() {
 				if (shrink) mgraphics.set_font_size(size);
 			}
 		}
+	paintFaders(cw, ch);
+}
+
+// the fader bars: over the dark columns (a contiguous range), one per row with a known value
+function paintFaders(cw, ch) {
+	const dark = data && Array.isArray(data.dark) ? data.dark : [];
+	if (!dark.length) return;
+	const c0 = Math.min(...dark), c1 = Math.max(...dark);
+	const x0 = (c0 - 1) * cw + 3, span = (c1 - c0 + 1) * cw - 6;
+	mgraphics.set_source_rgba(20 / 255, 20 / 255, 1, 1); // LED blue
+	for (let r = 0; r < ROWS; r++) {
+		const v = faderValues[r];
+		if (v === null || v <= 0) continue;
+		const y = (ROWS - 1 - r) * ch;
+		mgraphics.rectangle(x0, y + ch * 0.25, span * v, ch * 0.5);
+		mgraphics.fill();
+	}
 }
 
 function onpointerdown(e) {

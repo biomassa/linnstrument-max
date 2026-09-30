@@ -1193,7 +1193,7 @@ function loadbang() {
 function pollTick() {
 	if (busy || reading || queue.length) return;
 	read(
-		[SPLIT.on, SPLIT.current, SPLIT.point],
+		[SPLIT.on, SPLIT.current, SPLIT.point, P.noteLights],
 		(got) => {
 			if ([SPLIT.on, SPLIT.current, SPLIT.point].some((p) => got[p] === undefined)) return; // asleep or away
 			const on = got[SPLIT.on] ? 1 : 0;
@@ -1211,8 +1211,9 @@ function pollTick() {
 			if (moved && !splitOn) return; // the column doesn't show while the split is off
 			if (!scl || busy) return;
 			derived(settings(), ["preview"]);
+			// repaint only when slot 2 is the one showing (as linnkit): never switch the lights
+			if (got[P.noteLights] !== P.custom0 + SLOT) return;
 			busy = true;
-			setNRPN(P.noteLights, P.custom0 + SLOT);
 			paint(grid(settings()).colors);
 			enqueue(done);
 		},

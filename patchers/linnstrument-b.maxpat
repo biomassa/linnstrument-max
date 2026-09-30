@@ -2382,8 +2382,8 @@
                     "id": "obj-8003",
                     "maxclass": "newobj",
                     "numinlets": 1,
-                    "numoutlets": 8,
-                    "outlettype": [ "", "", "", "", "", "", "", "" ],
+                    "numoutlets": 10,
+                    "outlettype": [ "", "", "", "", "", "", "", "", "", "" ],
                     "patching_rect": [ 230.0, 1342.0, 470.0, 22.0 ],
                     "text": "v8 linn.faders.js 1",
                     "varname": "linn_faders"
@@ -2483,6 +2483,92 @@
                     "numoutlets": 0,
                     "patching_rect": [ 650.0, 1400.0, 30.0, 30.0 ],
                     "varname": "out_fader8"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-50001",
+                    "patching_rect": [ 1092.0, 118.0, 24, 24 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 798, 324, 24, 24 ],
+                    "maxclass": "toggle",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "int" ],
+                    "parameter_enable": 0,
+                    "varname": "linn_faderstoggle"
+                }
+            },
+            {
+                "box": {
+                    "fontsize": 16.0,
+                    "id": "obj-50002",
+                    "maxclass": "comment",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1122.0, 118.0, 70, 24 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 825, 324, 60, 24 ],
+                    "text": "faders",
+                    "varname": "cmt_faders"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-50003",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1092.0, 152.0, 60, 22 ],
+                    "text": "prepend faders",
+                    "varname": "linn_pfaders"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-51001",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 2,
+                    "outlettype": [ "", "" ],
+                    "patching_rect": [ 1050.0, 308.0, 90, 22 ],
+                    "text": "route faders",
+                    "varname": "linn_lfadersroute"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-51002",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1050.0, 338.0, 80, 22 ],
+                    "text": "prepend set",
+                    "varname": "linn_lsetfaders"
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-52001",
+                    "maxclass": "newobj",
+                    "numinlets": 2,
+                    "numoutlets": 0,
+                    "patching_rect": [ 550.0, 1438.0, 160, 22 ],
+                    "text": "midiout \"LinnStrument MIDI\""
+                }
+            },
+            {
+                "box": {
+                    "id": "obj-52002",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "" ],
+                    "patching_rect": [ 1150.0, 358.0, 100, 22 ],
+                    "text": "prepend faders",
+                    "varname": "linn_pfadersstate"
                 }
             }
         ],
@@ -2969,7 +3055,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-68", 0 ],
+                    "destination": [ "obj-51001", 0 ],
                     "source": [ "obj-69", 1 ]
                 }
             },
@@ -3501,6 +3587,66 @@
                 "patchline": {
                     "destination": [ "obj-8011", 0 ],
                     "source": [ "obj-8003", 7 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-50003", 0 ],
+                    "source": [ "obj-50001", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "source": [ "obj-50003", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-50001", 0 ],
+                    "source": [ "obj-18", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-71", 0 ],
+                    "source": [ "obj-8003", 8 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-68", 0 ],
+                    "source": [ "obj-51001", 1 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-51002", 0 ],
+                    "source": [ "obj-51001", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-50001", 0 ],
+                    "source": [ "obj-51002", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-52001", 0 ],
+                    "source": [ "obj-8003", 9 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-52002", 0 ],
+                    "source": [ "obj-51001", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-8003", 0 ],
+                    "source": [ "obj-52002", 0 ]
                 }
             }
         ],
