@@ -390,6 +390,8 @@
                     "presentation_rect": [ 97.0, 71.0, 38.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
+                            "parameter_initial": [ 48 ],
+                            "parameter_initial_enable": 1,
                             "parameter_longname": "linn_synthbend",
                             "parameter_mmax": 96.0,
                             "parameter_mmin": 1.0,
