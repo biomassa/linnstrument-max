@@ -585,12 +585,32 @@ for (const line of fixtures) {
 // the scheme menu accepts linnkit's 13; others are refused
 t = load();
 t.msg("scale", SCL + "31-edo.scl");
-for (const s of ["root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics"]) {
+for (const s of ["root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics", "default"]) {
 	t.msg("scheme", s);
 	assert.deepEqual(t.status.filter((m) => m[0] === "scheme").at(-1), ["scheme", s]);
 }
 t.msg("scheme", "palette");
 assert.ok(t.status.some((m) => m[0] === "error" && String(m[1]).includes("palette")));
+
+// default: the factory note lights by the pad's MIDI note, whatever the tuning: C cyan,
+// D E F G A B green, the rest off; labels are the note names
+{
+	const x = load();
+	x.msg("scale", SCL + "31-edo.scl");
+	x.msg("offset", 13);
+	x.msg("rootcolor", "magenta");
+	x.msg("scheme", "default");
+	const g = x.ctx.grid(x.ctx.settings());
+	const names = { 0: "C", 2: "D", 4: "E", 5: "F", 7: "G", 9: "A", 11: "B" };
+	for (let r = 0; r < 8; r++) for (let c = 0; c < 25; c++) {
+		const note = g.notes[r][c];
+		const nm = names[note % 12];
+		const want = note > 127 ? 0 : !nm ? 0 : nm === "C" ? 4 : 3;
+		assert.equal(g.colors[r][c], want, `r${r} c${c} note ${note}`);
+		if (note <= 127) assert.equal(g.labels[r][c], nm || "");
+	}
+	assert.ok(x.status.some((m) => m[0] === "legend" && String(m[1]).startsWith("LinnStrument factory lights")));
+}
 
 // root, limit and refhz are stored per scale, with linnkit's defaults (root 60, limit 7, 12-TET pitch)
 t = load();
@@ -891,5 +911,19 @@ assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", -1]);
 assert.equal(JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]).notes[0][0], 32); // 62 - 3 x 10
 t.msg("low", 200);
 assert.deepEqual(t.status.filter((m) => m[0] === "low").at(-1), ["low", 127]);
+
+// scanscales: the .scl files in SCL/ next to the patch, sorted, into the menu; the current one reselected
+{
+	const x = load();
+	const scl = join(x.dir, "..", "..", "patchers", "SCL");
+	mkdirSync(scl, { recursive: true });
+	writeFileSync(join(scl, "b.scl"), readFileSync(SCL + "31-edo.scl"));
+	writeFileSync(join(scl, "a.scl"), readFileSync(SCL + "31-edo.scl"));
+	writeFileSync(join(scl, "notes.txt"), "x");
+	x.msg("scale", "SCL/b.scl");
+	x.status.length = 0;
+	x.msg("scanscales");
+	assert.deepEqual(x.status.filter((m) => m[0] === "scalemenu"), [["scalemenu", "clear"], ["scalemenu", "append", "a.scl"], ["scalemenu", "append", "b.scl"], ["scalemenu", "setsymbol", "b.scl"]]);
+}
 
 console.log("linn.lights: all tests passed");

@@ -20,9 +20,9 @@
 // are settings, so "send" first makes the one backup, reference/backups/backup.json,
 // unless it exists already (restore then always returns to the original settings).
 //
-// Inlet 0: messages: scale <path>, send, sendlights, splitcol <2-25>, backup, restore [path],
+// Inlet 0: messages: scale <path>, send, sendlights, splitcol <2-25>, scanscales, backup, restore [path],
 //          scheme <name> (root ji names mos chain moskeys wijmenga kite factors steps nested
-//          consonance harmonics; see docs/light-schemes.md), offset <n>, limit <n>, root <note>,
+//          consonance harmonics default; see docs/light-schemes.md), offset <n>, limit <n>, root <note>,
 //          refhz <hz>, rootcolor <name>, bend <n>, generator <n>, mossize <n>, harmonics <16|32>,
 //          subharmonics <0|1>, low <note> (bottom-left pad; -1 = root on row 4, column 1),
 //          state <json> (every scale's settings at once, from [pattr]), dump, status, reset.
@@ -74,7 +74,15 @@ const ROOT = 60; // default MIDI note of degree 0 (per scale: root), as in linnk
 const COLORS = { off: 0, red: 1, yellow: 2, green: 3, cyan: 4, blue: 5, magenta: 6, white: 8, orange: 9, lime: 10, pink: 11 };
 // linnkit's light schemes (internal/lights/schemes.go, schemes_more.go; the new ones in docs/light-schemes.md)
 const MORE_SCHEMES = ["chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics"];
-const SCHEMES = ["root", "ji", "names", "mos"].concat(MORE_SCHEMES);
+const SCHEMES = ["root", "ji", "names", "mos"].concat(MORE_SCHEMES, ["default"]);
+// default: the LinnStrument's factory note lights (firmware initializeNoteLights, paintNormalDisplayCell):
+// by the pad's MIDI note mod 12, C in the accent colour (cyan), D E F G A B in the split's main
+// colour (green left, blue right), the rest off; the tuning and the root colour are ignored
+const FACTORY_NATURALS = { 0: "C", 2: "D", 4: "E", 5: "F", 7: "G", 9: "A", 11: "B" };
+function factoryPad(note, main) {
+	const name = FACTORY_NATURALS[((note % 12) + 12) % 12];
+	return !name ? [COLORS.off, ""] : name === "C" ? [COLORS.cyan, "C"] : [main, name];
+}
 const DELAY = 2; // ms after each message, as linnkit
 const TIMEOUT = 1500; // ms to wait for readback replies
 
@@ -417,7 +425,7 @@ function derived(s, which, side = "l") {
 	}
 	if (which.includes("offsets") || which.includes("offsetindex"))
 		outlet(1, "offsetindex", candidates(s.root).findIndex((c) => c.offset === s.offset));
-	if (which.includes("legend")) outlet(1, side, "legend", legend(s));
+	if (which.includes("legend")) outlet(1, side, "legend", legend(side === "r" ? Object.assign({}, s, { factorymain: "blue" }) : s));
 	if (which.includes("tuning")) outlet(1, "tuning", s.root, s.refhz > 0 ? s.refhz : 440 * Math.pow(2, (s.root - 69) / 12));
 	if (which.includes("preview")) outlet(1, "preview", JSON.stringify(grid(s)));
 }
@@ -434,6 +442,7 @@ function legend(s) {
 	if (MORE_SCHEMES.includes(s.scheme)) return more(s).legend;
 	if (s.scheme === "ji") return "R root, 3 white, 5 green, 7 blue, 11 orange, 13 yellow (limit " + s.limit + ")";
 	if (s.scheme === "names") return "C root, naturals white, sharps blue, flats green";
+	if (s.scheme === "default") return "LinnStrument factory lights by MIDI note: C cyan, D E F G A B " + (s.factorymain || "green") + ", rest off";
 	if (s.scheme === "mos") {
 		const m = defaultMOS();
 		return m ? "R root, MOS white (" + m.size + " notes, generator " + m.generator + " degrees), other degrees unlit" : "no MOS found in this scale: root only";
@@ -1051,7 +1060,13 @@ function grid(s) {
 		const pads = notes.map((note, c) => {
 			const d = sideAt(c);
 			const played = note + sh[d];
-			return note < 0 || note > 127 || played < 0 || played > 127 ? [COLORS.off, "!!"] : sw[d][(((played - s.root) % n) + n) % n];
+			if (note < 0 || note > 127 || played < 0 || played > 127) return [COLORS.off, "!!"];
+			const ss = settings(d);
+			if (ss.scheme === "default") {
+				const p = factoryPad(played, d === "r" ? COLORS.blue : COLORS.green);
+				return p[0] === COLORS.cyan ? p : [shade(p[0], ss.palette), p[1]];
+			}
+			return sw[d][(((played - s.root) % n) + n) % n];
 		});
 		g.notes.push(notes);
 		g.colors.push(pads.map((p) => p[0]));
@@ -1187,7 +1202,34 @@ function poll(on) {
 }
 
 function loadbang() {
+	scanscales();
 	poll(1);
+}
+
+// scanscales: lists the .scl files in SCL/ next to this patch (read directly, not through Max's
+// search-path index, which can keep an old listing) and refills the patch's scale menu:
+// scalemenu clear, scalemenu append <file>..., then scalemenu setsymbol <current scale>. Runs when the
+// patch opens and from the rescan button.
+function scanscales() {
+	const names = [];
+	try {
+		const f = new Folder(localPath("SCL/"));
+		f.typelist = [];
+		f.reset && f.reset();
+		while (!f.end) {
+			const n = String(f.filename || "");
+			if (/\.scl$/i.test(n)) names.push(n);
+			f.next();
+		}
+		f.close();
+	} catch (e) {
+		report("error", "can't read the SCL folder");
+		return;
+	}
+	names.sort((a, b) => a.localeCompare(b));
+	outlet(1, "scalemenu", "clear");
+	names.forEach((n) => outlet(1, "scalemenu", "append", n));
+	if (scaleName && names.includes(scaleName)) outlet(1, "scalemenu", "setsymbol", scaleName);
 }
 
 function pollTick() {

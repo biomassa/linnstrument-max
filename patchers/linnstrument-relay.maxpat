@@ -475,9 +475,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [ "populate" ],
-                    "patching_rect": [ 180.0, 34.0, 70.0, 22.0 ],
-                    "text": "t populate",
+                    "outlettype": [ "scanscales" ],
+                    "patching_rect": [ 180.0, 34.0, 75.0, 22.0 ],
+                    "text": "t scanscales",
                     "varname": "linn_trescan"
                 }
             },
@@ -1273,7 +1273,7 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-5",
-                    "items": [ "root", ",", "ji", ",", "names", ",", "mos", ",", "chain", ",", "moskeys", ",", "wijmenga", ",", "kite", ",", "factors", ",", "steps", ",", "nested", ",", "consonance", ",", "harmonics" ],
+                    "items": [ "root", ",", "ji", ",", "names", ",", "mos", ",", "chain", ",", "moskeys", ",", "wijmenga", ",", "kite", ",", "factors", ",", "steps", ",", "nested", ",", "consonance", ",", "harmonics", ",", "default" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
@@ -1284,9 +1284,9 @@
                     "presentation_rect": [ 404.0, 254.0, 100.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics" ],
+                            "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics", "default" ],
                             "parameter_longname": "linn_lscheme",
-                            "parameter_mmax": 12,
+                            "parameter_mmax": 13,
                             "parameter_modmode": 0,
                             "parameter_shortname": "linn_lscheme",
                             "parameter_type": 2
@@ -1368,7 +1368,6 @@
             },
             {
                 "box": {
-                    "autopopulate": 1,
                     "fontsize": 16.0,
                     "id": "obj-14",
                     "items": [ "22edo.scl", ",", "31-edo.scl", ",", "ji_11.scl", ",", "ji_13.scl", ",", "ji_17.scl", ",", "ji_7.scl", ",", "ji_7a.scl", ",", "ji_8coh.scl", ",", "ji_9.scl", ",", "ji_9coh.scl" ],
@@ -1376,22 +1375,12 @@
                     "numinlets": 1,
                     "numoutlets": 3,
                     "outlettype": [ "int", "", "" ],
-                    "parameter_enable": 1,
+                    "parameter_enable": 0,
                     "patching_rect": [ 114.0, 62.0, 100.0, 26.0 ],
                     "pattrmode": 1,
                     "prefix": "SCL/",
                     "presentation": 1,
                     "presentation_rect": [ 160.0, 254.0, 147.0, 26.0 ],
-                    "saved_attribute_attributes": {
-                        "valueof": {
-                            "parameter_enum": [ "22edo.scl", "31-edo.scl", "ji_11.scl", "ji_13.scl", "ji_17.scl", "ji_7.scl", "ji_7a.scl", "ji_8coh.scl", "ji_9.scl", "ji_9coh.scl" ],
-                            "parameter_longname": "linn_scale",
-                            "parameter_mmax": 9,
-                            "parameter_modmode": 0,
-                            "parameter_shortname": "linn_scale",
-                            "parameter_type": 2
-                        }
-                    },
                     "textcolor": [ 0.9254901960784314, 0.9254901960784314, 0.5176470588235295, 1.0 ],
                     "varname": "linn_scale"
                 }
@@ -2477,10 +2466,10 @@
                     "id": "obj-51001",
                     "maxclass": "newobj",
                     "numinlets": 1,
-                    "numoutlets": 2,
-                    "outlettype": [ "", "" ],
-                    "patching_rect": [ 1050.0, 308.0, 90, 22 ],
-                    "text": "route faders",
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "" ],
+                    "patching_rect": [ 1050.0, 308.0, 140.0, 22 ],
+                    "text": "route faders scalemenu",
                     "varname": "linn_lfadersroute"
                 }
             },
@@ -3051,7 +3040,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-14", 0 ],
+                    "destination": [ "obj-3", 0 ],
                     "source": [ "obj-74", 0 ]
                 }
             },
@@ -3528,7 +3517,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-68", 0 ],
-                    "source": [ "obj-51001", 1 ]
+                    "source": [ "obj-51001", 2 ]
                 }
             },
             {
@@ -3560,13 +3549,18 @@
                     "destination": [ "obj-50005", 0 ],
                     "source": [ "obj-52002", 0 ]
                 }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-14", 0 ],
+                    "source": [ "obj-51001", 1 ]
+                }
             }
         ],
         "parameters": {
             "obj-102": [ "linn_ronset", "linn_ronset", 0 ],
             "obj-11": [ "linn_lbend", "linn_lbend", 0 ],
             "obj-13": [ "linn_loffsetmenu", "linn_loffsetmenu", 0 ],
-            "obj-14": [ "linn_scale", "linn_scale", 0 ],
             "obj-29": [ "linn_rtarget", "linn_rtarget", 0 ],
             "obj-43": [ "linn_rlegato", "linn_rlegato", 0 ],
             "obj-46": [ "linn_lmidisetup", "linn_lmidisetup", 0 ],

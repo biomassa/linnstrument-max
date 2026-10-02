@@ -360,6 +360,31 @@ const names = (() => {
 	assert.equal(x.ctx.settings("l").palette, 0);
 }
 
+// default: factory lights by MIDI note (after the side's shift), green left, blue right, the
+// palette shift on the main colour but not on C's cyan
+{
+	const x = load();
+	x.msg("scale", SCL + "31-edo.scl");
+	x.msg("offset", 13);
+	x.msg("splitcol", 13);
+	x.msg("scheme", "default");
+	x.msg("palette", "l", 3);
+	x.msg("shift", "r", 3);
+	const g = x.ctx.grid(x.ctx.settings());
+	const naturals = [0, 2, 4, 5, 7, 9, 11];
+	for (let r = 0; r < 8; r++) for (let c = 0; c < 25; c++) {
+		const left = c + 1 < 13;
+		const note = g.notes[r][c];
+		const played = left ? note : note + 3;
+		if (note > 127 || played > 127) continue;
+		const pc = played % 12;
+		const want = pc === 0 ? 4 : !naturals.includes(pc) ? 0 : left ? 6 : 5; // left: green three steps on = magenta; right: blue
+		assert.equal(g.colors[r][c], want, `r${r} c${c}`);
+	}
+	assert.ok(x.status.some((m) => m[0] === "r" && m[1] === "legend" && String(m[2]).includes("B blue")));
+	assert.ok(x.status.some((m) => m[0] === "l" && m[1] === "legend" && String(m[2]).includes("B green")));
+}
+
 // shift: a side's pads show the degree they play after its shift; the other side is unchanged
 {
 	const x = load();
@@ -918,5 +943,19 @@ t.msg("scale", SCL + "31-edo.scl");
 t.msg("offset", 13);
 t.msg("low", 40);
 assert.deepEqual(JSON.parse(t.status.filter((m) => m[0] === "preview").at(-1)[1]).notes.map((r) => r[0]), plain(t.ctx.rowStarts(13)));
+
+// scanscales: the .scl files in SCL/ next to the patch, sorted, into the menu; the current one reselected
+{
+	const x = load();
+	const scl = join(x.dir, "..", "..", "patchers", "SCL");
+	mkdirSync(scl, { recursive: true });
+	writeFileSync(join(scl, "b.scl"), readFileSync(SCL + "31-edo.scl"));
+	writeFileSync(join(scl, "a.scl"), readFileSync(SCL + "31-edo.scl"));
+	writeFileSync(join(scl, "notes.txt"), "x");
+	x.msg("scale", "SCL/b.scl");
+	x.status.length = 0;
+	x.msg("scanscales");
+	assert.deepEqual(x.status.filter((m) => m[0] === "scalemenu"), [["scalemenu", "clear"], ["scalemenu", "append", "a.scl"], ["scalemenu", "append", "b.scl"], ["scalemenu", "setsymbol", "b.scl"]]);
+}
 
 console.log("linnsplit.lights: all tests passed");

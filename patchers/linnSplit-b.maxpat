@@ -278,10 +278,10 @@
                     "id": "obj-4",
                     "maxclass": "newobj",
                     "numinlets": 2,
-                    "numoutlets": 2,
-                    "outlettype": [ "", "" ],
-                    "patching_rect": [ 1230.0, 246.0, 100.0, 22.0 ],
-                    "text": "route splitcol",
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "" ],
+                    "patching_rect": [ 1230.0, 246.0, 140.0, 22.0 ],
+                    "text": "route splitcol scalemenu",
                     "varname": "linnsplit_colroute"
                 }
             },
@@ -530,9 +530,9 @@
                     "maxclass": "newobj",
                     "numinlets": 1,
                     "numoutlets": 1,
-                    "outlettype": [ "populate" ],
-                    "patching_rect": [ 260.0, 34.0, 70.0, 22.0 ],
-                    "text": "t populate",
+                    "outlettype": [ "scanscales" ],
+                    "patching_rect": [ 260.0, 34.0, 75.0, 22.0 ],
+                    "text": "t scanscales",
                     "varname": "linn_trescan"
                 }
             },
@@ -1415,7 +1415,7 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-5",
-                    "items": [ "root", ",", "ji", ",", "names", ",", "mos", ",", "chain", ",", "moskeys", ",", "wijmenga", ",", "kite", ",", "factors", ",", "steps", ",", "nested", ",", "consonance", ",", "harmonics" ],
+                    "items": [ "root", ",", "ji", ",", "names", ",", "mos", ",", "chain", ",", "moskeys", ",", "wijmenga", ",", "kite", ",", "factors", ",", "steps", ",", "nested", ",", "consonance", ",", "harmonics", ",", "default" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
@@ -1426,9 +1426,9 @@
                     "presentation_rect": [ 402.0, 252.0, 100.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics" ],
+                            "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics", "default" ],
                             "parameter_longname": "linn_lscheme_l",
-                            "parameter_mmax": 12,
+                            "parameter_mmax": 13,
                             "parameter_modmode": 0,
                             "parameter_shortname": "linn_lscheme_l",
                             "parameter_type": 2
@@ -1529,7 +1529,6 @@
             },
             {
                 "box": {
-                    "autopopulate": 1,
                     "fontsize": 16.0,
                     "id": "obj-14",
                     "items": [ "22edo.scl", ",", "31-edo.scl", ",", "ji_11.scl", ",", "ji_13.scl", ",", "ji_17.scl", ",", "ji_7.scl", ",", "ji_7a.scl", ",", "ji_8coh.scl", ",", "ji_9.scl", ",", "ji_9coh.scl", ",", "partch-grm.scl", ",", "partch_43.scl" ],
@@ -1537,22 +1536,12 @@
                     "numinlets": 1,
                     "numoutlets": 3,
                     "outlettype": [ "int", "", "" ],
-                    "parameter_enable": 1,
+                    "parameter_enable": 0,
                     "patching_rect": [ 114.0, 62.0, 100.0, 26.0 ],
                     "pattrmode": 1,
                     "prefix": "SCL/",
                     "presentation": 1,
                     "presentation_rect": [ 158.0, 252.0, 147.0, 26.0 ],
-                    "saved_attribute_attributes": {
-                        "valueof": {
-                            "parameter_enum": [ "22edo.scl", "31-edo.scl", "ji_11.scl", "ji_13.scl", "ji_17.scl", "ji_7.scl", "ji_7a.scl", "ji_8coh.scl", "ji_9.scl", "ji_9coh.scl", "partch-grm.scl", "partch_43.scl" ],
-                            "parameter_longname": "linn_scale",
-                            "parameter_mmax": 11,
-                            "parameter_modmode": 0,
-                            "parameter_shortname": "linn_scale",
-                            "parameter_type": 2
-                        }
-                    },
                     "textcolor": [ 0.9254901960784314, 0.9254901960784314, 0.5176470588235295, 1.0 ],
                     "varname": "linn_scale"
                 }
@@ -3136,7 +3125,7 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-20039",
-                    "items": [ "root", ",", "ji", ",", "names", ",", "mos", ",", "chain", ",", "moskeys", ",", "wijmenga", ",", "kite", ",", "factors", ",", "steps", ",", "nested", ",", "consonance", ",", "harmonics" ],
+                    "items": [ "root", ",", "ji", ",", "names", ",", "mos", ",", "chain", ",", "moskeys", ",", "wijmenga", ",", "kite", ",", "factors", ",", "steps", ",", "nested", ",", "consonance", ",", "harmonics", ",", "default" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
@@ -3147,9 +3136,9 @@
                     "presentation_rect": [ 100.0, 639.0, 100.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics" ],
+                            "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics", "default" ],
                             "parameter_longname": "linn_lscheme_r",
-                            "parameter_mmax": 12,
+                            "parameter_mmax": 13,
                             "parameter_modmode": 0,
                             "parameter_shortname": "linn_lscheme_r",
                             "parameter_type": 2
@@ -5427,7 +5416,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-68", 0 ],
-                    "source": [ "obj-4", 1 ]
+                    "source": [ "obj-4", 2 ]
                 }
             },
             {
@@ -5641,7 +5630,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-14", 0 ],
+                    "destination": [ "obj-3", 0 ],
                     "source": [ "obj-74", 0 ]
                 }
             },
@@ -6102,12 +6091,17 @@
                     "destination": [ "obj-3", 0 ],
                     "source": [ "obj-99", 0 ]
                 }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-14", 0 ],
+                    "source": [ "obj-4", 1 ]
+                }
             }
         ],
         "parameters": {
             "obj-11": [ "linn_lbend_l", "linn_lbend_l", 0 ],
             "obj-13": [ "linn_loffsetmenu", "linn_loffsetmenu", 0 ],
-            "obj-14": [ "linn_scale", "linn_scale", 0 ],
             "obj-20006": [ "linn_synthbend_r", "linn_synthbend_r", 0 ],
             "obj-20011": [ "linn_lmossize_r", "linn_lmossize_r", 0 ],
             "obj-20027": [ "linn_llimit_r", "linn_llimit_r", 0 ],
