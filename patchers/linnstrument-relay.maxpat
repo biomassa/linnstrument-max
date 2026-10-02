@@ -1336,7 +1336,7 @@
                         "parameter_mappable": 0,
                         "storage_rect": [ 583, 69, 1034, 197 ]
                     },
-                    "text": "pattrstorage linnstrument-relay",
+                    "text": "pattrstorage linnstrument-relay @savemode 2",
                     "varname": "linnstrument-relay"
                 }
             },

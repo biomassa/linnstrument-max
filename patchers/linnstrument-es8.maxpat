@@ -2143,7 +2143,7 @@
                         "parameter_mappable": 0,
                         "storage_rect": [ 583, 69, 1034, 197 ]
                     },
-                    "text": "pattrstorage linnstrument-es8",
+                    "text": "pattrstorage linnstrument-es8 @savemode 3",
                     "varname": "linnstrument-es8"
                 }
             },

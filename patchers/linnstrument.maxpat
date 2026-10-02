@@ -15,44 +15,6 @@
         "boxes": [
             {
                 "box": {
-                    "id": "obj-104",
-                    "maxclass": "message",
-                    "numinlets": 2,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "patching_rect": [ 324.0, -269.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 206.0, 0.0, 50.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-102",
-                    "maxclass": "attrui",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 324.0, -269.0, 150.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 53.0, 0.0, 150.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-100",
-                    "maxclass": "number",
-                    "numinlets": 1,
-                    "numoutlets": 2,
-                    "outlettype": [ "", "bang" ],
-                    "parameter_enable": 0,
-                    "patching_rect": [ 324.0, -269.0, 50.0, 22.0 ],
-                    "presentation": 1,
-                    "presentation_rect": [ 0.0, 0.0, 50.0, 22.0 ]
-                }
-            },
-            {
-                "box": {
                     "id": "obj-94",
                     "maxclass": "newobj",
                     "numinlets": 1,
@@ -1308,7 +1270,7 @@
                         "parameter_mappable": 0,
                         "storage_rect": [ 583, 69, 1034, 197 ]
                     },
-                    "text": "pattrstorage linnstrument",
+                    "text": "pattrstorage linnstrument @savemode 2",
                     "varname": "linnstrument"
                 }
             },

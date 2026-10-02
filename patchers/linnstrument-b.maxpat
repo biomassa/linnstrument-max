@@ -1269,7 +1269,7 @@
                         "parameter_mappable": 0,
                         "storage_rect": [ 583, 69, 1034, 197 ]
                     },
-                    "text": "pattrstorage linnstrument-b",
+                    "text": "pattrstorage linnstrument-b @savemode 3",
                     "varname": "linnstrument-b"
                 }
             },
