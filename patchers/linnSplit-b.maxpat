@@ -3,16 +3,38 @@
         "fileversion": 1,
         "appversion": {
             "major": 9,
-            "minor": 1,
-            "revision": 5,
+            "minor": 2,
+            "revision": 0,
             "architecture": "x64",
             "modernui": 1
         },
         "classnamespace": "box",
-        "rect": [ 73.0, 94.0, 1795.0, 1092.0 ],
+        "rect": [ 34.0, 92.0, 1881.0, 1170.0 ],
         "openinpresentation": 1,
         "integercoordinates": 1,
         "boxes": [
+            {
+                "box": {
+                    "comment": "to vst~ right split",
+                    "id": "obj-104",
+                    "index": 0,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 493.0, 455.0, 30.0, 30.0 ]
+                }
+            },
+            {
+                "box": {
+                    "comment": "to vst~ left split",
+                    "id": "obj-100",
+                    "index": 0,
+                    "maxclass": "outlet",
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 410.0, 455.0, 30.0, 30.0 ]
+                }
+            },
             {
                 "box": {
                     "id": "obj-119",
@@ -94,7 +116,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1240.0, 1548.0, 184.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 139.0, 608.0, 55.0, 24.0 ],
+                    "presentation_rect": [ 291.0, 605.0, 55.0, 24.0 ],
                     "text": "shift",
                     "varname": "cmt_shift_r"
                 }
@@ -108,7 +130,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1240.0, 148.0, 184.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 309.0, 303.0, 55.0, 24.0 ],
+                    "presentation_rect": [ 291.0, 302.0, 55.0, 24.0 ],
                     "text": "shift",
                     "varname": "cmt_shift_l"
                 }
@@ -126,7 +148,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1282.0, 1578.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 194.0, 607.0, 44.0, 26.0 ],
+                    "presentation_rect": [ 346.0, 604.0, 44.0, 26.0 ],
                     "varname": "linnsplit_shift_r"
                 }
             },
@@ -143,7 +165,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1282.0, 178.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 364.0, 302.0, 44.0, 26.0 ],
+                    "presentation_rect": [ 346.0, 301.0, 44.0, 26.0 ],
                     "varname": "linnsplit_shift_l"
                 }
             },
@@ -156,8 +178,8 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1202.0, 1518.0, 184.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 568.0, 612.0, 70.0, 24.0 ],
-                    "text": "colours",
+                    "presentation_rect": [ 606.0, 586.0, 70.0, 24.0 ],
+                    "text": "colors",
                     "textcolor": [ 1.0, 0.5647058823529412, 0.5647058823529412, 1.0 ],
                     "varname": "cmt_palette_r"
                 }
@@ -171,8 +193,8 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1202.0, 118.0, 184.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 771.0, 307.0, 70.0, 24.0 ],
-                    "text": "colours",
+                    "presentation_rect": [ 601.0, 283.0, 70.0, 24.0 ],
+                    "text": "colors",
                     "textcolor": [ 1.0, 0.5647058823529412, 0.5647058823529412, 1.0 ],
                     "varname": "cmt_palette_l"
                 }
@@ -238,7 +260,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1214.0, 1578.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 632.0, 611.0, 36.0, 26.0 ],
+                    "presentation_rect": [ 669.0, 585.0, 36.0, 26.0 ],
                     "textcolor": [ 1.0, 0.5647058823529412, 0.5647058823529412, 1.0 ],
                     "varname": "linnsplit_palette_r"
                 }
@@ -256,7 +278,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1214.0, 178.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 834.0, 306.0, 36.0, 26.0 ],
+                    "presentation_rect": [ 664.0, 282.0, 36.0, 26.0 ],
                     "textcolor": [ 1.0, 0.5647058823529412, 0.5647058823529412, 1.0 ],
                     "varname": "linnsplit_palette_l"
                 }
@@ -271,18 +293,6 @@
                     "patching_rect": [ 1338.0, 245.0, 100.0, 22.0 ],
                     "text": "prepend set",
                     "varname": "linnsplit_setsplitcol"
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-4",
-                    "maxclass": "newobj",
-                    "numinlets": 2,
-                    "numoutlets": 3,
-                    "outlettype": [ "", "", "" ],
-                    "patching_rect": [ 1230.0, 246.0, 140.0, 22.0 ],
-                    "text": "route splitcol scalemenu",
-                    "varname": "linnsplit_colroute"
                 }
             },
             {
@@ -307,7 +317,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 410.0, 90.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 8.0, 321.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 10.0, 215.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -330,7 +340,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 460.0, 64.0, 98.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 321.0, 93.0, 24.0 ],
+                    "presentation_rect": [ 37.0, 215.0, 93.0, 24.0 ],
                     "text": "MIDI setup",
                     "varname": "cmt_midisetup"
                 }
@@ -363,7 +373,7 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-13",
-                    "items": [ "+2  343 c ~5/4", ",", "+1  171 c ~8/7", ",", "+4  686 c ~3/2", ",", "+3  514 c ~4/3", ",", "+5  857 c ~5/3", ",", "+8  1371 c ~9/4", ",", "+6  1029 c ~7/4", ",", "+9  1543 c ~5/2", ",", "+7  1200 c ~2/1", ",", "+10  1714 c ~8/3", ",", "+11  1886 c ~3/1", ",", "+12  2057 c ~10/3", ",", "+13  2229 c ~7/2", ",", "+14  2400 c ~4/1", ",", "+25  4286 c ~12/1  (doesn't fit)", ",", "+24  4114 c ~11/1  (doesn't fit)", ",", "+23  3943 c ~10/1  (doesn't fit)", ",", "+22  3771 c ~9/1  (doesn't fit)", ",", "+21  3600 c ~8/1  (doesn't fit)", ",", "+20  3429 c ~7/1  (doesn't fit)", ",", "+19  3257 c ~13/2  (doesn't fit)", ",", "+18  3086 c ~6/1  (doesn't fit)", ",", "+17  2914 c ~11/2  (doesn't fit)", ",", "+16  2743 c ~5/1  (doesn't fit)", ",", "+15  2571 c ~9/2  (doesn't fit)" ],
+                    "items": [ "+3  327 c ~6/5", ",", "+2  218 c ~8/7", ",", "+4  436 c ~9/7", ",", "+6  655 c ~10/7", ",", "+5  545 c ~7/5", ",", "+7  764 c ~11/7", ",", "+1  109 c ~13/12", ",", "+8  873 c ~5/3", ",", "+9  982 c ~7/4", ",", "+12  1309 c ~13/6", ",", "+10  1091 c ~13/7", ",", "+14  1527 c ~12/5", ",", "+13  1418 c ~9/4", ",", "+11  1200 c ~2/1", ",", "+15  1636 c ~13/5  (doesn't fit)", ",", "+16  1745 c ~11/4  (doesn't fit)", ",", "+17  1855 c ~20/7  (doesn't fit)", ",", "+18  1964 c ~19/6  (doesn't fit)", ",", "+19  2073 c ~10/3  (doesn't fit)", ",", "+20  2182 c ~7/2  (doesn't fit)", ",", "+21  2291 c ~15/4  (doesn't fit)", ",", "+25  2727 c ~19/4  (doesn't fit)", ",", "+24  2618 c ~9/2  (doesn't fit)", ",", "+23  2509 c ~13/3  (doesn't fit)", ",", "+22  2400 c ~4/1  (doesn't fit)" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
@@ -371,10 +381,10 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1653.0, 28.0, 110.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 689.0, 252.0, 179.0, 26.0 ],
+                    "presentation_rect": [ 12.0, 474.0, 132.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
-                            "parameter_enum": [ "+2  343 c ~5/4", "+1  171 c ~8/7", "+4  686 c ~3/2", "+3  514 c ~4/3", "+5  857 c ~5/3", "+8  1371 c ~9/4", "+6  1029 c ~7/4", "+9  1543 c ~5/2", "+7  1200 c ~2/1", "+10  1714 c ~8/3", "+11  1886 c ~3/1", "+12  2057 c ~10/3", "+13  2229 c ~7/2", "+14  2400 c ~4/1", "+25  4286 c ~12/1  (doesn't fit)", "+24  4114 c ~11/1  (doesn't fit)", "+23  3943 c ~10/1  (doesn't fit)", "+22  3771 c ~9/1  (doesn't fit)", "+21  3600 c ~8/1  (doesn't fit)", "+20  3429 c ~7/1  (doesn't fit)", "+19  3257 c ~13/2  (doesn't fit)", "+18  3086 c ~6/1  (doesn't fit)", "+17  2914 c ~11/2  (doesn't fit)", "+16  2743 c ~5/1  (doesn't fit)", "+15  2571 c ~9/2  (doesn't fit)" ],
+                            "parameter_enum": [ "+3  327 c ~6/5", "+2  218 c ~8/7", "+4  436 c ~9/7", "+6  655 c ~10/7", "+5  545 c ~7/5", "+7  764 c ~11/7", "+1  109 c ~13/12", "+8  873 c ~5/3", "+9  982 c ~7/4", "+12  1309 c ~13/6", "+10  1091 c ~13/7", "+14  1527 c ~12/5", "+13  1418 c ~9/4", "+11  1200 c ~2/1", "+15  1636 c ~13/5  (doesn't fit)", "+16  1745 c ~11/4  (doesn't fit)", "+17  1855 c ~20/7  (doesn't fit)", "+18  1964 c ~19/6  (doesn't fit)", "+19  2073 c ~10/3  (doesn't fit)", "+20  2182 c ~7/2  (doesn't fit)", "+21  2291 c ~15/4  (doesn't fit)", "+25  2727 c ~19/4  (doesn't fit)", "+24  2618 c ~9/2  (doesn't fit)", "+23  2509 c ~13/3  (doesn't fit)", "+22  2400 c ~4/1  (doesn't fit)" ],
                             "parameter_longname": "linn_loffsetmenu",
                             "parameter_mmax": 24,
                             "parameter_modmode": 0,
@@ -410,7 +420,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 560.0, 214.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 738.0, 306.0, 57.0, 26.0 ],
+                    "presentation_rect": [ 793.0, 284.0, 57.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_onset_l",
@@ -433,7 +443,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 560.0, 136.0, 103.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 669.0, 306.0, 90.0, 24.0 ],
+                    "presentation_rect": [ 724.0, 284.0, 90.0, 24.0 ],
                     "text": "onset ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_onset_l"
@@ -465,7 +475,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 440.0, 204.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 737.0, 275.0, 60.0, 26.0 ],
+                    "presentation_rect": [ 792.0, 253.0, 60.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_vibrato_l",
@@ -489,7 +499,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 440.0, 120.0, 102.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 669.0, 276.0, 76.0, 24.0 ],
+                    "presentation_rect": [ 724.0, 254.0, 76.0, 24.0 ],
                     "text": "vibrato",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_vibrato_l"
@@ -515,25 +525,13 @@
                     "numoutlets": 3,
                     "outlettype": [ "", "", "" ],
                     "patching_rect": [ 2467.0, 540.0, 150.0, 22.0 ],
-                    "restore": [ "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"ji\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_7.scl\":{\"l\":{\"scheme\":\"ji\",\"limit\":5,\"palette\":5,\"shift\":0},\"r\":{\"scheme\":\"ji\",\"limit\":5,\"shift\":3},\"offset\":5,\"low\":-1,\"root\":60}}" ],
+                    "restore": [ "{\"22edo.scl\":{\"scheme\":\"ji\",\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_11.scl\":{\"scheme\":\"ji\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1,\"l\":{\"scheme\":\"ji\"},\"r\":{\"scheme\":\"ji\",\"limit\":5,\"rootcolor\":\"yellow\"}},\"31-edo.scl\":{\"scheme\":\"ji\",\"offset\":13,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":5,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_13.scl\":{\"scheme\":\"kite\",\"offset\":5,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":3,\"root\":60,\"refhz\":0,\"generator\":0,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1},\"ji_17.scl\":{\"scheme\":\"ji\",\"offset\":7,\"rootcolor\":\"magenta\",\"bend\":48,\"limit\":7,\"root\":60,\"refhz\":0,\"generator\":5,\"mossize\":0,\"harmonics\":16,\"subharmonics\":1,\"low\":-1},\"ji_7.scl\":{\"l\":{\"scheme\":\"ji\",\"limit\":5},\"r\":{\"scheme\":\"ji\"},\"offset\":5},\"12-edo.scl\":{\"l\":{\"scheme\":\"default\"},\"r\":{\"scheme\":\"default\",\"rootcolor\":\"cyan\"}}}" ],
                     "saved_object_attributes": {
                         "parameter_enable": 0,
                         "parameter_mappable": 0
                     },
                     "text": "pattr linn_lightsstate",
                     "varname": "linn_lightsstate"
-                }
-            },
-            {
-                "box": {
-                    "id": "obj-74",
-                    "maxclass": "newobj",
-                    "numinlets": 1,
-                    "numoutlets": 1,
-                    "outlettype": [ "scanscales" ],
-                    "patching_rect": [ 260.0, 34.0, 75.0, 22.0 ],
-                    "text": "t scanscales",
-                    "varname": "linn_trescan"
                 }
             },
             {
@@ -547,7 +545,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 260.0, 8.0, 20.0, 20.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 154.0, 277.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 6.0, 268.0, 24.0, 24.0 ],
                     "varname": "linn_rescanbtn"
                 }
             },
@@ -560,8 +558,8 @@
                     "numoutlets": 0,
                     "patching_rect": [ 290.0, 4.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 180.0, 277.0, 103.0, 24.0 ],
-                    "text": "rescan folder",
+                    "presentation_rect": [ 32.0, 268.0, 98.0, 24.0 ],
+                    "text": "rescan",
                     "varname": "cmt_rescan"
                 }
             },
@@ -587,7 +585,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 30.0, 116.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 154.0, 308.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 6.0, 299.0, 24.0, 24.0 ],
                     "varname": "linn_exportbtn"
                 }
             },
@@ -601,7 +599,7 @@
                     "patching_rect": [ 60.0, 94.0, 80.0, 33.0 ],
                     "presentation": 1,
                     "presentation_linecount": 2,
-                    "presentation_rect": [ 180.0, 303.0, 59.0, 33.0 ],
+                    "presentation_rect": [ 32.0, 294.0, 62.0, 33.0 ],
                     "text": "export to madrona",
                     "varname": "cmt_export"
                 }
@@ -615,7 +613,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 600.0, 520.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 309.0, 253.0, 97.0, 24.0 ],
+                    "presentation_rect": [ 291.0, 256.0, 97.0, 24.0 ],
                     "text": "LED pattern",
                     "varname": "cmt_synthbend[1]_l"
                 }
@@ -659,7 +657,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 294.0, 188.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 95.0, 68.0, 38.0, 26.0 ],
+                    "presentation_rect": [ 250.0, 273.0, 36.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 48 ],
@@ -684,7 +682,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 270.0, 90.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 2.0, 69.0, 91.0, 24.0 ],
+                    "presentation_rect": [ 151.0, 274.0, 91.0, 24.0 ],
                     "text": "synth bend",
                     "varname": "cmt_synthbend_l"
                 }
@@ -712,7 +710,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 116.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 96.0, 87.0, 36.0, 36.0 ],
+                    "presentation_rect": [ 250.0, 293.0, 36.0, 36.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -736,7 +734,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 170.0, 216.0, 70.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 34.0, 93.0, 63.0, 24.0 ],
+                    "presentation_rect": [ 153.0, 299.0, 63.0, 24.0 ],
                     "text": "retune",
                     "textcolor": [ 0.9977086186408997, 0.5845433473587036, 0.2821178436279297, 1.0 ],
                     "varname": "cmt_retune_l"
@@ -813,7 +811,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 1995.0, 28.0, 114.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 445.0, 327.0, 64.0, 26.0 ],
+                    "presentation_rect": [ 75.0, 387.0, 64.0, 26.0 ],
                     "text": "261.63",
                     "varname": "linn_lhzinfo"
                 }
@@ -822,15 +820,13 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-134",
-                    "linecount": 2,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 2115.0, 36.0, 117.0, 42.0 ],
+                    "patching_rect": [ 2115.0, 36.0, 117.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 0.0, 125.0, 105.0, 42.0 ],
-                    "text": "Linnstrument PB range",
+                    "presentation_rect": [ 151.0, 255.0, 97.0, 24.0 ],
+                    "text": "hwPBRange",
                     "varname": "cmt_bend_l"
                 }
             },
@@ -843,7 +839,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1989.0, 60.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 309.0, 326.0, 40.0, 24.0 ],
+                    "presentation_rect": [ 11.0, 361.0, 40.0, 24.0 ],
                     "text": "root",
                     "varname": "cmt_root"
                 }
@@ -857,7 +853,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1701.0, 120.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 614.0, 253.0, 79.0, 24.0 ],
+                    "presentation_rect": [ 11.0, 448.0, 79.0, 24.0 ],
                     "text": "row offset",
                     "textcolor": [ 0.9255475997924805, 0.9250496029853821, 0.5176522731781006, 1.0 ],
                     "varname": "cmt_offset"
@@ -873,7 +869,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1550.0, 120.0, 141.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 569.0, 302.0, 72.0, 24.0 ],
+                    "presentation_rect": [ 505.0, 283.0, 72.0, 24.0 ],
                     "text": "subharm",
                     "varname": "cmt_subharmonics_l"
                 }
@@ -888,7 +884,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1431.0, 150.0, 121.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 448.0, 302.0, 83.0, 24.0 ],
+                    "presentation_rect": [ 389.0, 305.0, 83.0, 24.0 ],
                     "text": "harmonics",
                     "varname": "cmt_harmonics_l"
                 }
@@ -902,7 +898,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1334.0, 6.0, 117.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 569.0, 276.0, 81.0, 24.0 ],
+                    "presentation_rect": [ 505.0, 257.0, 81.0, 24.0 ],
                     "text": "generator",
                     "varname": "cmt_generator_l"
                 }
@@ -916,7 +912,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1094.0, 150.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 309.0, 277.0, 61.0, 24.0 ],
+                    "presentation_rect": [ 291.0, 276.0, 61.0, 24.0 ],
                     "text": "primes",
                     "varname": "cmt_limit_l"
                 }
@@ -934,7 +930,7 @@
                     "patching_rect": [ 1034.0, 28.0, 55.0, 26.0 ],
                     "pattrmode": 1,
                     "presentation": 1,
-                    "presentation_rect": [ 364.0, 275.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 346.0, 274.0, 46.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "3", "5", "7", "11", "13" ],
@@ -1091,7 +1087,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1508.0, 28.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 637.0, 302.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 573.0, 283.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -1118,7 +1114,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1539.0, 28.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 525.0, 301.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 466.0, 304.0, 46.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "16", "32" ],
@@ -1144,7 +1140,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1269.0, 28.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 527.0, 275.0, 47.0, 26.0 ],
+                    "presentation_rect": [ 468.0, 278.0, 47.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_invisible": 1,
@@ -1169,7 +1165,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1148.0, 28.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 644.0, 275.0, 58.0, 26.0 ],
+                    "presentation_rect": [ 580.0, 256.0, 31.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_invisible": 1,
@@ -1184,6 +1180,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.preview.js",
                     "id": "obj-71",
                     "maxclass": "v8ui",
@@ -1193,7 +1190,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 480.0, 560.0, 650.0, 208.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 158.0, -3.0, 710.0, 251.0 ],
+                    "presentation_rect": [ 151.0, -3.0, 710.0, 251.0 ],
                     "textfile": {
                         "filename": "linnsplit.preview.js",
                         "flags": 0,
@@ -1288,7 +1285,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1881.0, 28.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 344.0, 326.0, 38.0, 26.0 ],
+                    "presentation_rect": [ 48.0, 360.0, 38.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_lroot",
@@ -1397,7 +1394,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 2043.0, 94.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 96.0, 141.0, 36.0, 26.0 ],
+                    "presentation_rect": [ 250.0, 254.0, 36.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_lbend_l",
@@ -1423,7 +1420,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 920.0, 28.0, 100.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 402.0, 252.0, 100.0, 26.0 ],
+                    "presentation_rect": [ 384.0, 255.0, 100.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics", "default" ],
@@ -1471,7 +1468,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 14.0, 395.0, 141.0, 22.0 ],
+                    "patching_rect": [ 14.0, 395.0, 207.0, 22.0 ],
                     "saved_object_attributes": {
                         "client_rect": [ 580, 87, 949, 304 ],
                         "parameter_enable": 0,
@@ -1503,13 +1500,72 @@
                         "linn_onset_l": [ 0 ],
                         "linn_onset_r": [ 0 ],
                         "linn_retuneon_l": [ 0 ],
-                        "linn_retuneon_r": [ 0 ],
-                        "linn_scale": [ "ji_7.scl" ],
+                        "linn_retuneon_r": [ 1 ],
+                        "linn_scale": [ "ji_11.scl" ],
                         "linn_synthbend_l": [ 48 ],
                         "linn_synthbend_r": [ 48 ],
                         "linn_vibrato_l": [ 1.0 ],
                         "linn_vibrato_r": [ 1.0 ],
-                        "linnsplit_splitcol": [ 15 ]
+                        "linnsplit_splitcol": [ 14 ]
+                    },
+                    "restore_extra": {
+                        "linn_curve_lift_l": {
+                            "id": "obj-9005"
+                        },
+                        "linn_curve_lift_r": {
+                            "id": "obj-20082"
+                        },
+                        "linn_curve_press_l": {
+                            "id": "obj-9003"
+                        },
+                        "linn_curve_press_r": {
+                            "id": "obj-20010"
+                        },
+                        "linn_curve_slide_l": {
+                            "id": "obj-9004"
+                        },
+                        "linn_curve_slide_r": {
+                            "id": "obj-20090"
+                        },
+                        "linn_curve_strike_l": {
+                            "id": "obj-9043"
+                        },
+                        "linn_curve_strike_r": {
+                            "id": "obj-20053"
+                        },
+                        "linn_lmidisetup": {
+                            "id": "obj-92"
+                        },
+                        "linn_onset_l": {
+                            "id": "obj-76"
+                        },
+                        "linn_onset_r": {
+                            "id": "obj-20037"
+                        },
+                        "linn_retuneon_l": {
+                            "id": "obj-39"
+                        },
+                        "linn_retuneon_r": {
+                            "id": "obj-20067"
+                        },
+                        "linn_scale": {
+                            "id": "obj-14"
+                        },
+                        "linn_synthbend_l": {
+                            "id": "obj-46"
+                        },
+                        "linn_synthbend_r": {
+                            "id": "obj-20006"
+                        },
+                        "linn_vibrato_l": {
+                            "id": "obj-45"
+                        },
+                        "linn_vibrato_r": {
+                            "id": "obj-20091"
+                        },
+                        "linnsplit_splitcol": {
+                            "id": "obj-20100"
+                        }
                     },
                     "text": "autopattr",
                     "varname": "linn_autopattr"
@@ -1531,7 +1587,7 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-14",
-                    "items": [ "22edo.scl", ",", "31-edo.scl", ",", "ji_11.scl", ",", "ji_13.scl", ",", "ji_17.scl", ",", "ji_7.scl", ",", "ji_7a.scl", ",", "ji_8coh.scl", ",", "ji_9.scl", ",", "ji_9coh.scl", ",", "partch-grm.scl", ",", "partch_43.scl" ],
+                    "items": [ "12-edo.scl", ",", "22edo.scl", ",", "31-edo.scl", ",", "ji_11.scl", ",", "ji_13.scl", ",", "ji_17.scl", ",", "ji_7.scl", ",", "ji_7a.scl", ",", "ji_8coh.scl", ",", "ji_9.scl", ",", "ji_9coh.scl", ",", "partch_43.scl", ",", "partch-grm.scl" ],
                     "maxclass": "umenu",
                     "numinlets": 1,
                     "numoutlets": 3,
@@ -1541,7 +1597,7 @@
                     "pattrmode": 1,
                     "prefix": "SCL/",
                     "presentation": 1,
-                    "presentation_rect": [ 158.0, 252.0, 147.0, 26.0 ],
+                    "presentation_rect": [ 10.0, 243.0, 120.0, 26.0 ],
                     "textcolor": [ 0.9254901960784314, 0.9254901960784314, 0.5176470588235295, 1.0 ],
                     "varname": "linn_scale"
                 }
@@ -1596,7 +1652,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 480.0, 28.0, 43.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 34.0, 173.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 10.0, 67.0, 46.0, 26.0 ],
                     "text": "send",
                     "textcolor": [ 1.0, 0.5843137254901961, 0.2823529411764706, 1.0 ],
                     "varname": "linn_lsend"
@@ -1622,7 +1678,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 552.0, 28.0, 81.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 34.0, 203.0, 81.0, 26.0 ],
+                    "presentation_rect": [ 10.0, 97.0, 81.0, 26.0 ],
                     "text": "sendlights",
                     "textcolor": [ 0.5490196078431373, 1.0, 0.4627450980392157, 1.0 ],
                     "varname": "linn_lsendlights"
@@ -1648,7 +1704,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 640.0, 28.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 34.0, 235.0, 64.0, 26.0 ],
+                    "presentation_rect": [ 10.0, 129.0, 64.0, 26.0 ],
                     "text": "backup",
                     "varname": "linn_lbackup"
                 }
@@ -1673,7 +1729,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 712.0, 28.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 34.0, 263.0, 64.0, 26.0 ],
+                    "presentation_rect": [ 10.0, 157.0, 64.0, 26.0 ],
                     "text": "restore",
                     "varname": "linn_lrestore"
                 }
@@ -1721,7 +1777,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 856.0, 28.0, 44.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 35.0, 291.0, 63.0, 26.0 ],
+                    "presentation_rect": [ 11.0, 185.0, 63.0, 26.0 ],
                     "text": "reset",
                     "varname": "linn_lreset"
                 }
@@ -1767,7 +1823,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1431.0, 120.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 447.0, 276.0, 84.0, 24.0 ],
+                    "presentation_rect": [ 388.0, 279.0, 84.0, 24.0 ],
                     "text": "MOS size",
                     "textcolor": [ 1.0, 1.0, 1.0, 1.0 ],
                     "varname": "cmt_mossize_l"
@@ -1784,7 +1840,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 2115.0, 6.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 381.0, 327.0, 62.0, 24.0 ],
+                    "presentation_rect": [ 11.0, 387.0, 62.0, 24.0 ],
                     "text": "root Hz",
                     "textcolor": [ 1.0, 1.0, 1.0, 1.0 ],
                     "varname": "cmt_refhz"
@@ -1838,7 +1894,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 184.0, 1099.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 8.0, 360.0, 57.0, 24.0 ],
+                    "presentation_rect": [ 166.0, 335.0, 57.0, 24.0 ],
                     "text": "strike",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_strike_l"
@@ -1846,6 +1902,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-9003",
                     "jsarguments": [ "press" ],
@@ -1856,7 +1913,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 394.0, 1069.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 180.0, 386.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 338.0, 361.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -1868,6 +1925,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-9004",
                     "jsarguments": [ "slide" ],
@@ -1878,7 +1936,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 774.0, 1069.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 352.0, 386.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 510.0, 361.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -1890,6 +1948,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-9005",
                     "jsarguments": [ "lift" ],
@@ -1900,7 +1959,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1154.0, 1069.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 524.0, 386.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 682.0, 361.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -1991,7 +2050,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 394.0, 979.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 180.0, 550.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 338.0, 525.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_press_l"
                 }
             },
@@ -2007,7 +2066,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 774.0, 979.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 352.0, 550.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 510.0, 525.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_slide_l"
                 }
             },
@@ -2038,7 +2097,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1154.0, 979.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 524.0, 550.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 682.0, 525.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_lift_l"
                 }
             },
@@ -2089,7 +2148,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 654.0, 919.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 316.0, 360.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 474.0, 335.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_press_l"
                 }
             },
@@ -2104,7 +2163,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1034.0, 919.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 488.0, 360.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 646.0, 335.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_slide_l"
                 }
             },
@@ -2119,7 +2178,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1414.0, 919.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 660.0, 360.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 818.0, 335.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_lift_l"
                 }
             },
@@ -2204,7 +2263,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 564.0, 1099.0, 190.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 180.0, 360.0, 58.0, 24.0 ],
+                    "presentation_rect": [ 338.0, 335.0, 58.0, 24.0 ],
                     "text": "press",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_press_l"
@@ -2219,7 +2278,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 944.0, 1099.0, 190.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 352.0, 360.0, 71.0, 24.0 ],
+                    "presentation_rect": [ 510.0, 335.0, 71.0, 24.0 ],
                     "text": "slide (Y)",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_slide_l"
@@ -2234,7 +2293,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1324.0, 1099.0, 180.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 524.0, 360.0, 36.0, 24.0 ],
+                    "presentation_rect": [ 682.0, 335.0, 36.0, 24.0 ],
                     "text": "lift",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_lift_l"
@@ -2311,7 +2370,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1520.0, 919.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 799.0, 360.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 111.0, 415.0, 24.0, 24.0 ],
                     "varname": "linn_curvereset"
                 }
             },
@@ -2347,7 +2406,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1550.0, 919.0, 156.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 699.0, 360.0, 98.0, 24.0 ],
+                    "presentation_rect": [ 11.0, 415.0, 98.0, 24.0 ],
                     "text": "reset curves",
                     "textcolor": [ 1.0, 0.26666666666666666, 0.26666666666666666, 1.0 ],
                     "varname": "cmt_curvereset"
@@ -2362,7 +2421,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1323.0, 1007.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 99.0, 360.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 257.0, 335.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[1]_l"
@@ -2377,7 +2436,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 383.0, 920.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 271.0, 360.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 429.0, 335.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[2]_l"
@@ -2392,7 +2451,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 695.0, 919.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 448.0, 360.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 606.0, 335.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[3]_l"
@@ -2407,7 +2466,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1066.0, 915.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 618.0, 360.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 776.0, 335.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[4]_l"
@@ -2415,6 +2474,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-9043",
                     "jsarguments": [ "strike" ],
@@ -2425,7 +2485,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 14.0, 1069.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 8.0, 386.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 166.0, 361.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -2470,7 +2530,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 14.0, 979.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 8.0, 550.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 166.0, 525.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_strike_l"
                 }
             },
@@ -2497,7 +2557,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 274.0, 919.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 144.0, 360.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 302.0, 335.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_strike_l"
                 }
             },
@@ -2523,6 +2583,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 674.0, 160.0, 250.0, 22.0 ],
                     "saved_object_attributes": {
+                        "embed": 0,
                         "parameter_enable": 0
                     },
                     "text": "v8 linnsplit.curvemidi.js linnsplit_l_curves",
@@ -2568,7 +2629,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 336.0, 1490.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 7.0, 584.0, 91.0, 24.0 ],
+                    "presentation_rect": [ 151.0, 577.0, 91.0, 24.0 ],
                     "text": "synth bend",
                     "varname": "cmt_synthbend_r"
                 }
@@ -2622,7 +2683,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 270.0, 1516.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 100.0, 583.0, 38.0, 26.0 ],
+                    "presentation_rect": [ 250.0, 576.0, 36.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 48 ],
@@ -2674,7 +2735,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 383.0, 2320.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 269.0, 664.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 429.0, 643.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[2]_r"
@@ -2682,6 +2743,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-20010",
                     "jsarguments": [ "press" ],
@@ -2692,7 +2754,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 394.0, 2469.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 178.0, 690.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 338.0, 669.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -2714,7 +2776,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1269.0, 1428.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 319.0, 581.0, 47.0, 26.0 ],
+                    "presentation_rect": [ 468.0, 581.0, 47.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_invisible": 1,
@@ -2836,7 +2898,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 695.0, 2319.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 446.0, 664.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 606.0, 643.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[3]_r"
@@ -2852,6 +2914,7 @@
                     "outlettype": [ "" ],
                     "patching_rect": [ 674.0, 1560.0, 250.0, 22.0 ],
                     "saved_object_attributes": {
+                        "embed": 0,
                         "parameter_enable": 0
                     },
                     "text": "v8 linnsplit.curvemidi.js linnsplit_r_curves",
@@ -2873,7 +2936,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 184.0, 2499.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 6.0, 664.0, 57.0, 24.0 ],
+                    "presentation_rect": [ 166.0, 643.0, 57.0, 24.0 ],
                     "text": "strike",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_strike_r"
@@ -2889,7 +2952,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1538.0, 1436.0, 141.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 361.0, 608.0, 72.0, 24.0 ],
+                    "presentation_rect": [ 510.0, 586.0, 72.0, 24.0 ],
                     "text": "subharm",
                     "varname": "cmt_subharmonics_r"
                 }
@@ -2905,7 +2968,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1034.0, 2319.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 486.0, 664.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 646.0, 643.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_slide_r"
                 }
             },
@@ -2946,7 +3009,7 @@
                     "patching_rect": [ 1034.0, 1428.0, 55.0, 26.0 ],
                     "pattrmode": 1,
                     "presentation": 1,
-                    "presentation_rect": [ 194.0, 580.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 346.0, 577.0, 46.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "3", "5", "7", "11", "13" ],
@@ -2980,7 +3043,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 440.0, 1520.0, 102.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 461.0, 582.0, 76.0, 24.0 ],
+                    "presentation_rect": [ 729.0, 579.0, 76.0, 24.0 ],
                     "text": "vibrato",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_vibrato_r"
@@ -3007,7 +3070,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1334.0, 1406.0, 117.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 361.0, 582.0, 81.0, 24.0 ],
+                    "presentation_rect": [ 510.0, 560.0, 81.0, 24.0 ],
                     "text": "generator",
                     "varname": "cmt_generator_r"
                 }
@@ -3033,7 +3096,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1066.0, 2315.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 616.0, 664.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 776.0, 643.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[4]_r"
@@ -3060,7 +3123,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 560.0, 1536.0, 103.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 461.0, 612.0, 105.0, 24.0 ],
+                    "presentation_rect": [ 729.0, 609.0, 90.0, 24.0 ],
                     "text": "onset ms",
                     "textcolor": [ 0.6509803921568628, 0.7098039215686275, 1.0, 1.0 ],
                     "varname": "cmt_onset_r"
@@ -3078,7 +3141,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1154.0, 2379.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 522.0, 854.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 682.0, 833.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_lift_r"
                 }
             },
@@ -3095,7 +3158,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 560.0, 1614.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 530.0, 612.0, 29.328125, 26.0 ],
+                    "presentation_rect": [ 798.0, 609.0, 57.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_onset_r",
@@ -3133,7 +3196,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 920.0, 1428.0, 100.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 100.0, 639.0, 100.0, 26.0 ],
+                    "presentation_rect": [ 384.0, 558.0, 100.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "root", "ji", "names", "mos", "chain", "moskeys", "wijmenga", "kite", "factors", "steps", "nested", "consonance", "harmonics", "default" ],
@@ -3159,7 +3222,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1414.0, 2319.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 658.0, 664.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 818.0, 643.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_lift_r"
                 }
             },
@@ -3172,7 +3235,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 944.0, 2499.0, 190.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 350.0, 664.0, 71.0, 24.0 ],
+                    "presentation_rect": [ 510.0, 643.0, 71.0, 24.0 ],
                     "text": "slide (Y)",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_slide_r"
@@ -3253,7 +3316,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 14.0, 2379.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 6.0, 854.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 166.0, 833.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_strike_r"
                 }
             },
@@ -3266,7 +3329,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 564.0, 2499.0, 190.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 178.0, 664.0, 58.0, 24.0 ],
+                    "presentation_rect": [ 338.0, 643.0, 58.0, 24.0 ],
                     "text": "press",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_press_r"
@@ -3296,7 +3359,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 394.0, 2379.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 178.0, 854.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 338.0, 833.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_press_r"
                 }
             },
@@ -3314,6 +3377,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-20053",
                     "jsarguments": [ "strike" ],
@@ -3324,7 +3388,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 14.0, 2469.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 6.0, 690.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 166.0, 669.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -3370,7 +3434,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1148.0, 1428.0, 58.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 436.0, 581.0, 58.0, 26.0 ],
+                    "presentation_rect": [ 585.0, 559.0, 31.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_invisible": 1,
@@ -3394,7 +3458,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 654.0, 2319.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 314.0, 664.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 474.0, 643.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_press_r"
                 }
             },
@@ -3411,7 +3475,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 2109.0, 1452.0, 57.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 1126.0, 141.0, 36.0, 26.0 ],
+                    "presentation_rect": [ 250.0, 557.0, 36.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_lbend_r",
@@ -3444,7 +3508,7 @@
                     "numinlets": 1,
                     "numoutlets": 1,
                     "outlettype": [ "" ],
-                    "patching_rect": [ 910.0, 1766.0, 110.0, 22.0 ],
+                    "patching_rect": [ 920.0, 1730.0, 110.0, 22.0 ],
                     "text": "prepend setsymbol",
                     "varname": "linn_lsetscheme_r"
                 }
@@ -3458,7 +3522,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1324.0, 2499.0, 180.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 522.0, 664.0, 36.0, 24.0 ],
+                    "presentation_rect": [ 682.0, 643.0, 36.0, 24.0 ],
                     "text": "lift",
                     "textcolor": [ 0.5137254901960784, 1.0, 0.5019607843137255, 1.0 ],
                     "varname": "cmt_curve_lift_r"
@@ -3476,7 +3540,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 774.0, 2379.0, 150.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 350.0, 854.0, 160.0, 24.0 ],
+                    "presentation_rect": [ 510.0, 833.0, 160.0, 24.0 ],
                     "varname": "linn_curvemenu_slide_r"
                 }
             },
@@ -3504,7 +3568,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 600.0, 1920.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 4.0, 640.0, 97.0, 24.0 ],
+                    "presentation_rect": [ 291.0, 559.0, 97.0, 24.0 ],
                     "text": "LED pattern",
                     "varname": "cmt_synthbend[1]_r"
                 }
@@ -3531,7 +3595,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 274.0, 2319.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 142.0, 664.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 302.0, 643.0, 24.0, 24.0 ],
                     "varname": "linn_curvesave_strike_r"
                 }
             },
@@ -3546,7 +3610,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 170.0, 1516.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 101.0, 602.0, 36.0, 36.0 ],
+                    "presentation_rect": [ 250.0, 596.0, 36.0, 36.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -3583,7 +3647,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1341.0, 2407.0, 191.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 97.0, 664.0, 43.0, 24.0 ],
+                    "presentation_rect": [ 257.0, 643.0, 43.0, 24.0 ],
                     "text": "save",
                     "textcolor": [ 0.984313725490196, 1.0, 0.6509803921568628, 1.0 ],
                     "varname": "cmt_curve_strike[1]_r"
@@ -3600,7 +3664,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1431.0, 1520.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 239.0, 582.0, 84.0, 24.0 ],
+                    "presentation_rect": [ 388.0, 582.0, 84.0, 24.0 ],
                     "text": "MOS size",
                     "textcolor": [ 1.0, 1.0, 1.0, 1.0 ],
                     "varname": "cmt_mossize_r"
@@ -3650,7 +3714,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 92.0, 1490.0, 70.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 39.0, 608.0, 63.0, 24.0 ],
+                    "presentation_rect": [ 153.0, 602.0, 63.0, 24.0 ],
                     "text": "retune",
                     "textcolor": [ 0.9977086186408997, 0.5845433473587036, 0.2821178436279297, 1.0 ],
                     "varname": "cmt_retune_r"
@@ -3666,7 +3730,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1508.0, 1428.0, 24.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 429.0, 608.0, 24.0, 24.0 ],
+                    "presentation_rect": [ 578.0, 586.0, 24.0, 24.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "off", "on" ],
@@ -3729,7 +3793,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 1431.0, 1554.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 317.0, 607.0, 46.0, 26.0 ],
+                    "presentation_rect": [ 466.0, 607.0, 46.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_enum": [ "16", "32" ],
@@ -3757,6 +3821,7 @@
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-20082",
                     "jsarguments": [ "lift" ],
@@ -3767,7 +3832,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 1154.0, 2469.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 522.0, 690.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 682.0, 669.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -3793,15 +3858,13 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-20084",
-                    "linecount": 2,
                     "maxclass": "comment",
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 2175.0, 1406.0, 117.0, 42.0 ],
+                    "patching_rect": [ 2175.0, 1406.0, 117.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_linecount": 2,
-                    "presentation_rect": [ 1030.0, 125.0, 105.0, 42.0 ],
-                    "text": "Linnstrument PB range",
+                    "presentation_rect": [ 151.0, 558.0, 97.0, 24.0 ],
+                    "text": "hwPBRange",
                     "varname": "cmt_bend_r"
                 }
             },
@@ -3850,7 +3913,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1094.0, 1550.0, 110.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 139.0, 582.0, 61.0, 24.0 ],
+                    "presentation_rect": [ 291.0, 579.0, 61.0, 24.0 ],
                     "text": "primes",
                     "varname": "cmt_limit_r"
                 }
@@ -3865,13 +3928,14 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1539.0, 1406.0, 121.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 240.0, 608.0, 83.0, 24.0 ],
+                    "presentation_rect": [ 389.0, 608.0, 83.0, 24.0 ],
                     "text": "harmonics",
                     "varname": "cmt_harmonics_r"
                 }
             },
             {
                 "box": {
+                    "embed": 0,
                     "filename": "linnsplit.curve.js",
                     "id": "obj-20090",
                     "jsarguments": [ "slide" ],
@@ -3882,7 +3946,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 774.0, 2469.0, 150.0, 150.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 350.0, 690.0, 160.0, 160.0 ],
+                    "presentation_rect": [ 510.0, 669.0, 160.0, 160.0 ],
                     "textfile": {
                         "filename": "linnsplit.curve.js",
                         "flags": 0,
@@ -3906,7 +3970,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 374.0, 1544.0, 60.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 529.0, 581.0, 60.0, 26.0 ],
+                    "presentation_rect": [ 797.0, 578.0, 60.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_longname": "linn_vibrato_r",
@@ -3955,6 +4019,7 @@
                     "outlettype": [ "", "" ],
                     "patching_rect": [ 123.0, 187.0, 160.0, 22.0 ],
                     "saved_object_attributes": {
+                        "embed": 0,
                         "parameter_enable": 0
                     },
                     "text": "v8 linnsplit.router.js",
@@ -4006,6 +4071,7 @@
                 "box": {
                     "fontsize": 16.0,
                     "id": "obj-20100",
+                    "ignoreclick": 1,
                     "maxclass": "number",
                     "maximum": 25,
                     "minimum": 2,
@@ -4015,7 +4081,7 @@
                     "parameter_enable": 1,
                     "patching_rect": [ 940.0, 158.0, 50.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 599.0, 327.0, 40.0, 26.0 ],
+                    "presentation_rect": [ 81.0, 331.0, 40.0, 26.0 ],
                     "saved_attribute_attributes": {
                         "valueof": {
                             "parameter_initial": [ 13 ],
@@ -4040,7 +4106,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1120.0, 182.0, 80.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 519.0, 327.0, 80.0, 24.0 ],
+                    "presentation_rect": [ 11.0, 332.0, 68.0, 24.0 ],
                     "text": "split col",
                     "varname": "cmt_splitcol"
                 }
@@ -4069,7 +4135,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 998.0, 160.0, 90.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 739.0, 332.0, 102.0, 26.0 ],
+                    "presentation_rect": [ 599.0, 304.0, 102.0, 26.0 ],
                     "textcolor": [ 0.9255475997924805, 0.9250496029853821, 0.5176522731781006, 1.0 ],
                     "varname": "linnsplit_rootcolor_l"
                 }
@@ -4084,7 +4150,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1094.0, 118.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 654.0, 333.0, 85.0, 24.0 ],
+                    "presentation_rect": [ 503.0, 305.0, 85.0, 24.0 ],
                     "text": "root color",
                     "varname": "cmt_rootcolor_l"
                 }
@@ -4125,7 +4191,7 @@
                     "parameter_enable": 0,
                     "patching_rect": [ 998.0, 1560.0, 90.0, 26.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 531.0, 638.0, 103.0, 26.0 ],
+                    "presentation_rect": [ 604.0, 607.0, 102.0, 26.0 ],
                     "textcolor": [ 0.9255475997924805, 0.9250496029853821, 0.5176522731781006, 1.0 ],
                     "varname": "linnsplit_rootcolor_r"
                 }
@@ -4140,7 +4206,7 @@
                     "numoutlets": 0,
                     "patching_rect": [ 1094.0, 1518.0, 100.0, 24.0 ],
                     "presentation": 1,
-                    "presentation_rect": [ 446.0, 639.0, 85.0, 24.0 ],
+                    "presentation_rect": [ 508.0, 608.0, 85.0, 24.0 ],
                     "text": "root color",
                     "varname": "cmt_rootcolor_r"
                 }
@@ -4196,33 +4262,71 @@
                     "numinlets": 11,
                     "numoutlets": 11,
                     "outlettype": [ "", "", "", "", "", "", "", "", "", "", "" ],
-                    "patching_rect": [ 842.0, 1798.0, 428.0, 35.0 ],
+                    "patching_rect": [ 842.0, 1762.0, 428.0, 35.0 ],
                     "text": "route scheme bend limit generator mossize harmonics subharmonics rootcolor palette shift",
                     "varname": "linnsplit_sidesettings_r"
                 }
             },
             {
                 "box": {
-                    "comment": "left split: to vst~ (midievent)",
-                    "id": "obj-40001",
-                    "index": 0,
-                    "maxclass": "outlet",
-                    "numinlets": 1,
-                    "numoutlets": 0,
-                    "patching_rect": [ 215.0, 683.0, 30.0, 30.0 ],
-                    "varname": "out_vst_l"
+                    "fontface": 0,
+                    "fontname": "Arial",
+                    "fontsize": 12.0,
+                    "id": "obj-4",
+                    "maxclass": "newobj",
+                    "numinlets": 3,
+                    "numoutlets": 3,
+                    "outlettype": [ "", "", "" ],
+                    "patching_rect": [ 1230.0, 246.0, 137.0, 22.0 ],
+                    "text": "route splitcol scalemenu",
+                    "varname": "linnsplit_colroute"
                 }
             },
             {
                 "box": {
-                    "comment": "right split: to vst~ (midievent)",
-                    "id": "obj-40002",
-                    "index": 0,
-                    "maxclass": "outlet",
+                    "fontface": 0,
+                    "fontname": "Arial",
+                    "fontsize": 12.0,
+                    "id": "obj-55",
+                    "maxclass": "newobj",
+                    "numinlets": 1,
+                    "numoutlets": 1,
+                    "outlettype": [ "scanscales" ],
+                    "patching_rect": [ 260.0, 34.0, 75.0, 22.0 ],
+                    "text": "t scanscales",
+                    "varname": "linn_trescan"
+                }
+            },
+            {
+                "box": {
+                    "angle": 270.0,
+                    "bgcolor": [ 0.06666666666666667, 0.1843137254901961, 0.07450980392156863, 1.0 ],
+                    "id": "obj-95",
+                    "maxclass": "panel",
+                    "mode": 0,
                     "numinlets": 1,
                     "numoutlets": 0,
-                    "patching_rect": [ 265.0, 683.0, 30.0, 30.0 ],
-                    "varname": "out_vst_r"
+                    "patching_rect": [ 1588.0, 679.0, 128.0, 128.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 151.0, 255.0, 710.0, 300.0 ],
+                    "proportion": 0.5,
+                    "varname": "tmp_panel_a"
+                }
+            },
+            {
+                "box": {
+                    "angle": 270.0,
+                    "bgcolor": [ 0.06666666666666667, 0.08235294117647059, 0.1843137254901961, 1.0 ],
+                    "id": "obj-97",
+                    "maxclass": "panel",
+                    "mode": 0,
+                    "numinlets": 1,
+                    "numoutlets": 0,
+                    "patching_rect": [ 1588.0, 538.0, 128.0, 128.0 ],
+                    "presentation": 1,
+                    "presentation_rect": [ 151.0, 558.0, 710.0, 303.0 ],
+                    "proportion": 0.5,
+                    "varname": "tmp_panel_b"
                 }
             }
         ],
@@ -4487,7 +4591,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-40001", 0 ],
+                    "destination": [ "obj-100", 0 ],
                     "source": [ "obj-15", 0 ]
                 }
             },
@@ -4520,21 +4624,21 @@
             {
                 "patchline": {
                     "destination": [ "obj-20011", 0 ],
-                    "order": 11,
+                    "order": 13,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-20024", 0 ],
-                    "order": 23,
+                    "order": 21,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-20027", 0 ],
-                    "order": 24,
+                    "order": 22,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4555,7 +4659,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-20040", 0 ],
-                    "order": 7,
+                    "order": 9,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4611,28 +4715,28 @@
             {
                 "patchline": {
                     "destination": [ "obj-20076", 0 ],
-                    "order": 5,
+                    "order": 6,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-20080", 0 ],
-                    "order": 9,
+                    "order": 8,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-30001", 0 ],
-                    "order": 22,
+                    "order": 26,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-30005", 0 ],
-                    "order": 21,
+                    "order": 25,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4667,7 +4771,7 @@
             {
                 "patchline": {
                     "destination": [ "obj-64", 0 ],
-                    "order": 14,
+                    "order": 12,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4695,21 +4799,21 @@
             {
                 "patchline": {
                     "destination": [ "obj-75", 0 ],
-                    "order": 12,
+                    "order": 14,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-77", 0 ],
-                    "order": 10,
+                    "order": 4,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-79", 0 ],
-                    "order": 6,
+                    "order": 7,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4744,21 +4848,21 @@
             {
                 "patchline": {
                     "destination": [ "obj-9020", 0 ],
-                    "order": 25,
+                    "order": 23,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-9021", 0 ],
-                    "order": 8,
+                    "order": 10,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-9035", 0 ],
-                    "order": 4,
+                    "order": 5,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4779,14 +4883,14 @@
             {
                 "patchline": {
                     "destination": [ "obj-93", 0 ],
-                    "order": 26,
+                    "order": 24,
                     "source": [ "obj-18", 1 ]
                 }
             },
             {
                 "patchline": {
                     "destination": [ "obj-96", 0 ],
-                    "order": 13,
+                    "order": 11,
                     "source": [ "obj-18", 1 ]
                 }
             },
@@ -4991,7 +5095,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-40002", 0 ],
+                    "destination": [ "obj-104", 0 ],
                     "source": [ "obj-20045", 0 ]
                 }
             },
@@ -5415,6 +5519,12 @@
             },
             {
                 "patchline": {
+                    "destination": [ "obj-14", 0 ],
+                    "source": [ "obj-4", 1 ]
+                }
+            },
+            {
+                "patchline": {
                     "destination": [ "obj-68", 0 ],
                     "source": [ "obj-4", 2 ]
                 }
@@ -5503,6 +5613,12 @@
                 "patchline": {
                     "destination": [ "obj-58", 0 ],
                     "source": [ "obj-54", 0 ]
+                }
+            },
+            {
+                "patchline": {
+                    "destination": [ "obj-3", 0 ],
+                    "source": [ "obj-55", 0 ]
                 }
             },
             {
@@ -5618,7 +5734,7 @@
             },
             {
                 "patchline": {
-                    "destination": [ "obj-74", 0 ],
+                    "destination": [ "obj-55", 0 ],
                     "source": [ "obj-72", 0 ]
                 }
             },
@@ -5626,12 +5742,6 @@
                 "patchline": {
                     "destination": [ "obj-80", 0 ],
                     "source": [ "obj-73", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-3", 0 ],
-                    "source": [ "obj-74", 0 ]
                 }
             },
             {
@@ -6090,12 +6200,6 @@
                 "patchline": {
                     "destination": [ "obj-3", 0 ],
                     "source": [ "obj-99", 0 ]
-                }
-            },
-            {
-                "patchline": {
-                    "destination": [ "obj-14", 0 ],
-                    "source": [ "obj-4", 1 ]
                 }
             }
         ],
